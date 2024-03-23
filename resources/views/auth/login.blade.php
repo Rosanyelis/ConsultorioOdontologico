@@ -31,17 +31,19 @@
                                 <a href="#" class="toggle btn-white btn btn-icon btn-light" data-target="athPromo"><em class="icon ni ni-info"></em></a>
                             </div>
                             <div class="nk-block nk-block-middle nk-auth-body">
-                                <div class="brand-logo pb-5">
-                                    <a href="html/index.html" class="logo-link">
-                                        <img class="logo-light logo-img logo-img-lg" src="{{ asset('./images/logo.png') }}"
-                                            srcset="{{ asset('./images/logo2x.png 2x') }}" alt="logo">
-                                        <img class="logo-dark logo-img logo-img-lg" src="{{ asset('./images/logo-dark.png') }}"
-                                        srcset="{{ asset('./images/logo-dark2x.png 2x') }}" alt="logo-dark">
+                                <div class="brand-logo text-center">
+                                    <a href="{{ route('login') }}" class="logo-link">
+                                        <img class="logo-light logo-img logo-img-lg"
+                                        src="{{ asset('./images/whiteDentalCare_500x500.png') }}"
+                                            alt="logo">
+                                        <img class="logo-dark logo-img logo-img-lg"
+                                            src="{{ asset('./images/whiteDentalCare_500x500.png') }}"
+                                            alt="logo-dark">
                                     </a>
                                 </div>
                                 <div class="nk-block-head">
                                     <div class="nk-block-head-content">
-                                        <h5 class="nk-block-title">Iniciar Sesión</h5>
+                                        <h5 class="nk-block-title text-center">Iniciar Sesión</h5>
                                     </div>
                                 </div><!-- .nk-block-head -->
                                 <form action="{{ url('login') }}" method="POST" class="form-validate is-alter" autocomplete="off">

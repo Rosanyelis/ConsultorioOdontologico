@@ -1,11 +1,18 @@
 "use strict";
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 !function (NioApp, $) {
   "use strict"; // Variable
 
   var $win = $(window),
       $body = $('body'),
-      breaks = NioApp.Break;
+      breaks = NioApp.Break,
+      url = 'http://consultorioodontologico.test/citasAjax';
 
   NioApp.Calendar = function () {
     var today = new Date();
@@ -26,233 +33,185 @@
     var YESTERDAY = y_yyyy + '-' + y_mm + '-' + y_dd;
     var TODAY = yyyy + '-' + mm + '-' + dd;
     var TOMORROW = t_yyyy + '-' + t_mm + '-' + t_dd;
-    var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var month = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     var calendarEl = document.getElementById('calendar');
     var eventsEl = document.getElementById('externalEvents');
     var removeEvent = document.getElementById('removeEvent');
     var addEventBtn = $('#addEvent');
     var addEventForm = $('#addEventForm');
     var addEventPopup = $('#addEventPopup');
-    var updateEventBtn = $('#updateEvent');
-    var editEventForm = $('#editEventForm');
-    var editEventPopup = $('#editEventPopup');
     var previewEventPopup = $('#previewEventPopup');
     var deleteEventBtn = $('#deleteEvent');
     var mobileView = NioApp.Win.width < NioApp.Break.md ? true : false;
+
+
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      timeZone: 'UTC',
-      initialView: mobileView ? 'listWeek' : 'dayGridMonth',
-      themeSystem: 'bootstrap',
-      headerToolbar: {
-        left: 'title prev,next',
-        center: null,
-        right: 'today dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-      },
-      height: 800,
-      contentHeight: 780,
-      aspectRatio: 3,
-      editable: true,
-      droppable: true,
-      views: {
-        dayGridMonth: {
-          dayMaxEventRows: 2
-        }
-      },
-      direction: NioApp.State.isRTL ? "rtl" : "ltr",
-      nowIndicator: true,
-      now: TODAY + 'T09:25:00',
-      eventDragStart: function eventDragStart(info) {
-        $('.popover').popover('hide');
-      },
-      eventMouseEnter: function eventMouseEnter(info) {
-        $(info.el).popover({
-          template: '<div class="popover"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
-          title: info.event._def.title,
-          content: info.event._def.extendedProps.description,
-          placement: 'top'
-        });
-        info.event._def.extendedProps.description ? $(info.el).popover('show') : $(info.el).popover('hide');
-      },
-      eventMouseLeave: function eventMouseLeave(info) {
-        $(info.el).popover('hide');
-      },
-      eventClick: function eventClick(info) {
-        // Get data
-        var title = info.event._def.title;
-        var description = info.event._def.extendedProps.description;
-        var start = info.event._instance.range.start;
-        var startDate = start.getFullYear() + '-' + String(start.getMonth() + 1).padStart(2, '0') + '-' + String(start.getDate()).padStart(2, '0');
-        var startTime = start.toUTCString().split(' ');
-        startTime = startTime[startTime.length - 2];
-        startTime = startTime == '00:00:00' ? '' : startTime;
-        var end = info.event._instance.range.end;
-        var endDate = end.getFullYear() + '-' + String(end.getMonth() + 1).padStart(2, '0') + '-' + String(end.getDate()).padStart(2, '0');
-        var endTime = end.toUTCString().split(' ');
-        endTime = endTime[endTime.length - 2];
-        endTime = endTime == '00:00:00' ? '' : endTime;
+        locale: 'es',
+        timeZone: 'America/Mexico_City',
+        initialView: mobileView ? 'listWeek' : 'dayGridMonth',
+        themeSystem: 'bootstrap',
+        headerToolbar: {
+            left: 'title prev,next',
+            center: null,
+            right: 'today dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        },
+        height: 800,
+        contentHeight: 780,
+        aspectRatio: 3,
+        editable: true,
+        droppable: true,
+        views: {
+            dayGridMonth: {
+                dayMaxEventRows: 2
+            }
+        },
+        direction: NioApp.State.isRTL ? "rtl" : "ltr",
+        nowIndicator: true,
+        eventDragStart: function eventDragStart(info) {
+            $('.popover').popover('hide');
+        },
+        eventMouseEnter: function eventMouseEnter(info) {
+            $(info.el).popover({
+                template: '<div class="popover"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+                title: info.event._def.title,
+                html: true, // Aquí indicamos que el contenido tiene formato HTML
+                content: info.event._def.extendedProps.description,
+                placement: 'top'
+            });
+            info.event._def.extendedProps.description ? $(info.el).popover('show') : $(info.el).popover('hide');
+        },
+        eventMouseLeave: function eventMouseLeave(info) {
+            $(info.el).popover('hide');
+        },
+        eventClick: function eventClick(info) {
+            // Get data
+            var title = info.event._def.title;
+            var description = info.event._def.extendedProps.description;
+            var start = info.event._instance.range.start;
+            var startDate = start.getFullYear() + '-' + String(start.getMonth() + 1).padStart(2, '0') + '-' + String(start.getDate()).padStart(2, '0');
+            var startTime = start.toUTCString().split(' ');
+            startTime = startTime[startTime.length - 2];
+            startTime = startTime == '00:00:00' ? '' : startTime;
+            var end = info.event._instance.range.end;
+            var endDate = end.getFullYear() + '-' + String(end.getMonth() + 1).padStart(2, '0') + '-' + String(end.getDate()).padStart(2, '0');
+            var endTime = end.toUTCString().split(' ');
+            endTime = endTime[endTime.length - 2];
+            endTime = endTime == '00:00:00' ? '' : endTime;
 
-        var className = info.event._def.ui.classNames[0].slice(3);
+            var className = info.event._def.ui.classNames[0].slice(3);
 
-        var eventId = info.event._def.publicId; //Set data in eidt form
+            var eventId = info.event._def.publicId; //Set data in eidt form
 
-        $('#edit-event-title').val(title);
-        $('#edit-event-start-date').val(startDate).datepicker('update');
-        $('#edit-event-end-date').val(endDate).datepicker('update');
-        $('#edit-event-start-time').val(startTime);
-        $('#edit-event-end-time').val(endTime);
-        $('#edit-event-description').val(description);
-        $('#edit-event-theme').val(className);
-        $('#edit-event-theme').trigger('change.select2');
-        editEventForm.attr('data-id', eventId); // Set data in preview
+            $('#edit-event-title').val(title);
+            $('#edit-event-start-date').val(startDate).datepicker('update');
+            $('#edit-event-end-date').val(endDate).datepicker('update');
+            $('#edit-event-start-time').val(startTime);
+            $('#edit-event-end-time').val(endTime);
+            $('#edit-event-description').val(description);
+            $('#edit-event-theme').val(className);
+            $('#edit-event-theme').trigger('change.select2');
+            deleteEventBtn.attr('data-id', eventId); // Set data in preview
 
-        var previewStart = String(start.getDate()).padStart(2, '0') + ' ' + month[start.getMonth()] + ' ' + start.getFullYear() + (startTime ? ' - ' + to12(startTime) : '');
-        var previewEnd = String(end.getDate()).padStart(2, '0') + ' ' + month[end.getMonth()] + ' ' + end.getFullYear() + (endTime ? ' - ' + to12(endTime) : '');
-        $('#preview-event-title').text(title);
-        $('#preview-event-header').addClass('fc-' + className);
-        $('#preview-event-start').text(previewStart);
-        $('#preview-event-end').text(previewEnd);
-        $('#preview-event-description').text(description);
-        !description ? $('#preview-event-description-check').css('display', 'none') : null;
-        previewEventPopup.modal('show');
-        $('.popover').popover('hide');
-      },
-      events: [{
-        id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
-        title: 'Reader will be distracted',
-        start: YM + '-03T13:30:00',
-        className: "fc-event-danger",
-        description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
-      }, {
-        id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
-        title: 'Rabfov va hezow.',
-        start: YM + '-14T13:30:00',
-        end: YM + '-14',
-        className: "fc-event-success",
-        description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
-      }, {
-        id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
-        title: 'The leap into electronic',
-        start: YM + '-05',
-        end: YM + '-06',
-        className: "fc-event-primary",
-        description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
-      }, {
-        id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
-        title: 'Lorem Ipsum passage - Product Release',
-        start: YM + '-02',
-        end: YM + '-04',
-        className: "fc-event-primary",
-        description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
-      }, {
-        title: 'Gibmuza viib hepobe.',
-        start: YM + '-12',
-        end: YM + '-10',
-        className: "fc-event-pink-dim",
-        description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
-      }, {
-        id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
-        title: 'Jidehse gegoj fupelone.',
-        start: YM + '-07T16:00:00',
-        className: "fc-event-danger-dim",
-        description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
-      }, {
-        id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
-        title: 'Ke uzipiz zip.',
-        start: YM + '-16T16:00:00',
-        end: YM + '-14',
-        className: "fc-event-info-dim",
-        description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
-      }, {
-        id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
-        title: 'Piece of classical Latin literature',
-        start: TODAY,
-        end: TODAY + '-01',
-        className: "fc-event-primary",
-        description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
-      }, {
-        id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
-        title: 'Nogok kewwib ezidbi.',
-        start: TODAY + 'T10:00:00',
-        className: "fc-event-info",
-        description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
-      }, {
-        id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
-        title: 'Mifebi ik cumean.',
-        start: TODAY + 'T14:30:00',
-        className: "fc-event-warning-dim",
-        description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
-      }, {
-        id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
-        title: 'Play Time',
-        start: TODAY + 'T17:30:00',
-        className: "fc-event-info",
-        description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
-      }, {
-        id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
-        title: 'Rujfogve kabwih haznojuf.',
-        start: YESTERDAY + 'T05:00:00',
-        className: "fc-event-danger",
-        description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
-      }, {
-        id: 'default-event-id-' + Math.floor(Math.random() * 9999999),
-        title: 'simply dummy text of the printing',
-        start: YESTERDAY + 'T07:00:00',
-        className: "fc-event-primary-dim",
-        description: "Use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden."
-      }]
+            var previewStart = String(start.getDate()).padStart(2, '0') + ' ' + month[start.getMonth()] + ' ' + start.getFullYear() + (startTime ? ' - ' + to12(startTime) : '');
+            var previewEnd = String(end.getDate()).padStart(2, '0') + ' ' + month[end.getMonth()] + ' ' + end.getFullYear() + (endTime ? ' - ' + to12(endTime) : '');
+            $('#preview-event-title').text(title);
+            $('#preview-event-header').addClass('fc-' + className);
+            $('#preview-event-start').text(previewStart);
+            $('#preview-event-end').text(previewEnd);
+            $('#preview-event-description').html(description);
+            !description ? $('#preview-event-description-check').css('display', 'none') : null;
+            previewEventPopup.modal('show');
+            $('.popover').popover('hide');
+        },
+        events: url,
     });
     calendar.render(); //Add event
 
+    // Añadir evento al calendario
     addEventBtn.on("click", function (e) {
       e.preventDefault();
-      var eventTitle = $('#event-title').val();
-      var eventStartDate = $('#event-start-date').val();
-      var eventEndDate = $('#event-end-date').val();
-      var eventStartTime = $('#event-start-time').val();
-      var eventEndTime = $('#event-end-time').val();
-      var eventDescription = $('#event-description').val();
-      var eventTheme = $('#event-theme').val();
-      var eventStartTimeCheck = eventStartTime ? 'T' + eventStartTime + 'Z' : '';
-      var eventEndTimeCheck = eventEndTime ? 'T' + eventEndTime + 'Z' : '';
-      console.log(eventStartTime);
-      calendar.addEvent({
-        id: 'added-event-id-' + Math.floor(Math.random() * 9999999),
-        title: eventTitle,
-        start: eventStartDate + eventStartTimeCheck,
-        end: eventEndDate + eventEndTimeCheck,
-        className: "fc-" + eventTheme,
-        description: eventDescription
-      });
+        // tomamos los datos del formulario
+        var eventTheme = desfragmentarMotivo($('#event-theme').val());
+        // id del paciente y del doctor
+        var patientId = $('#patient_id').val();
+        var doctorId = $('#doctor_id').val();
+        // fecha de inicio y fin del evento
+        var eventStartDate = $('#event-start-date').val();
+        // hora de inicio y fin de cita
+        var eventStartTime = $('#event-start-time').val();
+        var eventEndTime = desfragmentarSumarHora(eventStartTime);
+        var eventStartTimeCheck = eventStartTime ? 'T' + eventStartTime + 'Z' : '';
+        var eventEndTimeCheck = eventEndTime ? 'T' + eventEndTime + 'Z' : '';
+
+        var start = eventStartDate + eventStartTimeCheck;
+        var end = eventStartDate + eventEndTimeCheck;
+
+        $.ajax({
+            url: 'http://consultorioodontologico.test/citas/agendar-cita',
+            type: 'POST',
+            data: {
+                title: eventTheme,
+                start: start,
+                end: end,
+                patient_id: patientId,
+                doctor_id: doctorId,
+            },
+            success: function (data) {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Cita Agendada Correctamente',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+                location.reload();
+            }
+        });
+
       addEventPopup.modal('hide');
-    });
-    updateEventBtn.on("click", function (e) {
-      e.preventDefault();
-      var eventTitle = $('#edit-event-title').val();
-      var eventStartDate = $('#edit-event-start-date').val();
-      var eventEndDate = $('#edit-event-end-date').val();
-      var eventStartTime = $('#edit-event-start-time').val();
-      var eventEndTime = $('#edit-event-end-time').val();
-      var eventDescription = $('#edit-event-description').val();
-      var eventTheme = $('#edit-event-theme').val();
-      var eventStartTimeCheck = eventStartTime ? 'T' + eventStartTime + 'Z' : '';
-      var eventEndTimeCheck = eventEndTime ? 'T' + eventEndTime + 'Z' : '';
-      var selectEvent = calendar.getEventById(editEventForm[0].dataset.id);
-      selectEvent.remove();
-      calendar.addEvent({
-        id: editEventForm[0].dataset.id,
-        title: eventTitle,
-        start: eventStartDate + eventStartTimeCheck,
-        end: eventEndDate + eventEndTimeCheck,
-        className: "fc-" + eventTheme,
-        description: eventDescription
-      });
-      editEventPopup.modal('hide');
     });
     deleteEventBtn.on("click", function (e) {
       e.preventDefault();
-      var selectEvent = calendar.getEventById(editEventForm[0].dataset.id);
-      selectEvent.remove();
+      var dataId = deleteEventBtn.attr('data-id');
+      var deleteUrl = 'http://consultorioodontologico.test/citas/'+dataId+'/eliminar-cita'
+      $.ajax({
+        url: deleteUrl,
+        type: 'POST',
+        data: {},
+        success: function (data) {
+            Swal.fire({
+                position: 'top-center',
+                icon: 'success',
+                title: 'Cita Eliminada Correctamente',
+                showConfirmButton: false,
+                timer: 4500
+            });
+
+
+            location.reload();
+        }
     });
+    });
+
+    function desfragmentarSumarHora(horaString) {
+        // Desfragmentar la hora en un array
+        let horaArray = horaString.split(':');
+        // Sumar 1 a la hora
+        horaArray[0] = parseInt(horaArray[0]) + 1;
+        // Formatear la hora como string
+        let nuevaHoraString = horaArray.join(':');
+        // Retornar la nueva hora
+        return nuevaHoraString;
+    }
+
+    function desfragmentarMotivo(motivo) {
+        // Desfragmentar la oracion en un array
+        let motivoArray = motivo.split(' ');
+        // Sumar 1 a la hora
+        let titulo = motivoArray[1];
+        // retornar el titulo
+        return titulo;
+    }
 
     function to12(time) {
       time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
@@ -284,7 +243,11 @@
     });
     addEventPopup.on('hidden.bs.modal', function (e) {
       setTimeout(function () {
-        $('#addEventForm input,#addEventForm textarea').val('');
+        $('#patient_id').trigger('change.select2');
+        $('#doctor_id').trigger('change.select2');
+        $('#event-start-date').val('');
+        $('#event-start-time').val('');
+
         $('#event-theme').val('event-primary');
         $('#event-theme').trigger('change.select2');
       }, 1000);

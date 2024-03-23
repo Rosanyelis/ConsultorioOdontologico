@@ -53,6 +53,14 @@
         <!-- JavaScript -->
         <script src="{{ asset('./assets/js/bundle.js?ver=2.9.0') }}"></script>
         <script src="{{ asset('./assets/js/scripts.js?ver=2.9.0') }}"></script>
+        <script>
+            (function(NioApp, $){
+                'use strict';
+
+                @include('layouts.alerts')
+
+            })(NioApp, jQuery);
+        </script>
         @yield('scripts')
     </body>
 

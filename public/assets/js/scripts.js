@@ -69,9 +69,9 @@
       var $elm = $(el),
           $elp = $elm.parent(),
           copy = {
-        text: 'Copy',
-        done: 'Copied',
-        fail: 'Failed'
+        text: 'Copiar',
+        done: 'Copiado',
+        fail: 'Fallido'
       },
           data = {
         text: $elm.data('clip-text'),
@@ -137,7 +137,7 @@
 
   NioApp.PassSwitch = function () {
     NioApp.Passcode('.passcode-switch');
-  }; // Toastr Message @v1.0 
+  }; // Toastr Message @v1.0
 
 
   NioApp.Toast = function (msg, ttype, opt) {
@@ -465,10 +465,10 @@
           headerTag: ".nk-wizard-head",
           bodyTag: ".nk-wizard-content",
           labels: {
-            finish: "Submit",
-            next: "Next",
-            previous: "Prev",
-            loading: "Loading ..."
+            finish: "Guardar",
+            next: "Siguiente",
+            previous: "Anterior",
+            loading: "Cargando ..."
           },
           titleTemplate: '<span class="number">0#index#</span> #title#',
           onStepChanging: function onStepChanging(event, currentIndex, newIndex) {
@@ -523,16 +523,16 @@
           dom: dom,
           language: {
             search: "",
-            searchPlaceholder: "Type in to Search",
-            lengthMenu: "<span class='d-none d-sm-inline-block'>Show</span><div class='form-control-select'> _MENU_ </div>",
-            info: "_START_ -_END_ of _TOTAL_",
-            infoEmpty: "No records found",
+            searchPlaceholder: "Buscar",
+            lengthMenu: "<span class='d-none d-sm-inline-block'>Mostrar</span><div class='form-control-select'> _MENU_ </div>",
+            info: "_START_ -_END_ de _TOTAL_",
+            infoEmpty: "Registro no encontrados",
             infoFiltered: "( Total _MAX_  )",
             paginate: {
-              "first": "First",
-              "last": "Last",
-              "next": "Next",
-              "previous": "Prev"
+              "first": "Primero",
+              "last": "Último",
+              "next": "Siguiente",
+              "previous": "Anterior"
             }
           }
         },

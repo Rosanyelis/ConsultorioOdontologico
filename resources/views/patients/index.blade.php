@@ -10,68 +10,79 @@
 @endsection
 @section('content')
                         <!-- start page title -->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-sm-0">Pacientes</h4>
-
-                                    <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Utility</a></li> -->
-                                            <li class="breadcrumb-item active">Pacientes</li>
-                                        </ol>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- end page title -->
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex flex-row-reverse">
-                                            <a href="button" class="btn btn-primary mb-4">
-                                                <i class="ri-add-fill align-middle me-2"></i> Nuevo Paciente
-                                            </a>
-                                        </div>
-                                        <table id="datatable" class="table table-striped dt-responsive nowrap w-100">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between">
+                                        <div class="nk-block-head-content">
+                                            <h3 class="nk-block-title page-title">Usuarios</h3>
+                                        </div><!-- .nk-block-head-content -->
+                                        <div class="nk-block-head-content">
+                                            <ul class="nk-block-tools g-3">
+                                                <li class="nk-block-tools-opt">
+                                                    <a href="{{ route('patient.create') }}" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
+                                                    <a href="{{ route('patient.create') }}" class="btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Agregar Paciente</span></a>
+                                                </li>
+                                            </ul>
+                                        </div><!-- .nk-block-head-content -->
+                                    </div><!-- .nk-block-between -->
+                                </div><!-- .nk-block-head -->
+                                <div class="card card-preview">
+                                    <div class="card-inner">
+                                        <table class="datatable-init table">
                                             <thead>
                                                 <tr>
                                                     <th width="50px">#</th>
                                                     <th>Paciente</th>
                                                     <th>Edad</th>
-                                                    <th class="float-end">Acciones</th>
+                                                    <th>Teléfono</th>
+                                                    <th>Whatsapp</th>
+                                                    <th>Última Visita</th>
+                                                    <th class="text-right">Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Rosa Menendez</td>
-                                                    <td>27</td>
-                                                    <td >
-                                                        <div class="float-end">
-                                                        <a href="button" class="btn btn-link btn-sm pt-0 pb-0">
-                                                            <i class="ri-eye-fill"></i>
-                                                        </a>
-                                                        <a href="button" class="btn btn-link btn-sm pt-0 pb-0">
-                                                            <i class="ri-pencil-fill"></i>
-                                                        </a>
-                                                        <a href="button" class="btn btn-link btn-sm pt-0 pb-0">
-                                                            <i class="ri-delete-bin-5-fill"></i>
-                                                        </a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                @foreach ($data as $item)
+                                                    <tr>
+                                                        <td>#{{ $item->id }}</td>
+                                                        <td>{{ $item->firstname }} {{ $item->lastname }}</td>
+                                                        <td>{{ $item->age }}</td>
+                                                        <td>{{ $item->phone }}</td>
+                                                        <td>{{ $item->whatsapp }}</td>
+                                                        <td>{{ $item->last_visit_date }}</td>
+                                                        <td class="text-right">
+                                                            <div class="dropdown float-right">
+                                                                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger pt-0 pb-0" data-toggle="dropdown">
+                                                                    <em class="icon ni ni-more-h"></em>
+                                                                </a>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <ul class="link-list-opt no-bdr">
+                                                                        <li>
+                                                                            <a href="#">
+                                                                                <em class="icon ni ni-eye"></em>
+                                                                                <span>Ver</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#">
+                                                                                <em class="icon ni ni-pen-fill"></em>
+                                                                                <span>Editar</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
-
                                     </div>
-                                </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row -->
+                                </div><!-- .card-preview -->
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
 @endsection
 @section('scripts')
     <!-- Required datatable js -->
@@ -84,18 +95,7 @@
         <!-- Datatable init js -->
         <script>
             $(document).ready(function() {
-                $("#datatable").DataTable({
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/2.0.1/i18n/es-ES.json',
-                        paginate: {
-                            previous: "<i class='mdi mdi-chevron-left'>",
-                            next: "<i class='mdi mdi-chevron-right'>"
-                        }
-                    },
-                    drawCallback: function() {
-                        $(".dataTables_paginate > .pagination").addClass("pagination-rounded")
-                    }
-                });
+
             });
         </script>
 @endsection

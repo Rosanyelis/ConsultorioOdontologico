@@ -1,0 +1,95 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Role;
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Requests\StoreUser;
+use App\Http\Requests\UpdateUserRequest;
+
+class UserController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $data = User::where('rol_id', '!=', '1')->get();
+        return view('users.index', compact('data'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $roles = Role::where('name', '!=', 'Desarrollador')->get();
+        return view('users.create', compact('roles'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreUser $request)
+    {
+        $user = User::create($request->all());
+        return redirect()->back()->with('success', 'El registro se ha creado exitósamente.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $data = User::find($id);
+        return view('users.show', compact('data'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $data = User::find($id);
+        $roles = Role::where('name', '!=', 'Desarrollador')->get();
+        return view('users.edit', compact('data', 'roles'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateUserRequest $request, string $id)
+    {
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->rol_id = $request->rol_id;
+        if($request->password){
+            $user->password = $request->password;
+        }
+        $user->save();
+        return redirect()->back()->with('success', 'El registro se ha actualizado exitósamente.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $user = User::find($id);
+
+        if (empty($user)) {
+            return redirect()->back()->with('error', 'El registro no existe.');
+        }
+        if ($user->status == 'Activo') {
+            $user->status = 'Inactivo';
+            $user->save();
+            return redirect()->back()->with('success', 'El registro se desactivó con éxito.');
+          } else {
+            $user->status = 'Inactivo';
+            $user->save();
+            return redirect()->back()->with('success', 'El registro se activó con éxito.');
+          }
+    }
+}
