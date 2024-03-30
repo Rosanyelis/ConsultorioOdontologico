@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('treatment_text')->nullable();
             $table->enum('allergies', ['Si', 'No']);
             $table->enum('epilepsy', ['Si', 'No']);
+            $table->enum('anemia', ['Si', 'No']);
             $table->enum('hepatitis', ['Si', 'No']);
             $table->enum('hypertension', ['Si', 'No']);
             $table->enum('vih', ['Si', 'No']);

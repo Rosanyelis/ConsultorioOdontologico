@@ -6,20 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class IntraoralExaminationTeeth extends Model
+class TreatmentPlanDetails extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'intraoral_exams_id',
+        'treatment_plan_id',
         'teeths_id',
         'treatment'
     ];
 
 
-    public function intraoral_exam(): BelongsTo
+    public function treatment_plan(): BelongsTo
     {
-        return $this->belongsTo(IntraoralExam::class, 'intraoral_exams_id', 'id');
+        return $this->belongsTo(TreatmentPlan::class, 'treatment_plan_id', 'id');
     }
 
     public function teeth(): BelongsTo

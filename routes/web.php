@@ -38,7 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/citas/agendar-cita', [AppointmentController::class, 'storeAjax'])->name('appointment.store');
     Route::post('/citas/{id}/eliminar-cita', [AppointmentController::class, 'destroy'])->name('appointment.destroy');
 
-
     # Cotizaciones y Presupuesto
     Route::get('/cotizaciones-y-presupuesto', [QuoteController::class, 'index'])->name('quote.index');
     Route::post('/generar-presupuesto', [QuoteController::class, 'pdf'])->name('quote.pdf');
@@ -47,6 +46,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/pacientes', [PatientController::class, 'index'])->name('patient.index');
     Route::get('/pacientes/agregar-paciente', [PatientController::class, 'create'])->name('patient.create');
     Route::post('/pacientes/guardar-paciente', [PatientController::class, 'store'])->name('patient.store');
+
+    Route::get('/pacientes/{id}/examen-intraoral', [PatientController::class, 'create_examen_intraoral'])->name('patient.examen-intraoral');
+    Route::post('/pacientes/{id}/guardar-examen-intraoral', [PatientController::class, 'store_examen_intraoral'])->name('patient.store-examen-intraoral');
+    Route::get('/pacientes/{id}/plan-de-tratamiento', [PatientController::class, 'create_treatment_plan'])->name('patient.treatment-plan');
+    Route::post('/pacientes/{id}/guardar-plan-de-tratamiento', [PatientController::class, 'store_treatment_plan'])->name('patient.store-treatment-plan');
+    Route::get('/pacientes/{id}/examen-intraoral-ajax', [PatientController::class, 'showteethIntraoralAjax'])->name('patient.showteethIntraoralAjax');
+    Route::get('/pacientes/{id}/plan-de-tratamiento-ajax', [PatientController::class, 'showTreatmentPlanAjax'])->name('patient.showTreatmentPlanAjax');
+
+    Route::get('/pacientes/{id}/ver-paciente', [PatientController::class, 'show'])->name('patient.show');
     Route::get('/pacientes/{id}/editar-paciente', [PatientController::class, 'edit'])->name('patient.edit');
     Route::put('/pacientes/{id}/actualizar-paciente', [PatientController::class, 'update'])->name('patient.update');
 

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Patient extends Model
 {
@@ -35,5 +36,29 @@ class Patient extends Model
     public function appointments(): HasMany
     {
         return $this->hasMany(Appointment::class, 'pacient_id', 'id');
+    }
+
+    /**
+     * Salud Actual del paciente.
+     */
+    public function patient_health(): HasOne
+    {
+        return $this->hasOne(PatientHealth::class, 'patient_id', 'id');
+    }
+
+    /**
+     * Examen Intra Oral del paciente.
+     */
+    public function intraoral_exam(): HasOne
+    {
+        return $this->hasOne(IntraoralExam::class, 'patient_id', 'id');
+    }
+
+    /**
+     * Examen Intra Oral del paciente.
+     */
+    public function treatment_plan(): HasOne
+    {
+        return $this->hasOne(TreatmentPlan::class, 'patient_id', 'id');
     }
 }

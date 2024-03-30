@@ -15,7 +15,7 @@
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title">Usuarios</h3>
+                                            <h3 class="nk-block-title page-title">Pacientes</h3>
                                         </div><!-- .nk-block-head-content -->
                                         <div class="nk-block-head-content">
                                             <ul class="nk-block-tools g-3">
@@ -58,7 +58,7 @@
                                                                 <div class="dropdown-menu dropdown-menu-right">
                                                                     <ul class="link-list-opt no-bdr">
                                                                         <li>
-                                                                            <a href="#">
+                                                                            <a href="{{ route('patient.show', $item->id) }}">
                                                                                 <em class="icon ni ni-eye"></em>
                                                                                 <span>Ver</span>
                                                                             </a>
@@ -69,6 +69,30 @@
                                                                                 <span>Editar</span>
                                                                             </a>
                                                                         </li>
+                                                                        @if ($item->intraoral_exam->count() == 0)
+                                                                        <li>
+                                                                            <a href="{{ route('patient.examen-intraoral', $item->id) }}">
+                                                                                <em class="icon ni ni-note-add"></em>
+                                                                                <span>Realizar Examen IntraOral</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        @endif
+                                                                        @if ($item->treatment_plan->count() == 0)
+                                                                        <li>
+                                                                            <a href="{{ route('patient.treatment-plan', $item->id) }}">
+                                                                                <em class="icon ni ni-note-add"></em>
+                                                                                <span>Realizar Plan de Tratamiento</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        @endif
+                                                                        @if ($item->url_signature == '')
+                                                                        <li>
+                                                                            <a href="#">
+                                                                                <em class="icon ni ni-edit-alt-fill"></em>
+                                                                                <span>Agregar Firma</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        @endif
                                                                     </ul>
                                                                 </div>
                                                             </div>

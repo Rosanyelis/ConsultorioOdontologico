@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Teeth;
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use App\Models\IntraoralExam;
 use App\Models\PatientHealth;
+use App\Models\TreatmentPlan;
+use App\Models\TreatmentPlanDetails;
+use App\Models\IntraoralExaminationTeeth;
 use App\Http\Requests\PatientStoreRequest;
+use App\Http\Requests\StoreExamInstraoral;
 
 class PatientController extends Controller
 {
@@ -82,12 +88,91 @@ class PatientController extends Controller
         return redirect()->route('patient.index')->with('success', 'El registro de paciente se ha creado exitósamente.');
     }
 
+    public function create_examen_intraoral(string $id)
+    {
+        $data = Patient::find($id);
+        $teeths = Teeth::all();
+        return view('patients.intraoral-exams', compact('data', 'teeths'));
+    }
+
+    public function store_examen_intraoral(StoreExamInstraoral $request, $id)
+    {
+        $exam = IntraoralExam::create([
+            'patient_id'            => $id,
+            'cheeks'                => $request->cheeks,
+            'mucous_membranes'      => $request->mucous_membranes,
+            'gums'                  => $request->gums,
+            'language'              => $request->language,
+            'palate'                => $request->palate,
+            'torus'                 => $request->torus,
+            'aftas'                 => $request->aftas,
+            'supragingival_tartar'  => $request->supragingival_tartar,
+            'subgingival'           => $request->subgingival,
+            'plate'                 => $request->plate,
+            'crowding'              => $request->crowding,
+            'observations'          => $request->observation,
+        ]);
+
+        $data = json_decode($request->teethData);
+
+        foreach($data as $item){
+            IntraoralExaminationTeeth::create([
+                'intraoral_exams_id'    => $exam->id,
+                'teeths_id'             => $item->code_teeth,
+                'treatment'             => $item->typeTreat,
+            ]);
+        }
+
+        return redirect()->route('patient.index')->with('success', 'El Examen IntraOral fue registrado exitósamente.');
+    }
+
+    public function create_treatment_plan(string $id)
+    {
+        $data = Patient::find($id);
+        $teeths = Teeth::all();
+        return view('patients.treatment-plan', compact('data', 'teeths'));
+    }
+
+    public function store_treatment_plan(Request $request, $id)
+    {
+        $exam = TreatmentPlan::create([
+            'patient_id'            => $id,
+            'other_treatments'      => $request->other_treatments,
+        ]);
+
+        $data = json_decode($request->teethData);
+
+        foreach($data as $item){
+            TreatmentPlanDetails::create([
+                'treatment_plan_id'    => $exam->id,
+                'teeths_id'             => $item->code_teeth,
+                'treatment'             => $item->typeTreat,
+            ]);
+        }
+
+        return redirect()->route('patient.index')->with('success', 'El Plan de Tratamiento fue registrado exitósamente.');
+    }
+
     /**
      * Display the specified resource.
      */
-    public function show(Patient $patient)
+    public function show(string $id)
     {
-        
+        $data = Patient::find($id);
+        return view('patients.show', compact('data'));
+    }
+
+    public function showteethIntraoralAjax(string $id)
+    {
+        $examen = Patient::find($id);
+        $data = $examen->intraoral_exam->intraoralExamDetails;
+        return $data;
+    }
+    public function showTreatmentPlanAjax(string $id)
+    {
+        $examen = Patient::find($id);
+        $data = $examen->treatment_plan->TreatmentPlanDetails;
+        return $data;
     }
 
     /**

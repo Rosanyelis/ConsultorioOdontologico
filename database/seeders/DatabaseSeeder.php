@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             TypeOfTeatmentsSeeder::class,
             TeethSeeder::class,
-            TeethChildrensSeeder::class,
         ]);
 
         $rol = Role::where('name', 'Desarrollador')->first();

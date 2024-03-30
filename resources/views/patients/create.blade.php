@@ -727,11 +727,7 @@
                                                                                     </tr>
                                                                                 </table>
                                                                             </div>
-
-                                                                            <!--col-->
-
                                                                         </div>
-                                                                        <!--row-->
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -769,10 +765,6 @@
                     let edad = anioActual - year;
                     // añadir edad en input
                     $('#age').val(edad);
-
-                    console.log(edad);
-
-
                 });
             });
         </script>

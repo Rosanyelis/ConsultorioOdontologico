@@ -47,5 +47,29 @@ class TeethSeeder extends Seeder
         Teeth::create(['code' => '36']);
         Teeth::create(['code' => '37']);
         Teeth::create(['code' => '38']);
+
+        // dientes de niños
+        // dientes superiores
+        Teeth::create(['code' => '55']);
+        Teeth::create(['code' => '54']);
+        Teeth::create(['code' => '53']);
+        Teeth::create(['code' => '52']);
+        Teeth::create(['code' => '51']);
+        Teeth::create(['code' => '61']);
+        Teeth::create(['code' => '62']);
+        Teeth::create(['code' => '63']);
+        Teeth::create(['code' => '64']);
+        Teeth::create(['code' => '65']);
+        // dientes inferiores
+        Teeth::create(['code' => '85']);
+        Teeth::create(['code' => '84']);
+        Teeth::create(['code' => '83']);
+        Teeth::create(['code' => '82']);
+        Teeth::create(['code' => '81']);
+        Teeth::create(['code' => '71']);
+        Teeth::create(['code' => '72']);
+        Teeth::create(['code' => '73']);
+        Teeth::create(['code' => '74']);
+        Teeth::create(['code' => '75']);
     }
 }

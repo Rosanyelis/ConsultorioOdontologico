@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('intraoral_examination_teeths', function (Blueprint $table) {
+        Schema::create('treatment_plan_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('intraoral_exams_id');
+            $table->unsignedBigInteger('treatment_plan_id');
             $table->unsignedBigInteger('teeths_id')->nullable();
 
             $table->string('treatment');
 
-            $table->foreign('intraoral_exams_id')->references('id')->on('intraoral_exams');
+            $table->foreign('treatment_plan_id')->references('id')->on('treatment_plans');
             $table->foreign('teeths_id')->references('id')->on('teeths');
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('intraoral_examination_teeths');
+        Schema::dropIfExists('treatment_plan_details');
     }
 };

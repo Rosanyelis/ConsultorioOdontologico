@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PatientHealth extends Model
 {
@@ -17,6 +18,7 @@ class PatientHealth extends Model
         'treatment_text',
         'allergies',
         'epilepsy',
+        'anemia',
         'hepatitis',
         'hypertension',
         'vih',
@@ -35,5 +37,14 @@ class PatientHealth extends Model
         'ets_text',
         'harmful_habits',
     ];
+
+    /** Relaciones */
+    /**
+     * obtiene la informacion del paciente.
+     */
+    public function patient(): BelongsTo
+    {
+        return $this->belongsTo(Patient::class, 'patient_id', 'id');
+    }
 
 }
