@@ -426,7 +426,7 @@
                                         <em class="icon ni ni-cross"></em>
                                     </a>
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Indique estado de diente N°. <strong id="teeth"></strong></h5>
+                                        <h5 class="modal-title">Indique Tratatamiento para el diente N°. <strong id="teeth"></strong></h5>
                                     </div>
                                     <div class="modal-body">
                                         <div class="d-flex align-items-center">

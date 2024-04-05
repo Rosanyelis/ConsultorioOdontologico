@@ -121,6 +121,7 @@
                     },
                     eventClick: function eventClick(info) {
                         // Get data
+                        console.log(info);
                         var title = info.event._def.title;
                         var description = info.event._def.extendedProps.description;
                         var start = info.event._instance.range.start;
@@ -137,6 +138,7 @@
                         var className = info.event._def.ui.classNames[0].slice(3);
 
                         var eventId = info.event._def.publicId; //Set data in eidt form
+                        var patientId = info.event._def.extendedProps.patient_id;
 
                         $('#edit-event-title').val(title);
                         $('#edit-event-start-date').val(startDate).datepicker('update');
@@ -147,7 +149,7 @@
                         $('#edit-event-theme').val(className);
                         $('#edit-event-theme').trigger('change.select2');
                         deleteEventBtn.attr('data-id', eventId); // Set data in preview
-                        createHistory.attr('data-id', eventId); // Set data in preview
+                        createHistory.attr('data-id', patientId); // Set data in preview
 
                         var previewStart = String(start.getDate()).padStart(2, '0') + ' ' + month[start.getMonth()] + ' ' + start.getFullYear() + (startTime ? ' - ' + to12(startTime) : '');
                         var previewEnd = String(end.getDate()).padStart(2, '0') + ' ' + month[end.getMonth()] + ' ' + end.getFullYear() + (endTime ? ' - ' + to12(endTime) : '');

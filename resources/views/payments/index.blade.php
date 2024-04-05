@@ -11,8 +11,12 @@
                                         <div class="nk-block-head-content">
                                             <ul class="nk-block-tools g-3">
                                                 <li class="nk-block-tools-opt">
-                                                    <a href="{{ route('user.create') }}" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                                    <a href="{{ route('user.create') }}" class="btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Agregar Factura</span></a>
+                                                    <a href="#" class="btn btn-icon btn-primary d-md-none"
+                                                    data-toggle="modal" data-target="#modalBilling">
+                                                        <em class="icon ni ni-plus"></em></a>
+                                                    <a href="#" class="btn btn-primary d-none d-md-inline-flex"
+                                                    data-toggle="modal" data-target="#modalBilling">
+                                                        <em class="icon ni ni-plus"></em><span>Agregar Factura</span></a>
                                                 </li>
                                             </ul>
                                         </div><!-- .nk-block-head-content -->
@@ -68,26 +72,7 @@
                                                                             <span>Abonar Factura</span>
                                                                         </a>
                                                                     </li>
-                                                                    <div class="modal fade" tabindex="-1" id="modalAbono-{{ $item->id }}">
-                                                                        <div class="modal-dialog" role="document">
-                                                                            <div class="modal-content">
-                                                                                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <em class="icon ni ni-cross"></em>
-                                                                                </a>
-                                                                                <div class="modal-header">
-                                                                                    <h5 class="modal-title">Abonar Factura #0000{{ $item->id }}</h5>
-                                                                                </div>
-                                                                                <div class="modal-body">
-                                                                                    <form class="row">
-
-                                                                                    </form>
-                                                                                </div>
-                                                                                <div class="modal-footer bg-light">
-                                                                                    <span class="sub-text">Modal Footer Text</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                    
                                                                     @endif
                                                                 </ul>
                                                             </div>
@@ -102,7 +87,7 @@
                             </div>
                         </div>
                         <!-- end page title -->
-
+                        @include('payments.partials.create-pay')
 @endsection
 @section('scripts')
         <script>
@@ -123,6 +108,50 @@
                             $(formDelete).submit();
                         }
                     });
+                });
+
+                var total = 0;
+                var dataCotizacion = [];
+                var totalQuote = 0;
+
+                $('#servicio #total').html('0');
+                $('#add').on('click', function(){
+                    // obtener los datos de los campos
+                    let type = $('#type').val();
+                    let price = $('#price').val();
+                    // agregar fila en la tabla
+                    $("#servicio tbody").append(
+                        `<tr>
+                            <td>`+type+`</td>
+                            <td class="price">`+price+`</td>
+                        </tr>`);
+                    // agregamos los datos a la variable dataCotizacion
+                    let datosFila = {};
+                    datosFila.type = type;
+                    datosFila.price = price;
+                    dataCotizacion.push(datosFila);
+                    // se suma los montos al realizar click al agregar data en la tabla
+                    total = total + parseInt(price);
+                    totalQuote = total;
+                    console.log(dataCotizacion);
+                    // lo mostramos en la tabla donde indica el total
+                    $('#servicio #total').html(total);
+                    $('#totalinput').val(total);
+
+                    // reseteamos los campos luego de haber agregado los datos a la tabla
+                    $("#type").val($("#type").data('placeholder')).trigger('change');
+                    $('#price').val('');
+                });
+
+
+
+                $('#guardar').click(function() {
+                    $('#dataBilling').val(JSON.stringify(dataCotizacion));
+                    $('#form').submit();
+                    $('#guardar').attr('disabled', true);
+                    $('#guardar').html(
+                        '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Por favor, espere... </span>'
+                        );
                 });
 
             })(NioApp, jQuery);

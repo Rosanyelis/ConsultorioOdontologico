@@ -23,6 +23,7 @@ class AppointmentController extends Controller
                     'end' => $appointment->end,
                     'className' => 'fc-'.$appointment->event_color,
                     'description' => $appointment->description,
+                    'patient_id' => $appointment->patient->id
                 ];
             }
         }

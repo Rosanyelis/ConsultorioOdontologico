@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/pacientes/{id}/guardar-nota', [PatientController::class, 'store_note'])->name('patient.store-note');
     # Finanzas o Pagos
     Route::get('/finanzas', [BillingController::class, 'index'])->name('billing.index');
+    Route::post('/finanzas/guardar-factura', [BillingController::class, 'store'])->name('billing.store');
 
     # Usuarios
     Route::get('/usuarios', [UserController::class, 'index'])->name('user.index');
