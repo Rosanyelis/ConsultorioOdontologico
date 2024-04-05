@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Patient extends Model
 {
@@ -60,5 +61,37 @@ class Patient extends Model
     public function treatment_plan(): HasOne
     {
         return $this->hasOne(TreatmentPlan::class, 'patient_id', 'id');
+    }
+
+    /**
+     * Historia Dentl del paciente.
+     */
+    public function dental_history(): HasMany
+    {
+        return $this->hasMany(DentalHistory::class, 'patient_id', 'id');
+    }
+
+    /**
+     * Recetas del paciente.
+     */
+    public function recipes(): HasMany
+    {
+        return $this->hasMany(Recipe::class, 'patient_id', 'id');
+    }
+
+    /**
+     * Facturas del paciente.
+     */
+    public function billings(): HasMany
+    {
+        return $this->hasMany(Billing::class, 'patient_id', 'id');
+    }
+
+    /**
+     * Facturas del paciente.
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class, 'patient_id', 'id');
     }
 }

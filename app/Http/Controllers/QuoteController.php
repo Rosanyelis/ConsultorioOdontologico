@@ -23,12 +23,9 @@ class QuoteController extends Controller
      * Show the form for creating a new resource.
      */
     public function pdf(Request $request)
-    {    
+    {
         $data = json_decode($request->data);
-        // dd($data[0]->quote);
         $quote = $data[0];
-        // dd($data[0]['quote']);
-
         $patient = [
             'name' => $request->name,
             'address' => $request->address,

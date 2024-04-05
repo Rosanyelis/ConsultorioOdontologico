@@ -24,11 +24,11 @@
                     </div>
                     <ul class="d-flex justify-content-between gx-4 mt-3">
                         <li>
-                            <button data-dismiss="modal" data-toggle="modal" 
+                            <button data-dismiss="modal" data-toggle="modal"
                                 data-target="#deleteEventPopup" class="btn btn-danger btn-dim">Borrar Cita</button>
                         </li>
                         <li>
-                            <button class="btn btn-primary">Generar Historia</button>
+                            <button id="CreateHistory" class="btn btn-primary">Generar Historia</button>
                         </li>
                     </ul>
                 </div>

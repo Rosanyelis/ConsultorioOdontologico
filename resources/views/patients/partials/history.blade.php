@@ -3,7 +3,8 @@
                                                                     <h6 class="title">Historias</h6>
                                                                 </div><!-- .nk-block-head -->
                                                                 <div class="nk-block">
-                                                                    <a href="#" class="btn btn-icon btn-primary" data-toggle="modal" data-target="#addDiagnosis">
+                                                                    <a href="{{ route('patient.history-dental', $data->id) }}"
+                                                                        class="btn btn-icon btn-primary">
                                                                         <em class="icon ni ni-plus"></em>
                                                                     </a>
                                                                 </div>
@@ -20,7 +21,18 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-
+                                                                        @foreach ($data->dental_history as $item)
+                                                                        <tr>
+                                                                            <td>{{ $item->id }}</td>
+                                                                            <td>{{ $item->reason_consultation }}</td>
+                                                                            <td>{{ \Carbon\Carbon::createFromDate($item->created_at)->format('d-m-Y') }}</td>
+                                                                            <td class="text-right">
+                                                                                <a href="#">
+                                                                                    <em class="icon ni ni-eye"></em>
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        @endforeach
                                                                     </tbody>
                                                                 </table>
 

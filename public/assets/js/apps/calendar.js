@@ -42,6 +42,7 @@ $.ajaxSetup({
     var addEventPopup = $('#addEventPopup');
     var previewEventPopup = $('#previewEventPopup');
     var deleteEventBtn = $('#deleteEvent');
+    var createHistory = $('#CreateHistory');
     var mobileView = NioApp.Win.width < NioApp.Break.md ? true : false;
 
 

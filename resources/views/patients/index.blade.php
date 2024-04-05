@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('styles')
-        <!-- DataTables -->
-        <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-
-        <!-- Responsive datatable examples -->
-        <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+        <style>
+            #signature-pad {
+                border: 2px dotted #CCCCCC;
+                border-radius: 5px;
+                height: 200px;
+            }
+        </style>
 @endsection
 @section('content')
                         <!-- start page title -->
@@ -20,8 +20,16 @@
                                         <div class="nk-block-head-content">
                                             <ul class="nk-block-tools g-3">
                                                 <li class="nk-block-tools-opt">
+                                                    <a href="#" class="btn btn-icon btn-info d-md-none">
+                                                        <em class="icon ni ni-file-xls"
+                                                        data-toggle="modal" data-target="#modalImport"></em></a>
+                                                    <a href="#" class="btn btn-info d-none d-md-inline-flex"
+                                                        data-toggle="modal" data-target="#modalImport">
+                                                        <em class="icon ni ni-file-xls"></em><span>Importar Pacientes</span></a>
+                                                    &nbsp;&nbsp;
                                                     <a href="{{ route('patient.create') }}" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
                                                     <a href="{{ route('patient.create') }}" class="btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Agregar Paciente</span></a>
+
                                                 </li>
                                             </ul>
                                         </div><!-- .nk-block-head-content -->
@@ -63,13 +71,7 @@
                                                                                 <span>Ver</span>
                                                                             </a>
                                                                         </li>
-                                                                        <li>
-                                                                            <a href="#">
-                                                                                <em class="icon ni ni-pen-fill"></em>
-                                                                                <span>Editar</span>
-                                                                            </a>
-                                                                        </li>
-                                                                        @if ($item->intraoral_exam->count() == 0)
+                                                                        @if (!$item->intraoral_exam)
                                                                         <li>
                                                                             <a href="{{ route('patient.examen-intraoral', $item->id) }}">
                                                                                 <em class="icon ni ni-note-add"></em>
@@ -77,7 +79,7 @@
                                                                             </a>
                                                                         </li>
                                                                         @endif
-                                                                        @if ($item->treatment_plan->count() == 0)
+                                                                        @if (!$item->treatment_plan)
                                                                         <li>
                                                                             <a href="{{ route('patient.treatment-plan', $item->id) }}">
                                                                                 <em class="icon ni ni-note-add"></em>
@@ -87,7 +89,7 @@
                                                                         @endif
                                                                         @if ($item->url_signature == '')
                                                                         <li>
-                                                                            <a href="#">
+                                                                            <a href="{{ route('patient.signature', $item->id) }}">
                                                                                 <em class="icon ni ni-edit-alt-fill"></em>
                                                                                 <span>Agregar Firma</span>
                                                                             </a>
@@ -106,20 +108,6 @@
                             </div>
                         </div>
                         <!-- end page title -->
-
+                        @include('patients.partials.modal-import')
 @endsection
-@section('scripts')
-    <!-- Required datatable js -->
-        <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-        <!-- Responsive examples -->
-        <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 
-        <!-- Datatable init js -->
-        <script>
-            $(document).ready(function() {
-
-            });
-        </script>
-@endsection

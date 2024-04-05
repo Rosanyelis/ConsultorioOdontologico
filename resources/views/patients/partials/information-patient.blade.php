@@ -89,6 +89,12 @@
                                                                             <span class="profile-ud-value">{{ $data->occupation }}</span>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="profile-ud-item">
+                                                                        <div class="profile-ud wider">
+                                                                            <span class="profile-ud-label">Firma </span>
+                                                                            <span class="profile-ud-value"><img width="70%" src="{{ asset('signatures/'.$data->url_signature. '') }}"></span>
+                                                                        </div>
+                                                                    </div>
                                                                 </div><!-- .profile-ud-list -->
                                                             </div><!-- .nk-block -->
                                                             <div class="nk-divider divider md"></div>
@@ -217,31 +223,31 @@
                                                                                 <div class="table-responsive">
                                                                                     <table class="table">
                                                                                         <tr>
-                                                                                            <th>Carrillos:</th><td>{{ $data->intraoral_exam->cheeks }}</td>
-                                                                                            <th>Mucosa:</th><td>{{ $data->intraoral_exam->mucous_membranes }}</td>
+                                                                                            <th>Carrillos:</th><td>@if($data->intraoral_exam) {{ $data->intraoral_exam->cheeks }}@endif</td>
+                                                                                            <th>Mucosa:</th><td>@if($data->intraoral_exam) {{ $data->intraoral_exam->mucous_membranes }}@endif</td>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                            <th>Encía:</th><td>{{ $data->intraoral_exam->gums }}</td>
-                                                                                            <th>Lengua:</th><td>{{ $data->intraoral_exam->language }}</td>
+                                                                                            <th>Encía:</th><td>@if($data->intraoral_exam){{ $data->intraoral_exam->gums }}@endif</td>
+                                                                                            <th>Lengua:</th><td>@if($data->intraoral_exam){{ $data->intraoral_exam->language }}@endif</td>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                            <th>Paladar:</th><td>{{ $data->intraoral_exam->palate }}</td>
-                                                                                            <th>Torus:</th><td>{{ $data->intraoral_exam->torus }}</td>
+                                                                                            <th>Paladar:</th><td>@if($data->intraoral_exam){{ $data->intraoral_exam->palate }}@endif</td>
+                                                                                            <th>Torus:</th><td>@if($data->intraoral_exam){{ $data->intraoral_exam->torus }}@endif</td>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                            <th>Aftas:</th><td>{{ $data->intraoral_exam->aftas }}</td>
-                                                                                            <th>Sarro Supragingival:</th><td>{{ $data->intraoral_exam->supragingival_tartar }}</td>
+                                                                                            <th>Aftas:</th><td>@if($data->intraoral_exam){{ $data->intraoral_exam->aftas }}@endif</td>
+                                                                                            <th>Sarro Supragingival:</th><td>@if($data->intraoral_exam){{ $data->intraoral_exam->supragingival_tartar }}@endif</td>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                            <th>Subgingival:</th><td>{{ $data->intraoral_exam->subgingival }}</td>
-                                                                                            <th>Placa:</th><td>{{ $data->intraoral_exam->plate }}</td>
+                                                                                            <th>Subgingival:</th><td>@if($data->intraoral_exam){{ $data->intraoral_exam->subgingival }}@endif</td>
+                                                                                            <th>Placa:</th><td>@if($data->intraoral_exam){{ $data->intraoral_exam->plate }}@endif</td>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                            <th>Apiñamiento:</th><td>{{ $data->intraoral_exam->crowding }}</td>
+                                                                                            <th>Apiñamiento:</th><td>@if($data->intraoral_exam){{ $data->intraoral_exam->crowding }}@endif</td>
                                                                                             <th></th><td></td>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                            <th>Observaciones:</th><td colspan="3">{{ $data->intraoral_exam->observations }}</td>
+                                                                                            <th>Observaciones:</th><td colspan="3">@if($data->intraoral_exam){{ $data->intraoral_exam->observations }}@endif</td>
                                                                                         </tr>
                                                                                     </table>
                                                                                 </div>
@@ -557,6 +563,14 @@
                                                                                     </tr>
                                                                                 </table>
                                                                             </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label class="form-label" for="file">Detalles de otros planes de tratamiento</label>
+                                                                                        <p>@if($data->treatment_plan) {{ $data->treatment_plan->other_treatments }}@endif</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -565,31 +579,22 @@
                                                             <div class="nk-divider divider md"></div>
                                                             <div class="nk-block">
                                                                 <div class="nk-block-head nk-block-head-sm nk-block-between">
-                                                                    <h5 class="title">Doctors Note</h5>
-                                                                    <a href="#" class="link link-sm">+ Add Note</a>
+                                                                    <h5 class="title">Notas del Doctor</h5>
+                                                                    <a href="#" data-toggle="modal" data-target="#modalNote" class="link link-sm">+ Agregar Nota</a>
                                                                 </div><!-- .nk-block-head -->
                                                                 <div class="bq-note">
+                                                                    @foreach ($data->notes as $item)
                                                                     <div class="bq-note-item">
                                                                         <div class="bq-note-text">
-                                                                            <p>Aproin at metus et dolor tincidunt feugiat eu id quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean sollicitudin non nunc vel pharetra. </p>
+                                                                            <p>{{ $item->grades }}</p>
                                                                         </div>
                                                                         <div class="bq-note-meta">
-                                                                            <span class="bq-note-added">Added on <span class="date">November 18, 2019</span> at <span class="time">5:34 PM</span></span>
+                                                                            <span class="bq-note-added">Agregada  <span class="date">November 18, 2019</span> at <span class="time">5:34 PM</span></span>
                                                                             <span class="bq-note-sep sep">|</span>
-                                                                            <span class="bq-note-by">By <span>Softnio</span></span>
-                                                                            <a href="#" class="link link-sm link-danger">Delete Note</a>
+                                                                            <span class="bq-note-by">Por <span>Desarrolladora</span></span>
+                                                                            <a href="#" class="link link-sm link-danger">Borrar Nota</a>
                                                                         </div>
                                                                     </div><!-- .bq-note-item -->
-                                                                    <div class="bq-note-item">
-                                                                        <div class="bq-note-text">
-                                                                            <p>Aproin at metus et dolor tincidunt feugiat eu id quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean sollicitudin non nunc vel pharetra. </p>
-                                                                        </div>
-                                                                        <div class="bq-note-meta">
-                                                                            <span class="bq-note-added">Added on <span class="date">November 18, 2019</span> at <span class="time">5:34 PM</span></span>
-                                                                            <span class="bq-note-sep sep">|</span>
-                                                                            <span class="bq-note-by">By <span>Softnio</span></span>
-                                                                            <a href="#" class="link link-sm link-danger">Delete Note</a>
-                                                                        </div>
-                                                                    </div><!-- .bq-note-item -->
+                                                                    @endforeach
                                                                 </div><!-- .bq-note -->
                                                             </div><!-- .nk-block -->

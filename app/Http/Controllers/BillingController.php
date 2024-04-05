@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Billing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BillingController extends Controller
 {
@@ -12,7 +13,17 @@ class BillingController extends Controller
      */
     public function index()
     {
-        //
+        if(Auth::user()->rol->name == 'Doctor')
+        {
+            $doctorId = Auth::user()->id;
+            $data = Billing::with(['patient' => function($query) use ($doctorId) {
+                $query->where('doctor_id', $doctorId->id);
+              }])->get();
+        }else{
+            $data = Billing::with('patient')->get();
+        }
+
+        return view('payments.index', compact('data'));
     }
 
     /**

@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('dental_history_id')->nullable();
             $table->unsignedBigInteger('teeths_id')->nullable();
-            $table->unsignedBigInteger('teeth_childrens_id')->nullable();
             $table->string('treatment');
             $table->foreign('dental_history_id')->references('id')->on('dental_histories');
             $table->foreign('teeths_id')->references('id')->on('teeths');
-            $table->foreign('teeth_childrens_id')->references('id')->on('teeth_childrens');
             $table->timestamps();
         });
     }

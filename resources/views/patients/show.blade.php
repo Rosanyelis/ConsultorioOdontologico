@@ -73,97 +73,14 @@
                                                 </div>
                                                 <!--card inner-->
                                             </div><!-- .card-content -->
-                                            <div class="card-aside card-aside-right user-aside toggle-slide toggle-slide-right toggle-break-xxl" data-content="userAside" data-toggle-screen="xxl" data-toggle-overlay="true" data-toggle-body="true">
-                                                <div class="card-inner-group" data-simplebar>
-                                                    <div class="card-inner">
-                                                        <div class="user-card user-card-s2">
-                                                            <div class="user-avatar lg bg-primary">
-                                                                <span>AB</span>
-                                                            </div>
-                                                            <div class="user-info">
-                                                                <div class="badge badge-outline-light badge-pill ucap">Patinet</div>
-                                                                <h5>Abu Bin Ishtiyak</h5>
-                                                                <span class="sub-text">info@softnio.com</span>
-                                                            </div>
-                                                        </div>
-                                                    </div><!-- .card-inner -->
-                                                    <div class="card-inner card-inner-sm">
-                                                        <ul class="btn-toolbar justify-center gx-1">
-                                                            <li><a href="#" class="btn btn-trigger btn-icon"><em class="icon ni ni-shield-off"></em></a></li>
-                                                            <li><a href="#" class="btn btn-trigger btn-icon"><em class="icon ni ni-mail"></em></a></li>
-                                                            <li><a href="#" class="btn btn-trigger btn-icon"><em class="icon ni ni-download-cloud"></em></a></li>
-                                                            <li><a href="#" class="btn btn-trigger btn-icon"><em class="icon ni ni-bookmark"></em></a></li>
-                                                        </ul>
-                                                    </div><!-- .card-inner -->
-                                                    <div class="card-inner">
-                                                        <div class="row text-center">
-                                                            <div class="col-4">
-                                                                <div class="profile-stats">
-                                                                    <span class="amount">$2123</span>
-                                                                    <span class="sub-text">Total Bill</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-4">
-                                                                <div class="profile-stats">
-                                                                    <span class="amount">$200</span>
-                                                                    <span class="sub-text">Paid</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-4">
-                                                                <div class="profile-stats">
-                                                                    <span class="amount">$1923</span>
-                                                                    <span class="sub-text">Due</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div><!-- .card-inner -->
-                                                    <div class="card-inner">
-                                                        <h6 class="overline-title-alt mb-2">Additional</h6>
-                                                        <div class="row g-3">
-                                                            <div class="col-6">
-                                                                <span class="sub-text">Patient ID:</span>
-                                                                <span>#P7085</span>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <span class="sub-text">Admit Date</span>
-                                                                <span>15 Feb, 2019 01:02 PM</span>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <span class="sub-text">Condition</span>
-                                                                <span class="lead-text text-success">Normal</span>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <span class="sub-text">Discharged Date</span>
-                                                                <span>16 Feb, 2019</span>
-                                                            </div>
-                                                        </div>
-                                                    </div><!-- .card-inner -->
-                                                    <div class="card-inner">
-                                                        <h6 class="overline-title-alt mb-3">Groups</h6>
-                                                        <ul class="g-1">
-                                                            <li class="btn-group">
-                                                                <a class="btn btn-xs btn-light btn-dim" href="#">surgery</a>
-                                                                <a class="btn btn-xs btn-icon btn-light btn-dim" href="#"><em class="icon ni ni-cross"></em></a>
-                                                            </li>
-                                                            <li class="btn-group">
-                                                                <a class="btn btn-xs btn-light btn-dim" href="#">cardiology</a>
-                                                                <a class="btn btn-xs btn-icon btn-light btn-dim" href="#"><em class="icon ni ni-cross"></em></a>
-                                                            </li>
-                                                            <li class="btn-group">
-                                                                <a class="btn btn-xs btn-light btn-dim" href="#">another tag</a>
-                                                                <a class="btn btn-xs btn-icon btn-light btn-dim" href="#"><em class="icon ni ni-cross"></em></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div><!-- .card-inner -->
-                                                </div><!-- .card-inner -->
-                                            </div><!-- .card-aside -->
+
                                         </div><!-- .card-aside-wrap -->
                                     </div>
                                     <!--card-->
                                 </div>
                             </div>
                         </div>
-
+                        @include('patients.partials.modal-add-note')
 @endsection
 @section('scripts')
     <script>

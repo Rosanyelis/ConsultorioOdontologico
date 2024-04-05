@@ -59,6 +59,34 @@
 
                 @include('layouts.alerts')
 
+                function mostrarFechaHoraActual() {
+                    // Obtener la fecha y hora actual
+                    const fechaActual = new Date();
+
+                    // Obtener las horas, minutos y segundos
+                    const horas = fechaActual.getHours();
+                    const minutos = fechaActual.getMinutes();
+                    const segundos = fechaActual.getSeconds();
+
+                    // Obtener el meridiano (AM/PM)
+                    const meridiano = horas >= 12 ? "PM" : "AM";
+
+                    // Formatear la hora con dos dígitos
+                    const horaFormateada = `${horas.toString().padStart(2, "0")}:${minutos.toString().padStart(2, "0")}:${segundos.toString().padStart(2, "0")} ${meridiano}`;
+
+                    // Formatear la fecha
+                    const fechaFormateada = `${fechaActual.getDate().toString().padStart(2, "0")} / ${(fechaActual.getMonth() + 1).toString().padStart(2, "0")} / ${fechaActual.getFullYear()}`;
+
+                    // Actualizar el contenido de un elemento HTML con la fecha y hora formateada
+                    document.getElementById("DateToday").textContent = `${fechaFormateada} - ${horaFormateada}`;
+
+                    // Repetir la función cada segundo para actualizar la fecha y hora en tiempo real
+                    setTimeout(mostrarFechaHoraActual, 1000);
+                }
+
+                    // Iniciar la función para mostrar la fecha y hora actual
+                    mostrarFechaHoraActual();
+
             })(NioApp, jQuery);
         </script>
         @yield('scripts')
