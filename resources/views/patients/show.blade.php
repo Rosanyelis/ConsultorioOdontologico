@@ -81,9 +81,23 @@
                             </div>
                         </div>
                         @include('patients.partials.modal-add-note')
+                        @include('patients.partials.modal-edit-patient')
 @endsection
 @section('scripts')
     <script>
+        $('#dateBirthday').on('change', function(){
+            let dateBirthday = $('#dateBirthday').val();
+            // Extraer el año usando la función getFullYear()
+            let year = new Date(dateBirthday).getFullYear();
+            // Obtener la fecha actual
+            let fechaActual = new Date();
+            // Obtener el año actual
+            let anioActual = fechaActual.getFullYear();
+            // edad
+            let edad = anioActual - year;
+            // añadir edad en input
+            $('#age').val(edad);
+        });
         var url1 = "{{ route('patient.showteethIntraoralAjax', $data->id) }}";
         var url2 = "{{ route('patient.showTreatmentPlanAjax', $data->id) }}";
         var url_base = "{{ asset('') }}";

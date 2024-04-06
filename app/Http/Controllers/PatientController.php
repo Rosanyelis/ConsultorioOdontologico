@@ -18,6 +18,7 @@ use App\Imports\PatientsImport;
 use App\Models\TypeOfTreatments;
 use App\Models\DentalHistoryDetails;
 use App\Models\TreatmentPlanDetails;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\MedicationPrescription;
@@ -59,6 +60,12 @@ class PatientController extends Controller
         }
         $birthdate = Carbon::parse($request->birthdate);
         $lastvisit = Carbon::parse($request->last_visit_date);
+
+        if(!$request->age){
+            $age = $request->age;
+        }else{
+            $age = $birthdate->age;
+        }
         $patient = Patient::create([
             'doctor_id'         => $doctorId,
             'firstname'         => $request->firstname,
@@ -68,7 +75,7 @@ class PatientController extends Controller
             'phone'             => $request->phone,
             'whatsapp'          => $request->whatsapp,
             'birthdate'         => $birthdate->format('Y-m-d'),
-            'age'               => $request->age,
+            'age'               => $age,
             'sex'               => $request->sex,
             'civil_status'      => $request->civil_status,
             'occupation'        => $request->occupation,
@@ -317,9 +324,39 @@ class PatientController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Patient $patient)
+    public function update(Request $request, $id)
     {
-        //
+        if(Auth::user()->rol->name == 'Doctor')
+        {
+            $doctorId = Auth::user()->id;
+        }else{
+            $doctorId = null;
+        }
+        $birthdate = Carbon::parse($request->birthdate);
+        $lastvisit = Carbon::parse($request->last_visit_date);
+
+        if(!$request->age){
+            $age = $request->age;
+        }else{
+            $age = $birthdate->age;
+        }
+        $patient = Patient::find($id);
+        $patient->doctor_id         = $doctorId;
+        $patient->firstname         = $request->firstname;
+        $patient->second_name       = $request->second_name;
+        $patient->lastname          = $request->lastname;
+        $patient->second_surname    = $request->second_surname;
+        $patient->phone             = $request->phone;
+        $patient->whatsapp          = $request->whatsapp;
+        $patient->birthdate         = $birthdate->format('Y-m-d');
+        $patient->age               = $age;
+        $patient->sex               = $request->sex;
+        $patient->civil_status      = $request->civil_status;
+        $patient->occupation        = $request->occupation;
+        $patient->last_visit_date   = $lastvisit->format('Y-m-d');
+        $patient->save();
+
+        return redirect()->back()->with('success', 'El Paciente fue actualizado exitósamente.');
     }
 
     public function import(Request $request)

@@ -32,7 +32,7 @@
                                                                     <label class="form-label" for="firstname">Primer Nombre</label>
                                                                     <div class="form-control-wrap">
                                                                         <input type="text" name="firstname" class="form-control"
-                                                                            id="firstname" placeholder="Ejm: Jon">
+                                                                            id="firstname" placeholder="Ejm: Jon" value="{{ old('firstname') }}">
                                                                         @if ($errors->has('firstname'))
                                                                             <span class="invalid text-danger">
                                                                                 {{ $errors->first('firstname') }}
@@ -46,7 +46,7 @@
                                                                     <label class="form-label" for="second_name">Segundo Nombre</label>
                                                                     <div class="form-control-wrap">
                                                                         <input type="text" name="second_name" class="form-control"
-                                                                            id="second_name" placeholder="Ejm: Allen">
+                                                                            id="second_name" placeholder="Ejm: Allen" value="{{ old('second_name') }}">
                                                                         @if ($errors->has('second_name'))
                                                                             <span class="invalid text-danger">
                                                                                 {{ $errors->first('second_name') }}
@@ -60,7 +60,7 @@
                                                                     <label class="form-label" for="lastname">Primer Apellido</label>
                                                                     <div class="form-control-wrap">
                                                                         <input type="text" name="lastname" class="form-control"
-                                                                            id="lastname" placeholder="Ejm: Walker">
+                                                                            id="lastname" placeholder="Ejm: Walker" value="{{ old('lastname') }}">
                                                                         @if ($errors->has('lastname'))
                                                                             <span class="invalid text-danger">
                                                                                 {{ $errors->first('lastname') }}
@@ -74,7 +74,7 @@
                                                                     <label class="form-label" for="second_surname">Segundo Apellido</label>
                                                                     <div class="form-control-wrap">
                                                                         <input type="text" name="second_surname" class="form-control"
-                                                                            id="second_surname" placeholder="Ejm: Terrier">
+                                                                            id="second_surname" placeholder="Ejm: Terrier" value="{{ old('second_surname') }}">
                                                                         @if ($errors->has('second_surname'))
                                                                             <span class="invalid text-danger">
                                                                                 {{ $errors->first('second_surname') }}
@@ -89,7 +89,7 @@
                                                                     <label class="form-label" for="phone-no">Teléfono</label>
                                                                     <div class="form-control-wrap">
                                                                         <input type="number" name="phone" class="form-control" id="phone-no"
-                                                                            placeholder="Ejm: 123456789">
+                                                                            placeholder="Ejm: 123456789" value="{{ old('phone') }}">
                                                                         @if ($errors->has('phone'))
                                                                             <span class="invalid text-danger">
                                                                                 {{ $errors->first('phone') }}
@@ -104,7 +104,7 @@
                                                                     <label class="form-label" for="whatsapp">Whatsapp</label>
                                                                     <div class="form-control-wrap">
                                                                         <input type="number" name="whatsapp" class="form-control" id="whatsapp"
-                                                                            placeholder="Ejm: +56123456789">
+                                                                            placeholder="Ejm: +56123456789" value="{{ old('whatsapp') }}">
                                                                         @if ($errors->has('whatsapp'))
                                                                             <span class="invalid text-danger">
                                                                                 {{ $errors->first('whatsapp') }}
@@ -122,7 +122,7 @@
                                                                             <em class="icon ni ni-calendar"></em>
                                                                         </div>
                                                                         <input type="text" name="birthdate" id="dateBirthday" class="form-control date-picker"
-                                                                            data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy">
+                                                                            data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" value="{{ old('birthdate') }}">
                                                                         @if ($errors->has('birthdate'))
                                                                             <span class="invalid text-danger">
                                                                                 {{ $errors->first('birthdate') }}
@@ -136,7 +136,7 @@
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="age">Edad</label>
                                                                     <div class="form-control-wrap">
-                                                                        <input type="number" id="age" name="age" class="form-control" id="age" readonly>
+                                                                        <input type="number" id="age" name="age" class="form-control" id="age" readonly >
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -147,9 +147,9 @@
                                                                     <div class="form-control-wrap">
                                                                         <select class="form-select" name="sex" data-placeholder="Seleccionar">
                                                                             <option value="">Seleccionar</option>
-                                                                            <option value="M">Masculino</option>
-                                                                            <option value="F">Femenino</option>
-                                                                            <option value="O">Otro</option>
+                                                                            <option value="M" @if (old('sex') == 'M') selected @endif>Masculino</option>
+                                                                            <option value="F" @if (old('sex') == 'F') selected @endif>Femenino</option>
+                                                                            <option value="O" @if (old('sex') == 'O') selected @endif>Otro</option>
                                                                         </select>
                                                                         @if ($errors->has('sex'))
                                                                             <span class="invalid text-danger">
@@ -166,10 +166,10 @@
                                                                     <div class="form-control-wrap">
                                                                         <select class="form-select" name="civil_status" data-placeholder="Seleccionar">
                                                                             <option value="">Seleccionar</option>
-                                                                            <option value="Soltero">Soltero</option>
-                                                                            <option value="Casado">Casado</option>
-                                                                            <option value="Viudo">Viudo</option>
-                                                                            <option value="Divorciado">Divorciado</option>
+                                                                            <option value="Soltero" @if (old('civil_status') == 'Soltero') selected @endif>Soltero(a)</option>
+                                                                            <option value="Casado" @if (old('civil_status') == 'Casado') selected @endif>Casado(a)</option>
+                                                                            <option value="Viudo" @if (old('civil_status') == 'Viudo') selected @endif>Viudo(a)</option>
+                                                                            <option value="Divorciado" @if (old('civil_status') == 'Divorciado') selected @endif>Divorciado(a)</option>
                                                                         </select>
                                                                         @if ($errors->has('civil_status'))
                                                                             <span class="invalid text-danger">
@@ -185,7 +185,7 @@
                                                                     <label class="form-label">Ocupación</label>
                                                                     <div class="form-control-wrap">
                                                                         <input type="text" name="occupation" class="form-control" id="Ocupacion"
-                                                                        placeholder="Ejm: Ingeniero Petroléro">
+                                                                        placeholder="Ejm: Ingeniero Petroléro" value="{{ old('occupation') }}">
                                                                         @if ($errors->has('occupation'))
                                                                             <span class="invalid text-danger">
                                                                                 {{ $errors->first('occupation') }}
@@ -203,7 +203,7 @@
                                                                             <em class="icon ni ni-calendar"></em>
                                                                         </div>
                                                                         <input type="text" name="last_visit_date" id="last_visit_date" class="form-control date-picker"
-                                                                            data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy">
+                                                                            data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" value="{{ old('last_visit_date') }}">
                                                                         @if ($errors->has('last_visit_date'))
                                                                             <span class="invalid text-danger">
                                                                                 {{ $errors->first('last_visit_date') }}

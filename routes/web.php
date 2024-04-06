@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/pacientes/{id}/guardar-examen-intraoral', [PatientController::class, 'store_examen_intraoral'])->name('patient.store-examen-intraoral');
     # Pacientes - Plan de Tratamiento
     Route::get('/pacientes/{id}/plan-de-tratamiento', [PatientController::class, 'create_treatment_plan'])->name('patient.treatment-plan');
-    Route::post('/pacientes/{id}/guardar-plan-de-tratamiento', [PatientController::class, 'store_history_dental'])->name('patient.store-treatment-plan');
+    Route::post('/pacientes/{id}/guardar-plan-de-tratamiento', [PatientController::class, 'store_treatment_plan'])->name('patient.store-treatment-plan');
     # Pacientes - Historia Dental
     Route::get('/pacientes/{id}/crear-historia-dental', [PatientController::class, 'create_history_dental'])->name('patient.history-dental');
     Route::post('/pacientes/{id}/guardar-historia-dental', [PatientController::class, 'store_history_dental'])->name('patient.store-history-dental');

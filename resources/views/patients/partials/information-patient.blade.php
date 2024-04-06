@@ -4,7 +4,7 @@
                                                                 </div><!-- .nk-block-head -->
                                                                 <div class="nk-block">
                                                                     <a href="#" class="btn btn-white btn-icon btn-outline-light" data-toggle="modal"
-                                                                        data-target="#editPersonal">
+                                                                        data-target="#modalEditPatient">
                                                                         <em class="icon ni ni-edit"></em>
                                                                     </a>
                                                                 </div>
