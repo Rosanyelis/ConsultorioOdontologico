@@ -20,9 +20,13 @@ class BillingController extends Controller
         {
             $doctorId = Auth::user()->id;
             $data = Billing::with(['patient' => function($query) use ($doctorId) {
-                $query->where('doctor_id', $doctorId->id);
-              }])->get();
-            $patients = Patient::where('doctor_id', $doctorId->id)->get();
+                                $query->where('doctor_id', $doctorId);
+                            }])
+                            ->whereHas('patient', function ($query) use ($doctorId) {
+                                $query->where('doctor_id', '=', $doctorId);
+                            })
+                            ->get();
+            $patients = Patient::where('doctor_id', $doctorId)->get();
         }else{
             $data = Billing::with('patient')->get();
             $patients = Patient::all();

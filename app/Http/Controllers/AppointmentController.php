@@ -6,27 +6,51 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
     public function appointmentJson()
     {
-        $data = appointment::with(['patient', 'doctor'])->get();
-        if ($data == null) {
-            $events[] = [];
-        }else{
-            foreach ($data as $appointment) {
-                $events[] = [
-                    'id' => $appointment->id,
-                    'title' => $appointment->title,
-                    'start' => $appointment->start,
-                    'end' => $appointment->end,
-                    'className' => 'fc-'.$appointment->event_color,
-                    'description' => $appointment->description,
-                    'patient_id' => $appointment->patient->id
-                ];
+        if(Auth::user()->rol->name == 'Doctor')
+        {
+            $doctorId = Auth::user()->doctor->id;
+            $data = appointment::where('doctor_id', $doctorId)
+                                ->get();
+            if ($data == null) {
+                $events[] = [];
+            }else{
+                foreach ($data as $appointment) {
+                    $events[] = [
+                        'id' => $appointment->id,
+                        'title' => $appointment->title,
+                        'start' => $appointment->start,
+                        'end' => $appointment->end,
+                        'className' => 'fc-'.$appointment->event_color,
+                        'description' => $appointment->description,
+                        'patient_id' => $appointment->patient->id
+                    ];
+                }
             }
-        }
+        } else{
+                $data = appointment::with(['patient', 'doctor'])->get();
+                if ($data == null) {
+                    $events[] = [];
+                }else{
+                    foreach ($data as $appointment) {
+                        $events[] = [
+                            'id' => $appointment->id,
+                            'title' => $appointment->title,
+                            'start' => $appointment->start,
+                            'end' => $appointment->end,
+                            'className' => 'fc-'.$appointment->event_color,
+                            'description' => $appointment->description,
+                            'patient_id' => $appointment->patient->id
+                        ];
+                    }
+                }
+
+            }
 
         return $events;
 

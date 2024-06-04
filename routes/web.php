@@ -61,12 +61,26 @@ Route::middleware('auth')->group(function () {
     # Pacientes - Historia Dental
     Route::get('/pacientes/{id}/crear-historia-dental', [PatientController::class, 'create_history_dental'])->name('patient.history-dental');
     Route::post('/pacientes/{id}/guardar-historia-dental', [PatientController::class, 'store_history_dental'])->name('patient.store-history-dental');
+    Route::get('/pacientes/{id}/{history_id}/ver-historia-dental', [PatientController::class, 'show_history_dental'])->name('patient.show-history-dental');
+    Route::get('/pacientes/{history_id}/historia-dental-ajax', [PatientController::class, 'showteethHistoryDentalAjax'])->name('patient.showteethHistoryDentalAjax');
     # Pacientes - Recetas o Recipes Medicos
     Route::get('/pacientes/{id}/crear-receta', [PatientController::class, 'create_recipe'])->name('patient.recipe');
     Route::post('/pacientes/{id}/guardar-receta', [PatientController::class, 'store_recipe'])->name('patient.store-recipe');
     # Pacientes - Pagos
     Route::get('/pacientes/{id}/crear-pago', [PatientController::class, 'create_pay'])->name('patient.pay');
     Route::post('/pacientes/{id}/guardar-pago', [PatientController::class, 'store_pay'])->name('patient.store-pay');
+    Route::get('/pacientes/{id}/ver-pago', [PatientController::class, 'show_pay'])->name('patient.show-pay');
+    Route::get('/pacientes/{id}/{pay_id}/abonar-pago', [PatientController::class, 'pay_invoice'])->name('patient.pay-invoice');
+    Route::post('/pacientes/{id}/{pay_id}/guardar-abonar-pago', [PatientController::class, 'store_pay_invoice'])->name('patient.store-pay-invoice');
+
+    // Route::get('/pacientes/{id}/pagos-ajax', [PatientController::class, 'payJson'])->name('patient.payJson');
+    // Route::get('/pacientes/{id}/pagos-pendientes', [PatientController::class, 'pay_pending'])->name('patient.pay_pending');
+    // Route::get('/pacientes/{id}/pagos-realizados', [PatientController::class, 'pay_done'])->name('patient.pay_done');
+    // Route::get('/pacientes/{id}/pagos-pendientes-ajax', [PatientController::class, 'pay_pendingJson'])->name('patient.pay_pendingJson');
+    // Route::get('/pacientes/{id}/pagos-realizados-ajax', [PatientController::class, 'pay_doneJson'])->name('patient.pay_doneJson');
+    // Route::get('/pacientes/{id}/pagos-pendientes-pdf', [PatientController::class, 'pay_pending_pdf'])->name('patient.pay_pending_pdf');
+    // Route::get('/pacientes/{id}/pagos-realizados-pdf', [PatientController::class, 'pay_done_pdf'])->name('patient.pay_done_pdf');
+
     # Pacientes - Firma
     Route::get('/pacientes/{id}/crear-firma', [PatientController::class, 'create_signature'])->name('patient.signature');
     Route::post('/pacientes/{id}/guardar-firma', [PatientController::class, 'store_signature'])->name('patient.store-signature');

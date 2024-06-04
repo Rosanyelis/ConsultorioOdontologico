@@ -49,6 +49,11 @@
                                                     <div class="nk-block">
                                                         <div class="row gy-4">
                                                             <div class="col-xxl-12 col-md-12">
+                                                                @if ($errors->has('teethData'))
+                                                                    <span class="invalid text-danger">
+                                                                        {{ $errors->first('teethData') }}
+                                                                    </span>
+                                                                @endif
                                                                 <div class="table-responsive">
                                                                     <table class="text-center mx-auto">
                                                                         <tr>

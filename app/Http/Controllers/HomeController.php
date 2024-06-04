@@ -18,19 +18,28 @@ class HomeController extends Controller
         {
             $doctorId = Auth::user()->id;
             $totalPatient = Patient::where('doctor_id', '=', $doctorId)->count();
-            $billingPend = Billing::with(['paciente' => function ($query) use ($doctorId) {
-                                $query->where('doctor_id', $doctorId);
+            $billingPend = Billing::with(['patient' => function ($query) use ($doctorId) {
+                                $query->where('doctor_id', '=', $doctorId);
                             }])
+                            ->whereHas('patient', function ($query) use ($doctorId) {
+                                $query->where('doctor_id', '=', $doctorId);
+                            })
                             ->where('status', 'Pendiente')
                             ->sum('total');
-            $billingCan = Billing::with(['paciente' => function ($query) use ($doctorId) {
-                                $query->where('doctor_id', $doctorId);
+            $billingCan = Billing::with(['patient' => function ($query) use ($doctorId) {
+                                $query->where('doctor_id', '=', $doctorId);
                             }])
+                            ->whereHas('patient', function ($query) use ($doctorId) {
+                                $query->where('doctor_id', '=', $doctorId);
+                            })
                             ->where('status', 'Cancelado')
                             ->sum('total');
-            $billingCom = Billing::with(['paciente' => function ($query) use ($doctorId) {
-                                $query->where('doctor_id', $doctorId);
+            $billingCom = Billing::with(['patient' => function ($query) use ($doctorId) {
+                                $query->where('doctor_id', '=', $doctorId);
                             }])
+                            ->whereHas('patient', function ($query) use ($doctorId) {
+                                $query->where('doctor_id', '=', $doctorId);
+                            })
                             ->where('status', 'Pagado')
                             ->sum('total');
         }else{

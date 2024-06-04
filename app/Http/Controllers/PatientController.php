@@ -8,6 +8,7 @@ use App\Models\Teeth;
 use App\Models\Recipe;
 use App\Models\Billing;
 use App\Models\Patient;
+use App\Models\PayInvoice;
 use Illuminate\Http\Request;
 use App\Models\DentalHistory;
 use App\Models\IntraoralExam;
@@ -16,11 +17,13 @@ use App\Models\PatientHealth;
 use App\Models\TreatmentPlan;
 use App\Imports\PatientsImport;
 use App\Models\TypeOfTreatments;
+use App\Http\Requests\StoreHistory;
 use App\Models\DentalHistoryDetails;
 use App\Models\TreatmentPlanDetails;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\StorePayInvoice;
 use App\Models\MedicationPrescription;
 use App\Models\IntraoralExaminationTeeth;
 use App\Http\Requests\PatientStoreRequest;
@@ -34,7 +37,14 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $data = Patient::all();
+        if(Auth::user()->rol->name == 'Doctor')
+        {
+            $doctorId = Auth::user()->id;
+            $data = Patient::where('doctor_id', '=', $doctorId)->get();
+        }else{
+            $data = Patient::all();
+        }
+
         return view('patients.index', compact('data'));
 
     }
@@ -207,7 +217,7 @@ class PatientController extends Controller
         return view('histories.create', compact('data', 'teeths'));
     }
 
-    public function store_history_dental(Request $request, $id)
+    public function store_history_dental(StoreHistory $request, $id)
     {
         $exam = DentalHistory::create([
             'patient_id'            => $id,
@@ -226,6 +236,19 @@ class PatientController extends Controller
         }
 
         return redirect()->route('patient.index')->with('success', 'La Historia Dental fue registrada exitósamente.');
+    }
+
+    public function show_history_dental(string $id, string $history_id)
+    {
+        $data = DentalHistory::where('patient_id', $id)->where('id', $history_id)->first();
+        return view('histories.show', compact('data'));
+    }
+
+    public function showteethHistoryDentalAjax(string $history_id)
+    {
+        $examen = DentalHistoryDetails::where('id', $history_id)->get();
+        $data = $examen;
+        return response()->json($data);
     }
 
     public function create_recipe(string $id)
@@ -264,7 +287,6 @@ class PatientController extends Controller
 
     public function store_pay(Request $request, $id)
     {
-        // dd($request);
         $exam = Billing::create([
             'patient_id'            => $id,
             'total'                 => number_format($request->total, 2, ".", ","),
@@ -284,6 +306,35 @@ class PatientController extends Controller
         }
 
         return redirect()->route('patient.index')->with('success', 'La Factura fue registrada exitósamente.');
+    }
+
+    public function pay_invoice(string $id, string $pay_id)
+    {
+        $data = Billing::where('patient_id', $id)->where('id', $pay_id)->first();
+        return view('payments.abonar', compact('data'));
+    }
+
+    public function store_pay_invoice(StorePayInvoice $request, $id, $pay_id)
+    {
+        $data = Billing::where('patient_id', $id)->where('id', $pay_id)->first();
+        if ($data->total == $request->pay_amount) {
+            $data->status = 'Pagado';
+        }
+        if ($data->total > $request->pay_amount) {
+            $data->status = 'Pendiente';
+        }
+        if ($data->total < $request->pay_amount) {
+            return redirect()->back()->with('error', 'El monto de abono es mayor al monto de la Factura, por favor verifique.');
+        }
+        $data->save();
+
+        PayInvoice::create([
+            'billing_id'            => $pay_id,
+            'pay_amount'            => $request->pay_amount,
+            'pay_method'            => $request->pay_method,
+            'pay_number_reference'  => $request->pay_number_reference,
+        ]);
+        return redirect()->route('patient.show', $id)->with('success', 'La Factura fue abonada exitosamente.');
     }
 
 

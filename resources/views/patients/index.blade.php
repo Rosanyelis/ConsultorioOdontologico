@@ -29,7 +29,6 @@
                                                     &nbsp;&nbsp;
                                                     <a href="{{ route('patient.create') }}" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
                                                     <a href="{{ route('patient.create') }}" class="btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Agregar Paciente</span></a>
-
                                                 </li>
                                             </ul>
                                         </div><!-- .nk-block-head-content -->
@@ -52,7 +51,7 @@
                                             <tbody>
                                                 @foreach ($data as $item)
                                                     <tr>
-                                                        <td>#{{ $item->id }}</td>
+                                                        <td>#{{ $loop->iteration }}</td>
                                                         <td>{{ $item->firstname }} {{ $item->lastname }}</td>
                                                         <td>{{ $item->age }}</td>
                                                         <td>{{ $item->phone }}</td>

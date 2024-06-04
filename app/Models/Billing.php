@@ -25,6 +25,10 @@ class Billing extends Model
     }
     public function invoice_details(): HasMany
     {
-        return $this->hasMany(InvoiceDetail::class, 'dental_history_id', 'id');
+        return $this->hasMany(InvoiceDetail::class, 'billing_id', 'id');
+    }
+    public function payments(): HasMany
+    {
+        return $this->hasMany(PayInvoice::class, 'billing_id', 'id');
     }
 }

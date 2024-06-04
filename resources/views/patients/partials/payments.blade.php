@@ -18,6 +18,7 @@
                                                                             <th>Tipo de Pago</th>
                                                                             <th>Nro. Cuotas</th>
                                                                             <th>Total</th>
+                                                                            <th>Abonado</th>
                                                                             <th>Estatus</th>
                                                                             <th class="text-right">Acciones</th>
                                                                         </tr>
@@ -30,6 +31,15 @@
                                                                             <td>{{ $item->payment_type }}</td>
                                                                             <td>{{ $item->number_installments }}</td>
                                                                             <td>{{ $item->total }}</td>
+                                                                            <td>
+                                                                                @php
+                                                                                    $totalPaid = 0;
+                                                                                    foreach ($item->payments as $payment) {
+                                                                                        $totalPaid += $payment->pay_amount;
+                                                                                    }
+                                                                                @endphp
+                                                                                {{ $totalPaid }}
+                                                                            </td>
                                                                             <td>
                                                                                 @if ($item->status == 'Pagado')
                                                                                 <span class="badge badge-success">{{ $item->status }}</span>
@@ -62,7 +72,7 @@
                                                                                             </li>
                                                                                             @if ($item->status == 'Pendiente')
                                                                                             <li>
-                                                                                                <a href="#">
+                                                                                                <a href="{{ route('patient.pay-invoice', ['id' => $data->id, 'pay_id' => $item->id]) }}">
                                                                                                     <em class="icon ni ni-file-plus"></em>
                                                                                                     <span>Abonar Factura</span>
                                                                                                 </a>

@@ -27,7 +27,7 @@
                                                                             <td>{{ $item->reason_consultation }}</td>
                                                                             <td>{{ \Carbon\Carbon::createFromDate($item->created_at)->format('d-m-Y') }}</td>
                                                                             <td class="text-right">
-                                                                                <a href="#">
+                                                                                <a href="{{ route('patient.show-history-dental', ['id' => $data->id, 'history_id' => $item->id ]) }}" >
                                                                                     <em class="icon ni ni-eye"></em>
                                                                                 </a>
                                                                             </td>

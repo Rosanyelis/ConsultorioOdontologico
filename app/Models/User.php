@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,9 +56,9 @@ class User extends Authenticatable
     }
 
     /** Relacion de user con doctores */
-    public function doctores(): HasMany
+    public function doctor(): HasOne
     {
-        return $this->hasMany(Doctor::class, 'user_id', 'id');
+        return $this->hasOne(Doctor::class, 'user_id', 'id');
     }
 
 }
