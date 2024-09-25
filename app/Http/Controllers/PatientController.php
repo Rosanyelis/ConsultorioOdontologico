@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Note;
 use App\Models\Teeth;
+use App\Models\Doctor;
 use App\Models\Recipe;
 use App\Models\Billing;
 use App\Models\Patient;
@@ -54,7 +55,8 @@ class PatientController extends Controller
      */
     public function create()
     {
-        return view('patients.create');
+        $doctors = Doctor::all();
+        return view('patients.create', compact('doctors'));
     }
 
     /**
@@ -62,11 +64,11 @@ class PatientController extends Controller
      */
     public function store(PatientStoreRequest $request)
     {
-        if(Auth::user()->rol->name == 'Doctor')
-        {
+        if(Auth::user()->rol->name == 'Doctor'){
             $doctorId = Auth::user()->id;
-        }else{
-            $doctorId = null;
+        }
+        if (Auth::user()->rol->name == 'Secretaria' || Auth::user()->rol->name == 'Desarrollador') {
+            $doctorId = $request->doctor_id;
         }
         $birthdate = Carbon::parse($request->birthdate);
         $lastvisit = Carbon::parse($request->last_visit_date);
@@ -194,7 +196,8 @@ class PatientController extends Controller
     public function show(string $id)
     {
         $data = Patient::find($id);
-        return view('patients.show', compact('data'));
+        $doctors = Doctor::all();
+        return view('patients.show', compact('data', 'doctors'));
     }
 
     public function showteethIntraoralAjax(string $id)
@@ -275,7 +278,13 @@ class PatientController extends Controller
             ]);
         }
 
-        return redirect()->route('patient.index')->with('success', 'La Receta fue registrada exitósamente.');
+        return redirect()->route('patient.show', $id)->with('success', 'La Receta fue registrada exitósamente.');
+    }
+
+    public function show_recipe(string $id, string $recipe_id)
+    {
+        $data = Recipe::where('patient_id', $id)->where('id', $recipe_id)->first();
+        return view('recipes.show', compact('data'));
     }
 
     public function create_pay(string $id)
@@ -328,13 +337,16 @@ class PatientController extends Controller
         }
         $data->save();
 
-        PayInvoice::create([
-            'billing_id'            => $pay_id,
-            'pay_amount'            => $request->pay_amount,
-            'pay_method'            => $request->pay_method,
-            'pay_number_reference'  => $request->pay_number_reference,
-        ]);
+        $data = $request->all();
+        $data['billing_id'] = $pay_id;
+        PayInvoice::create($data);
         return redirect()->route('patient.show', $id)->with('success', 'La Factura fue abonada exitosamente.');
+    }
+
+    public function show_pay_invoice(string $id, string $pay_id)
+    {
+        $data = Billing::where('patient_id', $id)->where('id', $pay_id)->first();
+        return view('patients.show-invoice', compact('data'));
     }
 
 
@@ -370,7 +382,7 @@ class PatientController extends Controller
         ]);
 
 
-        return redirect()->back()->with('success', 'La Nota fue registrada exitósamente.');
+        return redirect()->route('patient.show', $id)->with('success', 'La Nota fue registrada exitósamente.');
     }
     /**
      * Update the specified resource in storage.

@@ -59,17 +59,17 @@
                                                                                     <div class="dropdown-menu dropdown-menu-right">
                                                                                         <ul class="link-list-opt no-bdr">
                                                                                             <li>
-                                                                                                <a href="#">
+                                                                                                <a href="{{ route('patient.show-pay-invoice', ['id' => $data->id, 'pay_id' => $item->id]) }}">
                                                                                                     <em class="icon ni ni-eye"></em>
                                                                                                     <span>Ver Factura</span>
                                                                                                 </a>
                                                                                             </li>
-                                                                                            <li>
+                                                                                            <!-- <li>
                                                                                                 <a href="#">
                                                                                                     <em class="icon ni ni-pen-fill"></em>
                                                                                                     <span>Editar Factura</span>
                                                                                                 </a>
-                                                                                            </li>
+                                                                                            </li> -->
                                                                                             @if ($item->status == 'Pendiente')
                                                                                             <li>
                                                                                                 <a href="{{ route('patient.pay-invoice', ['id' => $data->id, 'pay_id' => $item->id]) }}">

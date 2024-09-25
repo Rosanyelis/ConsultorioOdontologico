@@ -30,6 +30,7 @@
                                                     <th>Paciente</th>
                                                     <th>Nº Factura</th>
                                                     <th>Monto</th>
+                                                    <th>Abonado</th>
                                                     <th>Estatus</th>
                                                     <th class="text-right">Acciones</th>
                                                 </tr>
@@ -41,6 +42,9 @@
                                                         {{ $item->patient->lastname }} {{ $item->patient->second_surname }}</td>
                                                     <td>#0000{{ $item->id }}</td>
                                                     <td>{{ $item->total }}</td>
+                                                    <td>
+                                                        {{ $item->payments->sum('pay_amount') }}
+                                                    </td>
                                                     <td>
                                                         @if ($item->status == 'Pagado')
                                                         <span class="badge badge-success">{{ $item->status }}</span>
@@ -60,19 +64,19 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li>
-                                                                        <a href="#">
+                                                                        <a href="{{ route('billing.show', ['id' => $item->id]) }}">
                                                                             <em class="icon ni ni-eye"></em>
                                                                             <span>Ver Factura</span>
                                                                         </a>
                                                                     </li>
                                                                     @if ($item->status == 'Pendiente')
                                                                     <li>
-                                                                        <a href="#" data-toggle="modal" data-target="#modalAbono-{{ $item->id }}">
+                                                                        <a href="{{ route('billing.pay', ['id' => $item->id]) }}">
                                                                             <em class="icon ni ni-file-plus"></em>
                                                                             <span>Abonar Factura</span>
                                                                         </a>
                                                                     </li>
-                                                                    
+
                                                                     @endif
                                                                 </ul>
                                                             </div>

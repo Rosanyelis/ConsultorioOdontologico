@@ -27,6 +27,21 @@
                                                 <div class="card-inner">
                                                     <div class="nk-block">
                                                         <div class="row gy-4">
+                                                            @if (Auth::user()->rol->name == 'Secretaria' || Auth::user()->rol->name == 'Desarrollador')
+                                                            <div class="col-xxl-3 col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="form-label" for="event-title">Doctor </label>
+                                                                    <div class="form-control-wrap">
+                                                                        <select id="doctor_id" name="doctor_id" class="form-select" data-search="on">
+                                                                            <option value="Seleccione">Seleccione..</option>
+                                                                            @foreach ($doctors as $item)
+                                                                            <option value="{{ $item->id }}">{{ $item->firstname }} {{ $item->lastname }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            @endif
                                                             <div class="col-xxl-3 col-md-4">
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="firstname">Primer Nombre</label>

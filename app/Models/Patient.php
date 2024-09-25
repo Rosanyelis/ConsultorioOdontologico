@@ -4,39 +4,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Patient extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'id',
-        'firstname',
-        'second_name',
-        'lastname',
-        'second_surname',
-        'phone',
-        'whatsapp',
-        'birthdate',
-        'age',
-        'civil_status',
-        'sex',
-        'occupation',
-        'last_visit_date',
-    ];
+    protected $guarded = [];
 
 
     /** Relaciones eloquent */
 
     /** Relacion de pacientes con citas */
+    public function appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class, 'patient_id', 'id');
+    }
     /**
      * Relacion de doctor y citas
      */
-    public function appointments(): HasMany
+    public function doctor(): BelongsTo
     {
-        return $this->hasMany(Appointment::class, 'pacient_id', 'id');
+        return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
     }
 
     /**

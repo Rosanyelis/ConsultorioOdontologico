@@ -22,7 +22,7 @@
                                 <div class="nk-block">
                                     <div class="card card-bordered">
                                         <div class="card-inner-group">
-                                            <form id="form" action="{{ route('billing.store-pay', ['id' => $data->id]) }}" method="POST">
+                                            <form id="form" action="{{ route('patient.store-pay-invoice', ['id' => $data->patient->id, 'pay_id' => $data->id]) }}" method="POST">
                                                 @csrf
 
                                                 <div class="card-inner">

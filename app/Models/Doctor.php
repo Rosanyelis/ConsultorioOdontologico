@@ -37,4 +37,12 @@ class Doctor extends Model
     {
         return $this->hasMany(Appointment::class, 'doctor_id', 'id');
     }
+
+    /**
+     * Relacion de doctor y citas
+     */
+    public function patients(): HasMany
+    {
+        return $this->hasMany(Patient::class, 'doctor_id', 'id');
+    }
 }

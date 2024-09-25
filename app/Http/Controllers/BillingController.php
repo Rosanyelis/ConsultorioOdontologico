@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Billing;
 use App\Models\Patient;
+use App\Models\PayInvoice;
 use Illuminate\Http\Request;
 use App\Models\InvoiceDetail;
 use App\Models\TypeOfTreatments;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StorePayInvoice;
 
 class BillingController extends Controller
 {
@@ -66,26 +68,38 @@ class BillingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Billing $billing)
+    public function show(string $id)
     {
-        //
+        $data = Billing::find($id);
+        return view('payments.show', compact('data'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Billing $billing)
+    public function pay(string $id)
     {
-        //
+        $data = Billing::find($id);
+        return view('payments.abonar', compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Billing $billing)
+    public function store_pay(StorePayInvoice $request, $id)
     {
-        //
+        $data = Billing::find($id);
+        if ($data->total == $request->pay_amount) {
+            $data->status = 'Pagado';
+        }
+        if ($data->total > $request->pay_amount) {
+            $data->status = 'Pendiente';
+        }
+        if ($data->total < $request->pay_amount) {
+            return redirect()->back()->with('error', 'El monto de abono es mayor al monto de la Factura, por favor verifique.');
+        }
+        $data->save();
+
+        $data = $request->all();
+        $data['billing_id'] = $id;
+        PayInvoice::create($data);
+        return redirect()->route('billing.index')->with('success', 'La Factura fue abonada exitosamente.');
     }
+
 
     /**
      * Remove the specified resource from storage.

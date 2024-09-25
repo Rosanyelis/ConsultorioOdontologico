@@ -66,12 +66,14 @@ Route::middleware('auth')->group(function () {
     # Pacientes - Recetas o Recipes Medicos
     Route::get('/pacientes/{id}/crear-receta', [PatientController::class, 'create_recipe'])->name('patient.recipe');
     Route::post('/pacientes/{id}/guardar-receta', [PatientController::class, 'store_recipe'])->name('patient.store-recipe');
+    Route::get('/pacientes/{id}/{recipe_id}/ver-receta', [PatientController::class, 'show_recipe'])->name('patient.show-recipe');
     # Pacientes - Pagos
     Route::get('/pacientes/{id}/crear-pago', [PatientController::class, 'create_pay'])->name('patient.pay');
     Route::post('/pacientes/{id}/guardar-pago', [PatientController::class, 'store_pay'])->name('patient.store-pay');
     Route::get('/pacientes/{id}/ver-pago', [PatientController::class, 'show_pay'])->name('patient.show-pay');
     Route::get('/pacientes/{id}/{pay_id}/abonar-pago', [PatientController::class, 'pay_invoice'])->name('patient.pay-invoice');
     Route::post('/pacientes/{id}/{pay_id}/guardar-abonar-pago', [PatientController::class, 'store_pay_invoice'])->name('patient.store-pay-invoice');
+    Route::get('/pacientes/{id}/{pay_id}/ver-pago', [PatientController::class, 'show_pay_invoice'])->name('patient.show-pay-invoice');
 
     // Route::get('/pacientes/{id}/pagos-ajax', [PatientController::class, 'payJson'])->name('patient.payJson');
     // Route::get('/pacientes/{id}/pagos-pendientes', [PatientController::class, 'pay_pending'])->name('patient.pay_pending');
@@ -89,6 +91,10 @@ Route::middleware('auth')->group(function () {
     # Finanzas o Pagos
     Route::get('/finanzas', [BillingController::class, 'index'])->name('billing.index');
     Route::post('/finanzas/guardar-factura', [BillingController::class, 'store'])->name('billing.store');
+    Route::get('/finanzas/{id}/ver-factura', [BillingController::class, 'show'])->name('billing.show');
+    Route::get('finanzas/{id}/abonar-factura', [BillingController::class, 'pay'])->name('billing.pay');
+    Route::post('finanzas/{id}/guardar-abonar-factura', [BillingController::class, 'store_pay'])->name('billing.store-pay');
+    // Route::get('/finanzas/{id}/descargar-factura', [BillingController::class, 'download'])->name('billing.download');
 
     # Usuarios
     Route::get('/usuarios', [UserController::class, 'index'])->name('user.index');

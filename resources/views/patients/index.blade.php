@@ -40,6 +40,9 @@
                                             <thead>
                                                 <tr>
                                                     <th width="50px">#</th>
+                                                    @if (Auth::user()->rol->name == 'Secretaria' || Auth::user()->rol->name == 'Desarrollador')
+                                                    <th>Doctor</th>
+                                                    @endif
                                                     <th>Paciente</th>
                                                     <th>Edad</th>
                                                     <th>Teléfono</th>
@@ -52,6 +55,14 @@
                                                 @foreach ($data as $item)
                                                     <tr>
                                                         <td>#{{ $loop->iteration }}</td>
+                                                        @if (Auth::user()->rol->name == 'Secretaria' || Auth::user()->rol->name == 'Desarrollador')
+                                                            @if ($item->doctor)
+                                                                <td>{{ $item->doctor->firstname }} {{ $item->doctor->lastname }}</td>
+                                                            @else
+                                                                <td>No Asignado</td>
+                                                            @endif
+                                                        @endif
+
                                                         <td>{{ $item->firstname }} {{ $item->lastname }}</td>
                                                         <td>{{ $item->age }}</td>
                                                         <td>{{ $item->phone }}</td>
