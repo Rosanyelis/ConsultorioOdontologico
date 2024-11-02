@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     protected $table = 'users';
     /**
@@ -21,10 +22,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'sucursals_id',
         'name',
         'email',
         'password',
-        'rol_id'
     ];
 
     /**
@@ -55,10 +56,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'rol_id', 'id');
     }
 
-    /** Relacion de user con doctores */
-    public function doctor(): HasOne
+
+    /** Relacion de user con notas */
+    public function notas()
     {
-        return $this->hasOne(Doctor::class, 'user_id', 'id');
+        return $this->hasMany(Nota::class, 'users_id', 'id');
     }
 
 }

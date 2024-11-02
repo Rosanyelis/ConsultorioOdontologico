@@ -25,12 +25,12 @@
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">Pacientes</h6>
+                                                                <h6 class="title">Clientes</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
                                                             <div class="data-group">
-                                                                <div class="amount">{{ $totalPatient }}</div>
+                                                                <div class="amount">{{ $clientes }}</div>
                                                                 <div class="nk-ecwg6-ck">
                                                                     <canvas class="ecommerce-line-chart-s3" id="ipdIncome"></canvas>
                                                                 </div>
@@ -46,12 +46,12 @@
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">Facturas Pendientes</h6>
+                                                                <h6 class="title">Exp. Activos</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
                                                             <div class="data-group">
-                                                                <div class="amount">${{ $billingPend }}</div>
+                                                                <div class="amount">{{ $expedientesActivos }}</div>
                                                                 <div class="nk-ecwg6-ck">
                                                                     <canvas class="ecommerce-line-chart-s3" id="opdIncome"></canvas>
                                                                 </div>
@@ -67,12 +67,12 @@
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title ">
-                                                                <h6 class="title">Facturas Canceladas</h6>
+                                                                <h6 class="title">Exp. Terminados</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
                                                             <div class="data-group">
-                                                                <div class="amount">${{ $billingCan }}</div>
+                                                                <div class="amount">{{ $expedientesTerminados }}</div>
                                                                 <div class="nk-ecwg6-ck">
                                                                     <canvas class="ecommerce-line-chart-s3" id="labIncome"></canvas>
                                                                 </div>
@@ -88,12 +88,12 @@
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">Facturas Pagadas</h6>
+                                                                <h6 class="title">Cuentas Cobrar</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
                                                             <div class="data-group">
-                                                                <div class="amount">${{ $billingCom }}</div>
+                                                                <div class="amount">{{ $cuentasCobrar }}</div>
                                                                 <div class="nk-ecwg6-ck">
                                                                     <canvas class="ecommerce-line-chart-s3" id="todayExpense"></canvas>
                                                                 </div>

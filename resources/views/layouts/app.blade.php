@@ -5,12 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Consultorio Dental') }}</title>
+        <title>{{ config('app.name', 'Ross Digital') }}</title>
 
-        <meta content="Gestión de Consultorio Odontológico" name="description" />
+        <meta content="Sistema de gestion de Bufete de abogados" name="description" />
         <meta content="Ross Digital" name="author" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{ asset('./images/favicon.png') }}">
+        <link rel="shortcut icon" href="{{ asset('') }}{{ $sucursal->favicon }}">
         <!-- StyleSheets  -->
         <link rel="stylesheet" href="{{ asset('./assets/css/dashlite.css?ver=2.9.0') }}">
         <link id="skin-default" rel="stylesheet" href="{{ asset('./assets/css/theme.css?ver=2.9.0') }}">

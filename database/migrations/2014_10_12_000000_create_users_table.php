@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('rol_id');
+            $table->foreignId('sucursals_id')->references('id')->on('sucursals')->onDelete('cascade');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -21,7 +21,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->enum('status', ['Activo', 'Inactivo'])->default('Activo');
             $table->timestamps();
-            $table->foreign('rol_id')->references('id')->on('roles');
         });
     }
 

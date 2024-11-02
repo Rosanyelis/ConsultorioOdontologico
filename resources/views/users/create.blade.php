@@ -42,15 +42,15 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="name">Rol</label>
                                                     <div class="form-control-wrap">
-                                                        <select class="form-select" name="rol_id" data-placeholder="Seleccione un rol">
+                                                        <select class="form-select" name="rol" data-placeholder="Seleccione un rol">
                                                             <option value="">Seleccione un rol</option>
                                                             @foreach ($roles as $item)
-                                                            <option value="{{ $item->id }}" @if (old('rol_id') == $item->id)  selected @endif>{{ $item->name }}</option>
+                                                            <option value="{{ $item->name }}" @if (old('rol') == $item->name)  selected @endif>{{ $item->name }}</option>
                                                             @endforeach
                                                         </select>
-                                                        @if ($errors->has('rol_id'))
+                                                        @if ($errors->has('rol'))
                                                             <span class="invalid text-danger">
-                                                                {{ $errors->first('rol_id') }}
+                                                                {{ $errors->first('rol') }}
                                                             </span>
                                                         @endif
                                                     </div>

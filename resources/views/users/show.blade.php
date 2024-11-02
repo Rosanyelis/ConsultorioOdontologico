@@ -36,7 +36,7 @@
                                             <div class="profile-ud-item">
                                                 <div class="profile-ud wider">
                                                     <span class="profile-ud-label">Rol</span>
-                                                    <span class="profile-ud-value">{{ $data->rol->name }}</span>
+                                                    <span class="profile-ud-value">{{ $data->getRoleNames()[0] }}</span>
                                                 </div>
                                             </div>
                                             <div class="profile-ud-item">
@@ -45,7 +45,7 @@
                                                     <span class="profile-ud-value">{{ $data->status }}</span>
                                                 </div>
                                             </div>
-                                                                    
+
                                         </div><!-- .profile-ud-list -->
                                     </div>
                                 </div><!-- .card-preview -->

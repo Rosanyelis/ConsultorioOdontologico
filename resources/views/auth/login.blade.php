@@ -6,7 +6,7 @@
         <meta charset="utf-8" />
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="Sistema de Gestión Odontológica y expedientes de Pacientes" name="description" />
+        <meta content="Sistema de Gestión expendientes de juzgados" name="description" />
         <meta content="Ross Digital" name="author" />
         <base href="../../../">
         <!-- Fav Icon  -->
@@ -34,10 +34,10 @@
                                 <div class="brand-logo text-center">
                                     <a href="{{ route('login') }}" class="logo-link">
                                         <img class="logo-light logo-img logo-img-lg"
-                                        src="{{ asset('./images/whitedentalcare_377x238.png') }}"
+                                        src="{{ asset('') }}{{ $sucursal->logo_login }}"
                                             alt="logo">
                                         <img class="logo-dark logo-img logo-img-lg"
-                                            src="{{ asset('./images/whitedentalcare_377x238.png') }}"
+                                            src="{{ asset('') }}{{ $sucursal->logo_login }}"
                                             alt="logo-dark">
                                     </a>
                                 </div>
@@ -61,7 +61,6 @@
                                     <div class="form-group">
                                         <div class="form-label-group">
                                             <label class="form-label" for="password">Contraseña</label>
-                                            <a class="link link-primary link-sm" tabindex="-1" href="#">Olvidaste tu Contraseña?</a>
                                         </div>
                                         <div class="form-control-wrap">
                                             <a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch lg" data-target="password">
@@ -82,10 +81,10 @@
                                 <div class="nk-block-between">
                                     <ul class="nav nav-sm">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">Ayuda</a>
+                                            <a class="nav-link" href="#"></a>
                                         </li>
                                         <li class="nav-item">
-                                            <p class="nav-link" ><script>document.write(new Date().getFullYear())</script> © Consultorio Dental.</p>
+                                            <p class="nav-link">2016 © {{ $sucursal->name }}</p>
                                         </li>
                                     </ul><!-- .nav -->
                                 </div>

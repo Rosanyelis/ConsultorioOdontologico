@@ -11,8 +11,10 @@
                                         <div class="nk-block-head-content">
                                             <ul class="nk-block-tools g-3">
                                                 <li class="nk-block-tools-opt">
+                                                    @can('user.create')
                                                     <a href="{{ route('user.create') }}" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
                                                     <a href="{{ route('user.create') }}" class="btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Agregar Usuario</span></a>
+                                                    @endcan
                                                 </li>
                                             </ul>
                                         </div><!-- .nk-block-head-content -->
@@ -35,7 +37,11 @@
                                                 <tr>
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->email }}</td>
-                                                    <td>{{ $item->rol->name }}</td>
+                                                    <td>
+                                                        @foreach ($item->getRoleNames() as $d)
+                                                        <span class="badge badge-secondary">{{ $d }}</span>
+                                                        @endforeach
+                                                    </td>
                                                     <td>
                                                         @if ($item->status == 'Activo')
                                                         <span class="badge badge-primary">Activo</span>
@@ -51,27 +57,26 @@
                                                             </a>
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
+                                                                    @can('user.show')
                                                                     <li>
                                                                         <a href="{{ route('user.show', $item->id) }}">
                                                                             <em class="icon ni ni-eye"></em>
                                                                             <span>Ver</span>
                                                                         </a>
                                                                     </li>
+                                                                    @endcan
+                                                                    @can('user.edit')
                                                                     <li>
                                                                         <a href="{{ route('user.edit', $item->id) }}">
                                                                             <em class="icon ni ni-pen-fill"></em>
                                                                             <span>Editar</span>
                                                                         </a>
                                                                     </li>
-                                                                    <li>
-                                                                        <a href="#">
-                                                                            <em class="icon ni ni-activity-round"></em>
-                                                                            <span>Actividades</span>
-                                                                        </a>
-                                                                    </li>
+                                                                    @endcan
+                                                                    @can('user.destroy')
                                                                     <li>
                                                                         @if ($item->status == 'Activo')
-                                                                        <a href="#" class="delete-record" data-id="{{ $item->id }}">
+                                                                        <a href="#" class="delete-record" data-id="{{ $item->id }}" data-status="Activo">
                                                                             <em class="icon ni ni-power"></em>
                                                                             <span>Desactivar</span>
                                                                         </a>
@@ -80,7 +85,7 @@
                                                                         </form>
                                                                         @endif
                                                                         @if ($item->status == 'Inactivo')
-                                                                        <a href="#" class="delete-record" data-id="{{ $item->id }}">
+                                                                        <a href="#" class="delete-record" data-id="{{ $item->id }}" data-status="Inactivo">
                                                                             <em class="icon ni ni-power"></em>
                                                                             <span>Activar</span>
                                                                         </a>
@@ -89,6 +94,7 @@
                                                                         </form>
                                                                         @endif
                                                                     </li>
+                                                                    @endcan
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -111,10 +117,18 @@
 
                 $('.datatable-init tbody').on('click', '.delete-record', function(){
                     let dataid = $(this).data('id');
+                    let dataStatus = $(this).data('status');
+                    if (dataStatus == 'Activo') {
+                        var text = 'Desactivar';
+                        var subtexto = 'Al intentar ingresar al sistema, se le denegará el acceso!';
+                    } else {
+                        var text = 'Activar';
+                        var subtexto = 'Al intentar ingresar al sistema, se le permitará el acceso!';
+                    }
                     let formDelete = $('#formDelete-'+dataid);
                     Swal.fire({
-                        title: '¿Está Seguro de Desactivar al Usuario?',
-                        text: "Al intentar ingresar al sistema, se le denegará el acceso!",
+                        title: '¿Está Seguro de '+text+' al Usuario?',
+                        text: ''+subtexto+'',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonText: 'Si, estoy seguro!'

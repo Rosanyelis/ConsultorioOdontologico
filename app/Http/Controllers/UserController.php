@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUser;
+use Spatie\Permission\Models\Role;
 use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::where('rol_id', '!=', '1')->get();
+        $data = User::where('name', '!=', 'Desarrolladora')->get();
         return view('users.index', compact('data'));
     }
 
@@ -33,8 +34,14 @@ class UserController extends Controller
      */
     public function store(StoreUser $request)
     {
-        $user = User::create($request->all());
-        return redirect()->back()->with('success', 'El registro se ha creado exitósamente.');
+        $data = $request->all();
+        $data['sucursals_id'] = 1;
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        $data['password'] = bcrypt($request->password);
+        $user = User::create($data);
+        $user->assignRole($request->rol);
+        return redirect()->route('user.index')->with('success', 'El registro se ha creado exitósamente.');
     }
 
     /**
@@ -64,12 +71,15 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->rol_id = $request->rol_id;
         if($request->password){
             $user->password = $request->password;
         }
+        foreach ($user->getRoleNames() as $item) {
+            $user->removeRole($item);
+        }
+        $user->assignRole($request->rol);
         $user->save();
-        return redirect()->back()->with('success', 'El registro se ha actualizado exitósamente.');
+        return redirect()->route('user.index')->with('success', 'El registro se ha actualizado exitósamente.');
     }
 
     /**
@@ -86,8 +96,9 @@ class UserController extends Controller
             $user->status = 'Inactivo';
             $user->save();
             return redirect()->back()->with('success', 'El registro se desactivó con éxito.');
-          } else {
-            $user->status = 'Inactivo';
+        }
+        if ($user->status == 'Inactivo'){
+            $user->status = 'Activo';
             $user->save();
             return redirect()->back()->with('success', 'El registro se activó con éxito.');
           }

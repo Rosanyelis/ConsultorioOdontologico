@@ -2,12 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotaController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\JuzgadoController;
+use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ExpendienteController;
+use App\Http\Controllers\CuentaCobrarController;
+use App\Http\Controllers\MedioContactoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,63 +41,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    # Citas
-    Route::get('/citasAjax', [AppointmentController::class, 'appointmentJson'])->name('appointment.appointmentJson');
-    Route::get('/citas', [AppointmentController::class, 'index'])->name('appointment.index');
-    Route::post('/citas/agendar-cita', [AppointmentController::class, 'storeAjax'])->name('appointment.store');
-    Route::post('/citas/{id}/eliminar-cita', [AppointmentController::class, 'destroy'])->name('appointment.destroy');
-
-    # Cotizaciones y Presupuesto
-    Route::get('/cotizaciones-y-presupuesto', [QuoteController::class, 'index'])->name('quote.index');
-    Route::post('/generar-presupuesto', [QuoteController::class, 'pdf'])->name('quote.pdf');
-
-    # Pacientes
-    Route::get('/pacientes', [PatientController::class, 'index'])->name('patient.index');
-    Route::get('/pacientes/agregar-paciente', [PatientController::class, 'create'])->name('patient.create');
-    Route::post('/pacientes/guardar-paciente', [PatientController::class, 'store'])->name('patient.store');
-    Route::get('/pacientes/{id}/ver-paciente', [PatientController::class, 'show'])->name('patient.show');
-    Route::get('/pacientes/{id}/examen-intraoral-ajax', [PatientController::class, 'showteethIntraoralAjax'])->name('patient.showteethIntraoralAjax');
-    Route::get('/pacientes/{id}/plan-de-tratamiento-ajax', [PatientController::class, 'showTreatmentPlanAjax'])->name('patient.showTreatmentPlanAjax');
-    Route::get('/pacientes/{id}/editar-paciente', [PatientController::class, 'edit'])->name('patient.edit');
-    Route::put('/pacientes/{id}/actualizar-paciente', [PatientController::class, 'update'])->name('patient.update');
-    Route::post('/pacientes/importar-datos-de-pacientes', [PatientController::class, 'import'])->name('patient.import');
-    # Pacientes - Examen Intraoral
-    Route::get('/pacientes/{id}/examen-intraoral', [PatientController::class, 'create_examen_intraoral'])->name('patient.examen-intraoral');
-    Route::post('/pacientes/{id}/guardar-examen-intraoral', [PatientController::class, 'store_examen_intraoral'])->name('patient.store-examen-intraoral');
-    # Pacientes - Plan de Tratamiento
-    Route::get('/pacientes/{id}/plan-de-tratamiento', [PatientController::class, 'create_treatment_plan'])->name('patient.treatment-plan');
-    Route::post('/pacientes/{id}/guardar-plan-de-tratamiento', [PatientController::class, 'store_treatment_plan'])->name('patient.store-treatment-plan');
-    # Pacientes - Historia Dental
-    Route::get('/pacientes/{id}/crear-historia-dental', [PatientController::class, 'create_history_dental'])->name('patient.history-dental');
-    Route::post('/pacientes/{id}/guardar-historia-dental', [PatientController::class, 'store_history_dental'])->name('patient.store-history-dental');
-    Route::get('/pacientes/{id}/{history_id}/ver-historia-dental', [PatientController::class, 'show_history_dental'])->name('patient.show-history-dental');
-    Route::get('/pacientes/{history_id}/historia-dental-ajax', [PatientController::class, 'showteethHistoryDentalAjax'])->name('patient.showteethHistoryDentalAjax');
-    # Pacientes - Recetas o Recipes Medicos
-    Route::get('/pacientes/{id}/crear-receta', [PatientController::class, 'create_recipe'])->name('patient.recipe');
-    Route::post('/pacientes/{id}/guardar-receta', [PatientController::class, 'store_recipe'])->name('patient.store-recipe');
-    # Pacientes - Pagos
-    Route::get('/pacientes/{id}/crear-pago', [PatientController::class, 'create_pay'])->name('patient.pay');
-    Route::post('/pacientes/{id}/guardar-pago', [PatientController::class, 'store_pay'])->name('patient.store-pay');
-    Route::get('/pacientes/{id}/ver-pago', [PatientController::class, 'show_pay'])->name('patient.show-pay');
-    Route::get('/pacientes/{id}/{pay_id}/abonar-pago', [PatientController::class, 'pay_invoice'])->name('patient.pay-invoice');
-    Route::post('/pacientes/{id}/{pay_id}/guardar-abonar-pago', [PatientController::class, 'store_pay_invoice'])->name('patient.store-pay-invoice');
-
-    // Route::get('/pacientes/{id}/pagos-ajax', [PatientController::class, 'payJson'])->name('patient.payJson');
-    // Route::get('/pacientes/{id}/pagos-pendientes', [PatientController::class, 'pay_pending'])->name('patient.pay_pending');
-    // Route::get('/pacientes/{id}/pagos-realizados', [PatientController::class, 'pay_done'])->name('patient.pay_done');
-    // Route::get('/pacientes/{id}/pagos-pendientes-ajax', [PatientController::class, 'pay_pendingJson'])->name('patient.pay_pendingJson');
-    // Route::get('/pacientes/{id}/pagos-realizados-ajax', [PatientController::class, 'pay_doneJson'])->name('patient.pay_doneJson');
-    // Route::get('/pacientes/{id}/pagos-pendientes-pdf', [PatientController::class, 'pay_pending_pdf'])->name('patient.pay_pending_pdf');
-    // Route::get('/pacientes/{id}/pagos-realizados-pdf', [PatientController::class, 'pay_done_pdf'])->name('patient.pay_done_pdf');
-
-    # Pacientes - Firma
-    Route::get('/pacientes/{id}/crear-firma', [PatientController::class, 'create_signature'])->name('patient.signature');
-    Route::post('/pacientes/{id}/guardar-firma', [PatientController::class, 'store_signature'])->name('patient.store-signature');
-    # Pacientes -  Notas
-    Route::post('/pacientes/{id}/guardar-nota', [PatientController::class, 'store_note'])->name('patient.store-note');
-    # Finanzas o Pagos
-    Route::get('/finanzas', [BillingController::class, 'index'])->name('billing.index');
-    Route::post('/finanzas/guardar-factura', [BillingController::class, 'store'])->name('billing.store');
 
     # Usuarios
     Route::get('/usuarios', [UserController::class, 'index'])->name('user.index');
@@ -98,6 +50,71 @@ Route::middleware('auth')->group(function () {
     Route::get('/usuarios/{id}/editar-usuario', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/usuarios/{id}/actualizar-usuario', [UserController::class, 'update'])->name('user.update');
     Route::post('/usuarios/{id}/cambiar-estado-de-usuario', [UserController::class, 'destroy'])->name('user.destroy');
+
+    # Juzgados
+    Route::get('/juzgados', [JuzgadoController::class, 'index'])->name('juzgado.index');
+    Route::get('/juzgados/agregar-juzgado', [JuzgadoController::class, 'create'])->name('juzgado.create');
+    Route::post('/juzgados/guardar-juzgado', [JuzgadoController::class, 'store'])->name('juzgado.store');
+    Route::get('/juzgados/{id}/editar-juzgado', [JuzgadoController::class, 'edit'])->name('juzgado.edit');
+    Route::put('/juzgados/{id}/actualizar-juzgado', [JuzgadoController::class, 'update'])->name('juzgado.update');
+    Route::post('/juzgados/{id}/eliminar-juzgado', [JuzgadoController::class, 'destroy'])->name('juzgado.destroy');
+
+    # Materias
+    Route::get('/materias', [MateriaController::class, 'index'])->name('materia.index');
+    Route::get('/materias/agregar-materia', [MateriaController::class, 'create'])->name('materia.create');
+    Route::post('/materias/guardar-materia', [MateriaController::class, 'store'])->name('materia.store');
+    Route::get('/materias/{id}/editar-materia', [MateriaController::class, 'edit'])->name('materia.edit');
+    Route::put('/materias/{id}/actualizar-materia', [MateriaController::class, 'update'])->name('materia.update');
+    Route::post('/materias/{id}/eliminar-materia', [MateriaController::class, 'destroy'])->name('materia.destroy');
+
+    # Medios de Contactos
+    Route::get('/medios-de-contactos', [MedioContactoController::class, 'index'])->name('medio-contacto.index');
+    Route::get('/medios-de-contactos/agregar-medio-de-contacto', [MedioContactoController::class, 'create'])->name('medio-contacto.create');
+    Route::post('/medios-de-contactos/guardar-medio-de-contacto', [MedioContactoController::class, 'store'])->name('medio-contacto.store');
+    Route::get('/medios-de-contactos/{id}/editar-medio-de-contacto', [MedioContactoController::class, 'edit'])->name('medio-contacto.edit');
+    Route::put('/medios-de-contactos/{id}/actualizar-medio-de-contacto', [MedioContactoController::class, 'update'])->name('medio-contacto.update');
+    Route::post('/medios-de-contactos/{id}/eliminar-medio-de-contacto', [MedioContactoController::class, 'destroy'])->name('medio-contacto.destroy');
+
+    # Clientes
+    Route::get('/clientes', [ClienteController::class, 'index'])->name('cliente.index');
+    Route::get('/clientes/agregar-cliente', [ClienteController::class, 'create'])->name('cliente.create');
+    Route::post('/clientes/guardar-cliente', [ClienteController::class, 'store'])->name('cliente.store');
+    Route::get('/clientes/{id}/ver-cliente', [ClienteController::class, 'show'])->name('cliente.show');
+    Route::get('/clientes/{id}/editar-cliente', [ClienteController::class, 'edit'])->name('cliente.edit');
+    Route::put('/clientes/{id}/actualizar-cliente', [ClienteController::class, 'update'])->name('cliente.update');
+    Route::post('/clientes/{id}/eliminar-cliente', [ClienteController::class, 'destroy'])->name('cliente.destroy');
+
+    #cuentas por cobrar
+    Route::get('/cuentas-por-cobrar', [CuentaCobrarController::class, 'index'])->name('cuenta-cobrar.index');
+    Route::get('/cuentas-por-cobrar/{id}/abonar-cuenta-por-cobrar', [CuentaCobrarController::class, 'abonar'])->name('cuenta-cobrar.abonar');
+    Route::post('/cuentas-por-cobrar/{id}/guardar-abono', [CuentaCobrarController::class, 'store'])->name('cuenta-cobrar.store');
+    Route::get('/cuentas-por-cobrar/{id}/ver-cuenta-por-cobrar', [CuentaCobrarController::class, 'show'])->name('cuenta-cobrar.show');
+
+    #Expedientes
+    Route::get('/expedientes', [ExpendienteController::class, 'index'])->name('expediente.index');
+    Route::get('/expedientes/agregar-expediente', [ExpendienteController::class, 'create'])->name('expediente.create');
+    Route::post('/expedientes/guardar-expediente', [ExpendienteController::class, 'store'])->name('expediente.store');
+    Route::get('/expedientes/{id}/ver-expediente', [ExpendienteController::class, 'show'])->name('expediente.show');
+    Route::get('/expedientes/{id}/editar-expediente', [ExpendienteController::class, 'edit'])->name('expediente.edit');
+    Route::put('/expedientes/{id}/actualizar-expediente', [ExpendienteController::class, 'update'])->name('expediente.update');
+    Route::post('/expedientes/{id}/cambiar-estado-de-expediente', [ExpendienteController::class, 'changeStatus'])->name('expediente.changestatus');
+
+    #Notas
+    Route::post('/notas/{id}/guardar-nota', [NotaController::class, 'store'])->name('nota.store');
+    Route::post('/notas/{id}/{nota}/eliminar-nota', [NotaController::class, 'destroy'])->name('nota.destroy');
+
+    #Archivos
+    Route::post('/archivos/{id}/guardar-archivo', [ArchivoController::class, 'store'])->name('file.store');
+    Route::post('/archivos/{id}/{archivo}/eliminar-archivo', [ArchivoController::class, 'destroy'])->name('file.destroy');
+
+    # Roles
+    Route::get('/roles', [RoleController::class, 'index'])->name('role.index');
+    Route::get('/roles/agregar-rol', [RoleController::class, 'create'])->name('role.create');
+    Route::post('/roles/guardar-rol', [RoleController::class, 'store'])->name('role.store');
+    Route::get('/roles/{id}/ver-rol', [RoleController::class, 'show'])->name('role.show');
+    Route::get('/roles/{id}/editar-rol', [RoleController::class, 'edit'])->name('role.edit');
+    Route::put('/roles/{id}/actualizar-rol', [RoleController::class, 'update'])->name('role.update');
+    Route::post('/roles/{id}/cambiar-estado-de-rol', [RoleController::class, 'destroy'])->name('role.destroy');
 });
 
 require __DIR__.'/auth.php';

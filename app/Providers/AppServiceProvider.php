@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Sucursal;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $sucursal = Sucursal::first();
+        view()->share('sucursal', $sucursal);
     }
 }

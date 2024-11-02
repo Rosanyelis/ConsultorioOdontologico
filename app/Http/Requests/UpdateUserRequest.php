@@ -23,7 +23,7 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'rol_id' => ['required', 'integer'],
+            'rol' => ['required'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
         ];
@@ -32,7 +32,7 @@ class UpdateUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'rol_id.required' => "El rol de usuario es obligatorio.",
+            'rol.required' => "El rol de usuario es obligatorio.",
             'name.required' => "El nombre de usuario es obligatorio.",
             'email.required' => "El correo es obligatorio.",
             'email.email' => "El email no tiene formato válido.",
