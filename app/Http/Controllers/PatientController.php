@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\File;
 use App\Models\Note;
 use App\Models\Teeth;
 use App\Models\Doctor;
@@ -17,6 +18,7 @@ use App\Models\InvoiceDetail;
 use App\Models\PatientHealth;
 use App\Models\TreatmentPlan;
 use App\Imports\PatientsImport;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\TypeOfTreatments;
 use App\Http\Requests\StoreHistory;
 use App\Models\DentalHistoryDetails;
@@ -38,14 +40,8 @@ class PatientController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->rol->name == 'Doctor')
-        {
-            $doctorId = Auth::user()->id;
-            $data = Patient::where('doctor_id', '=', $doctorId)->get();
-        }else{
-            $data = Patient::all();
-        }
 
+        $data = Patient::all();
         return view('patients.index', compact('data'));
 
     }
@@ -55,8 +51,7 @@ class PatientController extends Controller
      */
     public function create()
     {
-        $doctors = Doctor::all();
-        return view('patients.create', compact('doctors'));
+        return view('patients.create');
     }
 
     /**
@@ -64,62 +59,37 @@ class PatientController extends Controller
      */
     public function store(PatientStoreRequest $request)
     {
-        if(Auth::user()->rol->name == 'Doctor'){
-            $doctorId = Auth::user()->id;
-        }
-        if (Auth::user()->rol->name == 'Secretaria' || Auth::user()->rol->name == 'Desarrollador') {
-            $doctorId = $request->doctor_id;
-        }
         $birthdate = Carbon::parse($request->birthdate);
-        $lastvisit = Carbon::parse($request->last_visit_date);
-
         if(!$request->age){
             $age = $request->age;
         }else{
             $age = $birthdate->age;
         }
         $patient = Patient::create([
-            'doctor_id'         => $doctorId,
+            'dni'               => $request->dni,
             'firstname'         => $request->firstname,
-            'second_name'       => $request->second_name,
             'lastname'          => $request->lastname,
             'second_surname'    => $request->second_surname,
             'phone'             => $request->phone,
             'whatsapp'          => $request->whatsapp,
             'birthdate'         => $birthdate->format('Y-m-d'),
             'age'               => $age,
-            'sex'               => $request->sex,
-            'civil_status'      => $request->civil_status,
-            'occupation'        => $request->occupation,
-            'last_visit_date'   => $lastvisit->format('Y-m-d'),
         ]);
 
         PatientHealth::create([
             'patient_id'        => $patient->id,
             'has_disease'       => $request->has_disease,
             'disease'           => $request->disease,
-            'medical_treatment' => $request->medical_treatment,
-            'treatment_text'    => $request->treatment_text,
             'allergies'         => $request->allergies,
             'epilepsy'          => $request->epilepsy,
-            'anemia'            => $request->anemia,
             'hepatitis'         => $request->hepatitis,
             'hypertension'      => $request->hypertension,
-            'vih'               => $request->vih,
-            'hypotension'       => $request->hypotension,
-            'tuberculosis'      => $request->tuberculosis,
             'heart_disease'     => $request->heart_disease,
             'have_diabetes'     => $request->have_diabetes,
-            'type_diabete'      => $request->type_diabete,
             'pregnant'          => $request->pregnant,
-            'drugs'             => $request->drugs,
-            'alcohol'           => $request->alcohol,
-            'tobacco'           => $request->tobacco,
-            'asthma'            => $request->asthma,
-            'asthma_text'       => $request->asthma_text,
-            'ets'               => $request->ets,
-            'ets_text'          => $request->ets_text,
-            'harmful_habits'    => $request->harmful_habits,
+            'dental_floss'      => $request->dental_floss,
+            'tooth_pain'        => $request->tooth_pain,
+            'bad_smell_taste'   => $request->bad_smell_taste,
         ]);
 
         return redirect()->route('patient.index')->with('success', 'El registro de paciente se ha creado exitósamente.');
@@ -132,72 +102,13 @@ class PatientController extends Controller
         return view('patients.intraoral-exams', compact('data', 'teeths'));
     }
 
-    public function store_examen_intraoral(StoreExamInstraoral $request, $id)
-    {
-        $exam = IntraoralExam::create([
-            'patient_id'            => $id,
-            'cheeks'                => $request->cheeks,
-            'mucous_membranes'      => $request->mucous_membranes,
-            'gums'                  => $request->gums,
-            'language'              => $request->language,
-            'palate'                => $request->palate,
-            'torus'                 => $request->torus,
-            'aftas'                 => $request->aftas,
-            'supragingival_tartar'  => $request->supragingival_tartar,
-            'subgingival'           => $request->subgingival,
-            'plate'                 => $request->plate,
-            'crowding'              => $request->crowding,
-            'observations'          => $request->observation,
-        ]);
-
-        $data = json_decode($request->teethData);
-
-        foreach($data as $item){
-            IntraoralExaminationTeeth::create([
-                'intraoral_exams_id'    => $exam->id,
-                'teeths_id'             => $item->code_teeth,
-                'treatment'             => $item->typeTreat,
-            ]);
-        }
-
-        return redirect()->route('patient.index')->with('success', 'El Examen IntraOral fue registrado exitósamente.');
-    }
-
-    public function create_treatment_plan(string $id)
-    {
-        $data = Patient::find($id);
-        $teeths = Teeth::all();
-        return view('patients.treatment-plan', compact('data', 'teeths'));
-    }
-
-    public function store_treatment_plan(Request $request, $id)
-    {
-        $exam = TreatmentPlan::create([
-            'patient_id'            => $id,
-            'other_treatments'      => $request->other_treatments,
-        ]);
-
-        $data = json_decode($request->teethData);
-
-        foreach($data as $item){
-            TreatmentPlanDetails::create([
-                'treatment_plan_id'    => $exam->id,
-                'teeths_id'             => $item->code_teeth,
-                'treatment'             => $item->typeTreat,
-            ]);
-        }
-
-        return redirect()->route('patient.index')->with('success', 'El Plan de Tratamiento fue registrado exitósamente.');
-    }
-
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
         $data = Patient::find($id);
-        $doctors = Doctor::all();
-        return view('patients.show', compact('data', 'doctors'));
+        return view('patients.show', compact('data'));
     }
 
     public function showteethIntraoralAjax(string $id)
@@ -217,7 +128,8 @@ class PatientController extends Controller
     {
         $data = Patient::find($id);
         $teeths = Teeth::all();
-        return view('histories.create', compact('data', 'teeths'));
+        $treatments = TypeOfTreatments::all();
+        return view('histories.create', compact('data', 'teeths', 'treatments'));
     }
 
     public function store_history_dental(StoreHistory $request, $id)
@@ -287,6 +199,15 @@ class PatientController extends Controller
         return view('recipes.show', compact('data'));
     }
 
+    public function print_recipe(string $id, string $recipe_id)
+    {
+        $data = Recipe::where('patient_id', $id)->where('id', $recipe_id)->first();
+        $pdf = Pdf::loadView('recipes.recipe', compact('data'));
+        $pdf->setPaper('letter', 'portrait');
+        $pdf->setPaper([0, 0, 149, 235], 'mm');
+        return $pdf->stream();
+    }
+
     public function create_pay(string $id)
     {
         $data = Patient::find($id);
@@ -298,7 +219,7 @@ class PatientController extends Controller
     {
         $exam = Billing::create([
             'patient_id'            => $id,
-            'total'                 => number_format($request->total, 2, ".", ","),
+            'total'                 => $request->total,
             'payment_type'          => $request->payment_type,
             'status'                => $request->status,
             'number_installments'   => $request->number_installments,
@@ -349,29 +270,28 @@ class PatientController extends Controller
         return view('patients.show-invoice', compact('data'));
     }
 
-
-    public function create_signature(string $id)
+    public function store_file(Request $request, $id)
     {
-        $data = Patient::find($id);
-        return view('patients.signature', compact('data'));
-    }
+        if ($request->hasFile('archivo')) {
+            $uploadPath = public_path('/storage/files/');
+            $file = $request->file('archivo');
+            $extension = $file->getClientOriginalExtension();
+            $name = 'file-' . time();
+            $filename = $name . '.' . $extension;
+            $file->move($uploadPath, $filename);
+            $path = '/storage/files/'.$filename;
+        } else {
+            return redirect()->back()->with('error', 'No se pudo subir el archivo.');
+        }
 
-    public function store_signature(Request $request, $id)
-    {
-         // Decodificar la imagen
-        $img = $request->signature;
-        $img = str_replace('data:image/png;base64,', '', $img);
-        $img = str_replace(' ', '+', $img);
-        $data = base64_decode($img);
+        File::create([
+            'patient_id'   => $id,
+            'name'         => $name,
+            'path'         => $path,
+            'type'         => $extension,
+        ]);
 
-        $filename = $id.'-signature-' . time() . '.png';
-        file_put_contents(public_path('signatures/' . $filename), $data);
-
-        $patient = Patient::find($id);
-        $patient->url_signature = $filename;
-        $patient->save();
-
-        return redirect()->route('patient.index')->with('success', 'La Firma fue registrada exitósamente.');
+        return redirect()->back()->with('success', 'El archivo fue cargado exitósamente.');
     }
 
     public function store_note(Request $request, $id)
@@ -389,14 +309,7 @@ class PatientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(Auth::user()->rol->name == 'Doctor')
-        {
-            $doctorId = Auth::user()->id;
-        }else{
-            $doctorId = null;
-        }
         $birthdate = Carbon::parse($request->birthdate);
-        $lastvisit = Carbon::parse($request->last_visit_date);
 
         if(!$request->age){
             $age = $request->age;
@@ -404,19 +317,13 @@ class PatientController extends Controller
             $age = $birthdate->age;
         }
         $patient = Patient::find($id);
-        $patient->doctor_id         = $doctorId;
         $patient->firstname         = $request->firstname;
-        $patient->second_name       = $request->second_name;
         $patient->lastname          = $request->lastname;
         $patient->second_surname    = $request->second_surname;
         $patient->phone             = $request->phone;
         $patient->whatsapp          = $request->whatsapp;
         $patient->birthdate         = $birthdate->format('Y-m-d');
         $patient->age               = $age;
-        $patient->sex               = $request->sex;
-        $patient->civil_status      = $request->civil_status;
-        $patient->occupation        = $request->occupation;
-        $patient->last_visit_date   = $lastvisit->format('Y-m-d');
         $patient->save();
 
         return redirect()->back()->with('success', 'El Paciente fue actualizado exitósamente.');
@@ -427,5 +334,13 @@ class PatientController extends Controller
         // dd($request->importpatient);
         Excel::import(new PatientsImport, $request->importpatient);
         return redirect()->back()->with('success', 'Datos de Pacientes Importados con Éxito.');
+    }
+
+    public function print_history($id)
+    {
+        $data = Patient::find($id);
+        $pdf = Pdf::loadView('patients.historypdf', compact('data'));
+        $pdf->setPaper('letter', 'portrait');
+        return $pdf->stream();
     }
 }

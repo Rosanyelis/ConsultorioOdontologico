@@ -8,30 +8,17 @@
                                         <div class="nk-block-head-content">
                                             <h3 class="nk-block-title page-title">Cotizaciones y Presupuesto</h3>
                                         </div><!-- .nk-block-head-content -->
-                                        <!-- <div class="nk-block-head-content">
-                                            <ul class="nk-block-tools g-3">
-                                                <li class="nk-block-tools-opt">
-                                                    <a href="{{ route('user.create') }}" class="btn btn-icon btn-primary d-md-none">
-                                                        <em class="icon ni ni-plus"></em>
-                                                    </a>
-                                                    <a href="{{ route('user.create') }}" class="btn btn-primary d-none d-md-inline-flex">
-                                                        <em class="icon ni ni-plus"></em>
-                                                        <span>Agregar Usuario</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>.nk-block-head-content -->
                                     </div><!-- .nk-block-between -->
                                 </div><!-- .nk-block-head -->
                                 <div class="card card-preview">
                                     <div class="card-inner">
                                         <div class="nk-block">
-                                            <form id="formQuote" class="invoice" action="{{ route('quote.pdf') }}" method="POST">
+                                            <form id="formQuote" class="invoice" action="{{ route('quote.pdf') }}" method="POST" target="_blank">
                                                 @csrf
                                                 <input id="dataQuote" type="hidden" name="data" value="">
                                                 <div class="invoice-bills">
                                                     <div class="row gy-2">
-                                                        <div class="col-3">
+                                                        <div class="col-md-3">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="type">Tipo de Tratamiento</label>
                                                                 <div class="form-control-wrap">
@@ -44,7 +31,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-3">
+                                                        <div class="col-md-3">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="time">Tiempo</label>
                                                                 <div class="form-control-wrap">
@@ -52,7 +39,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-2">
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="qty">Cantidad</label>
                                                                 <div class="form-control-wrap">
@@ -60,7 +47,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-2">
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="price">Costo</label>
                                                                 <div class="form-control-wrap">
@@ -68,7 +55,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-2">
+                                                        <div class="col-md-2">
                                                             <button id="add" type="button" class="btn btn-icon btn-info" style="margin-top: 1.90rem;">
                                                                 <em class="icon ni ni-plus"></em>
                                                             </button>
@@ -244,8 +231,6 @@
                     datosFila.quote = dataCotizacion;
                     datosFila.total = totalQuote;
                     data.push(datosFila);
-
-                    console.log(data);
                     $('#dataQuote').val(JSON.stringify(data));
                     $('#formQuote').submit();
                 });

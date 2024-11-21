@@ -14,31 +14,18 @@ return new class extends Migration
         Schema::create('patient_healths', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id');
-            $table->enum('has_disease', ['Si', 'No']);
+            $table->enum('has_disease', ['Si', 'No']); // tiene enfermedad?
             $table->text('disease')->nullable();
-            $table->enum('medical_treatment', ['Si', 'No']);
-            $table->text('treatment_text')->nullable();
-            $table->enum('allergies', ['Si', 'No']);
-            $table->enum('epilepsy', ['Si', 'No']);
-            $table->enum('anemia', ['Si', 'No']);
-            $table->enum('hepatitis', ['Si', 'No']);
-            $table->enum('hypertension', ['Si', 'No']);
-            $table->enum('vih', ['Si', 'No']);
-            $table->enum('hypotension', ['Si', 'No']);
-            $table->enum('tuberculosis', ['Si', 'No']);
-            $table->enum('heart_disease', ['Si', 'No']);
-            $table->enum('have_diabetes', ['Si', 'No']);
-            $table->string('type_diabete')->nullable();
-            $table->enum('pregnant', ['Si', 'No']);
-            $table->enum('drugs', ['Si', 'No']);
-            $table->enum('alcohol', ['Si', 'No']);
-            $table->enum('tobacco', ['Si', 'No']);
-            $table->enum('asthma', ['Si', 'No']);
-            $table->string('asthma_text')->nullable();
-            $table->enum('ets', ['Si', 'No']);
-            $table->string('ets_text')->nullable();
-            $table->text('harmful_habits')->nullable();
-
+            $table->enum('allergies', ['Si', 'No']); // alergias
+            $table->enum('epilepsy', ['Si', 'No']); // epilepsia
+            $table->enum('hepatitis', ['Si', 'No']); // hepatitis
+            $table->enum('hypertension', ['Si', 'No']); // hipertensión
+            $table->enum('heart_disease', ['Si', 'No']); // enfermedad cardiaca
+            $table->enum('have_diabetes', ['Si', 'No']); // tiene diabetes
+            $table->enum('pregnant', ['Si', 'No']); // embarazada
+            $table->enum('dental_floss', ['Si', 'No']); // usa hilo dental
+            $table->enum('tooth_pain', ['Si', 'No']); // dolor de dientes?
+            $table->enum('bad_smell_taste', ['Si', 'No']); // mal olor o sabor
             $table->foreign('patient_id')->references('id')->on('patients');
             $table->timestamps();
         });

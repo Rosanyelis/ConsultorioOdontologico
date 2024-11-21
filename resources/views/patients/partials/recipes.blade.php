@@ -38,7 +38,7 @@
                                                                                                 </a>
                                                                                             </li>
                                                                                             <li>
-                                                                                                <a href="javascript:void(0);">
+                                                                                                <a href="{{ route('patient.print-recipe', ['id' => $data->id, 'recipe_id' => $item->id]) }}" target="_blank">
                                                                                                     <em class="icon ni ni-eye"></em>
                                                                                                     <span>Imprimir Recipe</span>
                                                                                                 </a>

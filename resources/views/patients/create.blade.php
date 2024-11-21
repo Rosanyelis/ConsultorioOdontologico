@@ -8,6 +8,9 @@
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
                                             <h3 class="nk-block-title page-title">Agregar Paciente</h3>
+                                            <div class="nk-block-des text-soft">
+                                                <p>Ingrese la DNI del paciente, para obtener su información personal del SUNAT</p>
+                                            </div>
                                         </div><!-- .nk-block-head-content -->
                                         <div class="nk-block-head-content">
                                             <ul class="nk-block-tools g-3">
@@ -20,31 +23,32 @@
                                     </div><!-- .nk-block-between -->
                                 </div><!-- .nk-block-head -->
                                 <div class="nk-block">
+
                                     <div class="card card-bordered">
                                         <div class="card-inner-group">
+
                                             <form action="{{ route('patient.store') }}" method="POST">
                                                 @csrf
                                                 <div class="card-inner">
                                                     <div class="nk-block">
                                                         <div class="row gy-4">
-                                                            @if (Auth::user()->rol->name == 'Secretaria' || Auth::user()->rol->name == 'Desarrollador')
                                                             <div class="col-xxl-3 col-md-4">
                                                                 <div class="form-group">
-                                                                    <label class="form-label" for="event-title">Doctor </label>
+                                                                    <label class="form-label" for="dni">DNI </label>
                                                                     <div class="form-control-wrap">
-                                                                        <select id="doctor_id" name="doctor_id" class="form-select" data-search="on">
-                                                                            <option value="Seleccione">Seleccione..</option>
-                                                                            @foreach ($doctors as $item)
-                                                                            <option value="{{ $item->id }}">{{ $item->firstname }} {{ $item->lastname }}</option>
-                                                                            @endforeach
-                                                                        </select>
+                                                                        <input type="text" name="dni" class="form-control"
+                                                                            id="dni" placeholder="Ejm: 46027897" value="{{ old('dni') }}">
+                                                                        @if ($errors->has('dni'))
+                                                                            <span class="invalid text-danger">
+                                                                                {{ $errors->first('dni') }}
+                                                                            </span>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            @endif
                                                             <div class="col-xxl-3 col-md-4">
                                                                 <div class="form-group">
-                                                                    <label class="form-label" for="firstname">Primer Nombre</label>
+                                                                    <label class="form-label" for="firstname">Nombres</label>
                                                                     <div class="form-control-wrap">
                                                                         <input type="text" name="firstname" class="form-control"
                                                                             id="firstname" placeholder="Ejm: Jon" value="{{ old('firstname') }}">
@@ -56,20 +60,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xxl-3 col-md-4">
-                                                                <div class="form-group">
-                                                                    <label class="form-label" for="second_name">Segundo Nombre</label>
-                                                                    <div class="form-control-wrap">
-                                                                        <input type="text" name="second_name" class="form-control"
-                                                                            id="second_name" placeholder="Ejm: Allen" value="{{ old('second_name') }}">
-                                                                        @if ($errors->has('second_name'))
-                                                                            <span class="invalid text-danger">
-                                                                                {{ $errors->first('second_name') }}
-                                                                            </span>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+
                                                             <div class="col-xxl-3 col-md-4">
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="lastname">Primer Apellido</label>
@@ -133,11 +124,8 @@
                                                                 <div class="form-group">
                                                                     <label class="form-label">Fecha de Nacimiento</label>
                                                                     <div class="form-control-wrap">
-                                                                        <div class="form-icon form-icon-right">
-                                                                            <em class="icon ni ni-calendar"></em>
-                                                                        </div>
-                                                                        <input type="text" name="birthdate" id="dateBirthday" class="form-control date-picker"
-                                                                            data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" value="{{ old('birthdate') }}">
+                                                                        <input type="date" name="birthdate" id="dateBirthday" class="form-control"
+                                                                             value="{{ old('birthdate') }}">
                                                                         @if ($errors->has('birthdate'))
                                                                             <span class="invalid text-danger">
                                                                                 {{ $errors->first('birthdate') }}
@@ -147,86 +135,15 @@
                                                                 </div>
                                                             </div>
                                                             <!--col-->
-                                                            <div class="col-xxl-1 col-md-1">
+                                                            <div class="col-xxl-1 col-md-3">
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="age">Edad</label>
                                                                     <div class="form-control-wrap">
-                                                                        <input type="number" id="age" name="age" class="form-control" id="age" readonly >
+                                                                        <input type="number" id="age" name="age" class="form-control" id="age" value="{{ old('age') }}" readonly >
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <!--col-->
-                                                            <div class="col-xxl-3 col-md-3">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Sexo</label>
-                                                                    <div class="form-control-wrap">
-                                                                        <select class="form-select" name="sex" data-placeholder="Seleccionar">
-                                                                            <option value="">Seleccionar</option>
-                                                                            <option value="M" @if (old('sex') == 'M') selected @endif>Masculino</option>
-                                                                            <option value="F" @if (old('sex') == 'F') selected @endif>Femenino</option>
-                                                                            <option value="O" @if (old('sex') == 'O') selected @endif>Otro</option>
-                                                                        </select>
-                                                                        @if ($errors->has('sex'))
-                                                                            <span class="invalid text-danger">
-                                                                                {{ $errors->first('sex') }}
-                                                                            </span>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!--col-->
-                                                            <div class="col-xxl-3 col-md-4">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Estado Civil</label>
-                                                                    <div class="form-control-wrap">
-                                                                        <select class="form-select" name="civil_status" data-placeholder="Seleccionar">
-                                                                            <option value="">Seleccionar</option>
-                                                                            <option value="Soltero" @if (old('civil_status') == 'Soltero') selected @endif>Soltero(a)</option>
-                                                                            <option value="Casado" @if (old('civil_status') == 'Casado') selected @endif>Casado(a)</option>
-                                                                            <option value="Viudo" @if (old('civil_status') == 'Viudo') selected @endif>Viudo(a)</option>
-                                                                            <option value="Divorciado" @if (old('civil_status') == 'Divorciado') selected @endif>Divorciado(a)</option>
-                                                                        </select>
-                                                                        @if ($errors->has('civil_status'))
-                                                                            <span class="invalid text-danger">
-                                                                                {{ $errors->first('civil_status') }}
-                                                                            </span>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!--col-->
-                                                            <div class="col-xxl-5 col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Ocupación</label>
-                                                                    <div class="form-control-wrap">
-                                                                        <input type="text" name="occupation" class="form-control" id="Ocupacion"
-                                                                        placeholder="Ejm: Ingeniero Petroléro" value="{{ old('occupation') }}">
-                                                                        @if ($errors->has('occupation'))
-                                                                            <span class="invalid text-danger">
-                                                                                {{ $errors->first('occupation') }}
-                                                                            </span>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!--col-->
-                                                            <div class="col-xxl-3 col-md-4">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Fecha de la última visita con algún dentista</label>
-                                                                    <div class="form-control-wrap">
-                                                                        <div class="form-icon form-icon-right">
-                                                                            <em class="icon ni ni-calendar"></em>
-                                                                        </div>
-                                                                        <input type="text" name="last_visit_date" id="last_visit_date" class="form-control date-picker"
-                                                                            data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" value="{{ old('last_visit_date') }}">
-                                                                        @if ($errors->has('last_visit_date'))
-                                                                            <span class="invalid text-danger">
-                                                                                {{ $errors->first('last_visit_date') }}
-                                                                            </span>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+
                                                         </div>
                                                         <!--row-->
                                                     </div>
@@ -282,42 +199,7 @@
                                                                                             </div>
                                                                                         </td>
                                                                                     </tr>
-                                                                                    <tr>
-                                                                                        <td>¿Está bajo tratamiento médico?<br>
-                                                                                        @if ($errors->has('medical_treatment'))
-                                                                                            <span class="invalid text-danger ff-italic">
-                                                                                                <small>{{ $errors->first('medical_treatment') }}</small>
-                                                                                            </span>
-                                                                                        @endif
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio3" name="medical_treatment"
-                                                                                                    class="custom-control-input" value="Si">
-                                                                                                <label class="custom-control-label" for="customRadio3">Si</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio4" name="medical_treatment"
-                                                                                                    class="custom-control-input" value="No">
-                                                                                                <label class="custom-control-label" for="customRadio4">No</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td colspan="3">
-                                                                                            <div class="form-control-wrap">
-                                                                                                <textarea name="treatment_text" class="form-control"
-                                                                                                    id="treatment_text" placeholder="Específique en que tipo de tratamiento médico está."></textarea>
-                                                                                                @if ($errors->has('treatment_text'))
-                                                                                                    <span class="invalid text-danger">
-                                                                                                        <small>{{ $errors->first('treatment_text') }}</small>
-                                                                                                    </span>
-                                                                                                @endif
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
+
                                                                                     <tr>
                                                                                         <td>¿Posee alérgias?<br>
                                                                                             @if ($errors->has('allergies'))
@@ -364,29 +246,7 @@
                                                                                             </div>
                                                                                         </td>
                                                                                     </tr>
-                                                                                    <tr>
-                                                                                        <td>¿Tiene anemia?<br>
-                                                                                            @if ($errors->has('anemia'))
-                                                                                                <span class="invalid text-danger ff-italic">
-                                                                                                    <small>{{ $errors->first('anemia') }}</small>
-                                                                                                </span>
-                                                                                            @endif
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio9" name="anemia"
-                                                                                                    class="custom-control-input" value="Si">
-                                                                                                <label class="custom-control-label" for="customRadio9">Si</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio10" name="anemia"
-                                                                                                    class="custom-control-input" value="No">
-                                                                                                <label class="custom-control-label" for="customRadio10">No</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
+
                                                                                     <tr>
                                                                                         <td>¿Tiene hepatitis?<br>
                                                                                             @if ($errors->has('hepatitis'))
@@ -433,77 +293,9 @@
                                                                                             </div>
                                                                                         </td>
                                                                                     </tr>
+
                                                                                     <tr>
-                                                                                        <td>¿Tiene VIH?<br>
-                                                                                            @if ($errors->has('vih'))
-                                                                                                <span class="invalid text-danger ff-italic">
-                                                                                                    <small>{{ $errors->first('vih') }}</small>
-                                                                                                </span>
-                                                                                            @endif
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio15" name="vih"
-                                                                                                    class="custom-control-input" value="Si">
-                                                                                                <label class="custom-control-label" for="customRadio15">Si</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio16" name="vih"
-                                                                                                    class="custom-control-input" value="No">
-                                                                                                <label class="custom-control-label" for="customRadio16">No</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>¿Tiene hipotension?<br>
-                                                                                            @if ($errors->has('hypotension'))
-                                                                                                <span class="invalid text-danger ff-italic">
-                                                                                                    <small>{{ $errors->first('hypotension') }}</small>
-                                                                                                </span>
-                                                                                            @endif
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio17" name="hypotension"
-                                                                                                    class="custom-control-input" value="Si">
-                                                                                                <label class="custom-control-label" for="customRadio17">Si</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio18" name="hypotension"
-                                                                                                    class="custom-control-input" value="No">
-                                                                                                <label class="custom-control-label" for="customRadio18">No</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>¿Tiene tuberculósis?<br>
-                                                                                            @if ($errors->has('tuberculosis'))
-                                                                                                <span class="invalid text-danger ff-italic">
-                                                                                                    <small>{{ $errors->first('tuberculosis') }}</small>
-                                                                                                </span>
-                                                                                            @endif
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio19" name="tuberculosis"
-                                                                                                    class="custom-control-input" value="Si">
-                                                                                                <label class="custom-control-label" for="customRadio19">Si</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio20" name="tuberculosis"
-                                                                                                    class="custom-control-input" value="No">
-                                                                                                <label class="custom-control-label" for="customRadio20">No</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>¿Tiene cardiopatías?<br>
+                                                                                        <td>¿Tiene problemas cardiácos?<br>
                                                                                             @if ($errors->has('heart_disease'))
                                                                                                 <span class="invalid text-danger ff-italic">
                                                                                                     <small>{{ $errors->first('heart_disease') }}</small>
@@ -548,19 +340,7 @@
                                                                                             </div>
                                                                                         </td>
                                                                                     </tr>
-                                                                                    <tr>
-                                                                                        <td colspan="3">
-                                                                                            <div class="form-control-wrap">
-                                                                                                <textarea name="type_diabete" class="form-control"
-                                                                                                    id="type_diabete" placeholder="Indique el tipo de Diabetes."></textarea>
-                                                                                                @if ($errors->has('type_diabete'))
-                                                                                                    <span class="invalid text-danger ff-italic">
-                                                                                                        <small>{{ $errors->first('type_diabete') }}</small>
-                                                                                                    </span>
-                                                                                                @endif
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
+
                                                                                     <tr>
                                                                                         <td>¿Está embarazada?<br>
                                                                                             @if ($errors->has('pregnant'))
@@ -585,158 +365,71 @@
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td>¿Consume drogas?<br>
-                                                                                            @if ($errors->has('drugs'))
+                                                                                        <td>¿Usa Hilo dental?<br>
+                                                                                            @if ($errors->has('dental_floss'))
                                                                                                 <span class="invalid text-danger ff-italic">
-                                                                                                    <small>{{ $errors->first('drugs') }}</small>
+                                                                                                    <small>{{ $errors->first('dental_floss') }}</small>
                                                                                                 </span>
                                                                                             @endif
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio27" name="drugs"
+                                                                                                <input type="radio" id="customRadio27" name="dental_floss"
                                                                                                     class="custom-control-input" value="Si">
                                                                                                 <label class="custom-control-label" for="customRadio27">Si</label>
                                                                                             </div>
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio28" name="drugs"
+                                                                                                <input type="radio" id="customRadio28" name="dental_floss"
                                                                                                     class="custom-control-input" value="No">
                                                                                                 <label class="custom-control-label" for="customRadio28">No</label>
                                                                                             </div>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td>¿Consume alcohol?<br>
-                                                                                            @if ($errors->has('alcohol'))
+                                                                                        <td>¿Dolor en los dientes?<br>
+                                                                                            @if ($errors->has('tooth_pain'))
                                                                                                 <span class="invalid text-danger ff-italic">
-                                                                                                    <small>{{ $errors->first('alcohol') }}</small>
+                                                                                                    <small>{{ $errors->first('tooth_pain') }}</small>
                                                                                                 </span>
                                                                                             @endif
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio29" name="alcohol"
+                                                                                                <input type="radio" id="customRadio29" name="tooth_pain"
                                                                                                     class="custom-control-input" value="Si">
                                                                                                 <label class="custom-control-label" for="customRadio29">Si</label>
                                                                                             </div>
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio30" name="alcohol"
+                                                                                                <input type="radio" id="customRadio30" name="tooth_pain"
                                                                                                     class="custom-control-input" value="No">
                                                                                                 <label class="custom-control-label" for="customRadio30">No</label>
                                                                                             </div>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td>¿Consume tabaco?<br>
-                                                                                            @if ($errors->has('tobacco'))
+                                                                                        <td>¿Mal olor o sabor?<br>
+                                                                                            @if ($errors->has('bad_smell_taste'))
                                                                                                 <span class="invalid text-danger ff-italic">
-                                                                                                    <small>{{ $errors->first('tobacco') }}</small>
+                                                                                                    <small>{{ $errors->first('bad_smell_taste') }}</small>
                                                                                                 </span>
                                                                                             @endif
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio31" name="tobacco"
+                                                                                                <input type="radio" id="customRadio31" name="bad_smell_taste"
                                                                                                     class="custom-control-input" value="Si">
                                                                                                 <label class="custom-control-label" for="customRadio31">Si</label>
                                                                                             </div>
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio32" name="tobacco"
+                                                                                                <input type="radio" id="customRadio32" name="bad_smell_taste"
                                                                                                     class="custom-control-input" value="No">
                                                                                                 <label class="custom-control-label" for="customRadio32">No</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>¿Tiene asma?<br>
-                                                                                            @if ($errors->has('asthma'))
-                                                                                                <span class="invalid text-danger ff-italic">
-                                                                                                    <small>{{ $errors->first('asthma') }}</small>
-                                                                                                </span>
-                                                                                            @endif
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio33" name="asthma"
-                                                                                                    class="custom-control-input" value="Si">
-                                                                                                <label class="custom-control-label" for="customRadio33">Si</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio34" name="asthma"
-                                                                                                    class="custom-control-input" value="No">
-                                                                                                <label class="custom-control-label" for="customRadio34">No</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td colspan="3">
-                                                                                            <label class="form-label">Última crísis de asma</label>
-                                                                                            <div class="form-control-wrap">
-                                                                                                <textarea name="asthma_text" class="form-control"
-                                                                                                    id="asthma_text" placeholder="Indique la última crísis de asma."></textarea>
-                                                                                                @if ($errors->has('asthma_text'))
-                                                                                                    <span class="invalid text-danger ff-italic">
-                                                                                                        <small>{{ $errors->first('asthma_text') }}</small>
-                                                                                                    </span>
-                                                                                                @endif
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>¿Tiene ETS?<br>
-                                                                                            @if ($errors->has('ets'))
-                                                                                                <span class="invalid text-danger ff-italic">
-                                                                                                    <small>{{ $errors->first('ets') }}</small>
-                                                                                                </span>
-                                                                                            @endif
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio35" name="ets"
-                                                                                                    class="custom-control-input" value="Si">
-                                                                                                <label class="custom-control-label" for="customRadio35">Si</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" id="customRadio36" name="ets"
-                                                                                                    class="custom-control-input" value="No">
-                                                                                                <label class="custom-control-label" for="customRadio36">No</label>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td colspan="3">
-                                                                                            <div class="form-control-wrap">
-                                                                                                <textarea name="ets_text" class="form-control"
-                                                                                                    id="ets_text" placeholder="Indíque las ETS, si posee."></textarea>
-                                                                                                @if ($errors->has('ets_text'))
-                                                                                                    <span class="invalid text-danger ff-italic">
-                                                                                                        <small>{{ $errors->first('ets_text') }}</small>
-                                                                                                    </span>
-                                                                                                @endif
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td colspan="3">
-                                                                                            <label class="form-label">Hábitos pernicioso</label>
-                                                                                            <div class="form-control-wrap">
-                                                                                                <textarea name="harmful_habits" class="form-control"
-                                                                                                    id="harmful_habits" placeholder="Indique"></textarea>
-                                                                                                @if ($errors->has('harmful_habits'))
-                                                                                                    <span class="invalid text-danger ff-italic">
-                                                                                                        <small>{{ $errors->first('harmful_habits') }}</small>
-                                                                                                    </span>
-                                                                                                @endif
                                                                                             </div>
                                                                                         </td>
                                                                                     </tr>
@@ -766,21 +459,5 @@
                         <!-- end page title -->
 @endsection
 @section('scripts')
-        <script>
-            $(document).ready(function() {
-                $('#dateBirthday').on('change', function(){
-                    let dateBirthday = $('#dateBirthday').val();
-                    // Extraer el año usando la función getFullYear()
-                    let year = new Date(dateBirthday).getFullYear();
-                    // Obtener la fecha actual
-                    let fechaActual = new Date();
-                    // Obtener el año actual
-                    let anioActual = fechaActual.getFullYear();
-                    // edad
-                    let edad = anioActual - year;
-                    // añadir edad en input
-                    $('#age').val(edad);
-                });
-            });
-        </script>
+        <script src="{{ asset('pagejs/patients.js') }}"></script>
 @endsection

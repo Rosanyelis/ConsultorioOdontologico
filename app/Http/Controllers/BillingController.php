@@ -18,21 +18,9 @@ class BillingController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->rol->name == 'Doctor')
-        {
-            $doctorId = Auth::user()->id;
-            $data = Billing::with(['patient' => function($query) use ($doctorId) {
-                                $query->where('doctor_id', $doctorId);
-                            }])
-                            ->whereHas('patient', function ($query) use ($doctorId) {
-                                $query->where('doctor_id', '=', $doctorId);
-                            })
-                            ->get();
-            $patients = Patient::where('doctor_id', $doctorId)->get();
-        }else{
-            $data = Billing::with('patient')->get();
-            $patients = Patient::all();
-        }
+
+        $data = Billing::with('patient')->get();
+        $patients = Patient::all();
         $type = TypeOfTreatments::all();
         return view('payments.index', compact('data', 'patients', 'type'));
     }
@@ -46,7 +34,7 @@ class BillingController extends Controller
         // dd($request);
         $exam = Billing::create([
             'patient_id'            => $request->patient_id,
-            'total'                 => number_format($request->total, 2, ".", ","),
+            'total'                 => $request->total,
             'payment_type'          => $request->payment_type,
             'status'                => $request->status,
             'number_installments'   => $request->number_installments,

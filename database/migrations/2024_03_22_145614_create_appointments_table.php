@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id')->nullable();
-            $table->unsignedBigInteger('doctor_id');
             $table->string('title');
             $table->string('start');
             $table->string('end');
@@ -22,7 +21,6 @@ return new class extends Migration
             $table->text('description');
 
             $table->foreign('patient_id')->references('id')->on('patients');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
             $table->timestamps();
         });
     }

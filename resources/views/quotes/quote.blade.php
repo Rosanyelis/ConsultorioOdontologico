@@ -19,10 +19,10 @@
 
         }
         .watermark{
-            background-image: url("{{ public_path('images/whitedentalcare_377x238.png') }}");
+            background-image: url("{{ public_path($setting->url_logo) }}");
             background-repeat: no-repeat;
             background-position: center;
-            opacity: 0.3;
+            opacity: 0.1;
         }
         h1, h2, h3, h4, h5, h6 {
             margin-top: 0;
@@ -45,11 +45,11 @@
             vertical-align: bottom;
         }
         .table-bordered {
-            border: 1px solid #000;
+            border: 1px solid #0194d0;
         }
         .table-bordered th,
         .table-bordered td {
-            border: 1px solid #000;
+            border: 1px solid #0194d0;
         }
         .text-center{
             text-align: center !important;
@@ -73,7 +73,7 @@
     <table class="table">
         <tr class="p-0">
             <td class="text-center">
-                <img width="150"  src="{{ asset('images/whitedentalcare_377x238.png') }}" alt="">
+                <img width="150"  src="{{ asset($setting->url_logo) }}" alt="">
             </td>
             <td class="text-center" style="vertical-align: middle !important;">
                 <h2>PRESUPUESTO ODONTOLÓGICO</h2>
@@ -83,22 +83,22 @@
 
     <table class="table" style="margin-top: 2rem">
         <tr>
-            <th colspan="2" class="text-left p-0">PACIENTE:  {{ $patient['name'] }}</th>
+            <td colspan="2" class="text-left p-0"><strong>PACIENTE:</strong> {{ $patient['name'] }}</td>
         </tr>
         <tr class="p-0">
-            <th colspan="2" class="text-left p-0">DIRECCIÓN: {{ $patient['address'] }}</th>
+            <td colspan="2" class="text-left p-0"><strong>DIRECCIÓN:</strong> {{ $patient['address'] }}</td>
         </tr>
         <tr class="p-0">
-            <th class="text-left p-0">TELÉFONO: {{ $patient['phone'] }}</th>
-            <th class="text-left p-0">MCD: {{ $patient['mcd'] }}</th>
+            <td class="text-left p-0"><strong>TELÉFONO:</strong> {{ $patient['phone'] }}</td>
+            <td class="text-left p-0"><strong>MCD:</strong> {{ $patient['mcd'] }}</td>
         </tr>
         <tr class="p-0">
-            <th class="text-left p-0">FECHA: {{ $patient['date'] }}</th>
-            <th class="text-left p-0">VÁLIDO HASTA: {{ $patient['datevalid'] }}</th>
+            <td class="text-left p-0"><strong>FECHA:</strong> {{ $patient['date'] }}</td>
+            <td class="text-left p-0"><strong>VÁLIDO HASTA:</strong> {{ $patient['datevalid'] }}</td>
         </tr>
     </table>
 
-    <table class="table table-bordered" style="margin-top: 3rem">
+    <table class="table table-bordered" style="margin-top: 3rem;">
         <thead>
             <th>DESCRIPCIÓN DE TRATAMIENTO</th>
             <th>TIEMPO</th>
@@ -109,7 +109,7 @@
             @foreach ($quote->quote as $key)
             <tr>
                 <td>{{ $key->type }}</td>
-                <td class="text-center">{{ $key->time }}</td> 
+                <td class="text-center">{{ $key->time }}</td>
                 <td class="text-center">{{ $key->qty }}</td>
                 <td class="text-center">{{ $key->price }}</td>
             </tr>
@@ -126,16 +126,16 @@
     <table class="table" style="margin-top: 6rem">
         <tr>
             <th class="text-center">________________________________<br> FIRMA DEL PACIENTE</th>
-            <th class="text-center">________________________________<br> FIRMA DEL DR.</th>
+            <th class="text-center">________________________________<br> FIRMA DEL DR(a).</th>
         </tr>
     </table>
 
     <table class="table" style="margin-top: 3rem">
         <tr>
             <th class="text-center lh-n">
-                <h3><strong>WHITE DENTAL CARE</strong></h3>
-                <h4>GUTIERREZ 2807 SECTOR CENTRO</h4>
-                <h4>NUEVO LAREDO, TAMPS</h4>
+                <h3><strong>{{ $setting->name }}</strong></h3>
+                <h4>{{ $setting->address }}</h4>
+                <h4>{{ $setting->phone }}</h4>
             </th>
         </tr>
     </table>

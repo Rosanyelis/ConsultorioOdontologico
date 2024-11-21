@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="js">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="js" base-path="{{ asset('') }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,15 +31,15 @@
 
                 <!-- main header @e -->
                     <!-- content @s -->
-                    <div class="nk-content ">
+                    <div class="nk-content " style="background-image: url({{ asset('./images/bg-dashboard.jpeg') }});
+                        background-size: cover;
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                        background-attachment: fixed;
+                        width: 100%;
+                        height: calc(100vh - 60px);">
                         <div class="container-fluid">
-
                             @yield('content')
-                            <!--<div class="nk-content-inner">
-                                <div class="nk-content-body">
-                                    <p>Starter page for Demo7 layout.</p>
-                                </div>
-                            </div>-->
                         </div>
                     </div>
                     <!-- content @e -->
@@ -58,34 +58,6 @@
                 'use strict';
 
                 @include('layouts.alerts')
-
-                function mostrarFechaHoraActual() {
-                    // Obtener la fecha y hora actual
-                    const fechaActual = new Date();
-
-                    // Obtener las horas, minutos y segundos
-                    const horas = fechaActual.getHours();
-                    const minutos = fechaActual.getMinutes();
-                    const segundos = fechaActual.getSeconds();
-
-                    // Obtener el meridiano (AM/PM)
-                    const meridiano = horas >= 12 ? "PM" : "AM";
-
-                    // Formatear la hora con dos dígitos
-                    const horaFormateada = `${horas.toString().padStart(2, "0")}:${minutos.toString().padStart(2, "0")}:${segundos.toString().padStart(2, "0")} ${meridiano}`;
-
-                    // Formatear la fecha
-                    const fechaFormateada = `${fechaActual.getDate().toString().padStart(2, "0")} / ${(fechaActual.getMonth() + 1).toString().padStart(2, "0")} / ${fechaActual.getFullYear()}`;
-
-                    // Actualizar el contenido de un elemento HTML con la fecha y hora formateada
-                    document.getElementById("DateToday").textContent = `${fechaFormateada} - ${horaFormateada}`;
-
-                    // Repetir la función cada segundo para actualizar la fecha y hora en tiempo real
-                    setTimeout(mostrarFechaHoraActual, 1000);
-                }
-
-                    // Iniciar la función para mostrar la fecha y hora actual
-                    mostrarFechaHoraActual();
 
             })(NioApp, jQuery);
         </script>

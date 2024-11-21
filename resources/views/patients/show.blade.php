@@ -81,6 +81,7 @@
                             </div>
                         </div>
                         @include('patients.partials.modal-add-note')
+                        @include('patients.partials.modal-add-file')
                         @include('patients.partials.modal-edit-patient')
 @endsection
 @section('scripts')
@@ -98,61 +99,5 @@
             // añadir edad en input
             $('#age').val(edad);
         });
-        var url1 = "{{ route('patient.showteethIntraoralAjax', $data->id) }}";
-        var url2 = "{{ route('patient.showTreatmentPlanAjax', $data->id) }}";
-        var url_base = "{{ asset('') }}";
-        const url_obturacion = url_base + 'images/diente/obturacion.png';
-        const url_endodoncia = url_base + 'images/diente/endodoncia.png';
-        const url_exodoncia = url_base + 'images/diente/exodoncia.png';
-        const url_protesis_corona = url_base + 'images/diente/protesis_corona.png';
-
-        $.get(url1, function(data, status){
-            $.each(data, function(index, value){
-                // console.log(index,value);
-                let IDteeth = '#teeth'+value['teeths_id'];
-                let url_img;
-                if (value['treatment'] == 'Obturación'){
-                    url_img = url_obturacion;
-                    $(IDteeth).prop('src', url_img);
-                }
-                if (value['treatment'] == 'Exodoncia'){
-                    url_img = url_exodoncia;
-                    $(IDteeth).prop('src', url_img);
-                }
-                if (value['treatment'] == 'Endodoncia'){
-                    url_img = url_endodoncia;
-                    $(IDteeth).prop('src', url_img);
-                }
-                if (value['treatment'] == 'Protesis/Corona'){
-                    url_img = url_protesis_corona;
-                    $(IDteeth).prop('src', url_img);
-                }
-            })
-        });
-
-        $.get(url2, function(data, status){
-            $.each(data, function(index, value){
-                // console.log(index,value);
-                let IDteeth = '#teeth_'+value['teeths_id'];
-                let url_img;
-                if (value['treatment'] == 'Obturación'){
-                    url_img = url_obturacion;
-                    $(IDteeth).prop('src', url_img);
-                }
-                if (value['treatment'] == 'Exodoncia'){
-                    url_img = url_exodoncia;
-                    $(IDteeth).prop('src', url_img);
-                }
-                if (value['treatment'] == 'Endodoncia'){
-                    url_img = url_endodoncia;
-                    $(IDteeth).prop('src', url_img);
-                }
-                if (value['treatment'] == 'Protesis/Corona'){
-                    url_img = url_protesis_corona;
-                    $(IDteeth).prop('src', url_img);
-                }
-            })
-        });
-
     </script>
 @endsection

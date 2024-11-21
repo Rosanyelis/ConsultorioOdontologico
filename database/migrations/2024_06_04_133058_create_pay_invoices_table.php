@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('pay_method');
             $table->string('pay_number_reference')->nullable();
             $table->foreign('billing_id')->references('id')->on('billings')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

@@ -27,18 +27,12 @@
                                                     <div class="row justify-content-between ">
                                                         <div class="col-xxl-4 col-xl-4 col-md-4">
                                                             <div class="form-group">
-                                                                <label class="form-label" for="total">Paciente :</label> {{ $data->patient->firstname }} {{ $data->patient->second_name }} {{ $data->patient->lastname }} {{ $data->patient->second_surname }}
+                                                                <label class="form-label" for="total">Paciente :</label> {{ $data->patient->firstname }} {{ $data->patient->lastname }} {{ $data->patient->second_surname }}
                                                             </div>
                                                         </div>
                                                         <div class="col-xxl-4 col-xl-4 col-md-4">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="total">Fecha de Emisión:</label> {{ $data->created_at }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="w-100"></div>
-                                                        <div class="col-xxl-4 col-xl-4 col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="total">Doctor:</label> {{ $data->patient->doctor->firstname }} {{ $data->patient->doctor->lastname }}
                                                             </div>
                                                         </div>
                                                         <div class="w-100"></div>

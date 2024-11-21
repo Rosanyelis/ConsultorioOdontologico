@@ -40,14 +40,11 @@
                                             <thead>
                                                 <tr>
                                                     <th width="50px">#</th>
-                                                    @if (Auth::user()->rol->name == 'Secretaria' || Auth::user()->rol->name == 'Desarrollador')
-                                                    <th>Doctor</th>
-                                                    @endif
+                                                    <th>DNI</th>
                                                     <th>Paciente</th>
                                                     <th>Edad</th>
                                                     <th>Teléfono</th>
                                                     <th>Whatsapp</th>
-                                                    <th>Última Visita</th>
                                                     <th class="text-right">Acciones</th>
                                                 </tr>
                                             </thead>
@@ -55,19 +52,11 @@
                                                 @foreach ($data as $item)
                                                     <tr>
                                                         <td>#{{ $loop->iteration }}</td>
-                                                        @if (Auth::user()->rol->name == 'Secretaria' || Auth::user()->rol->name == 'Desarrollador')
-                                                            @if ($item->doctor)
-                                                                <td>{{ $item->doctor->firstname }} {{ $item->doctor->lastname }}</td>
-                                                            @else
-                                                                <td>No Asignado</td>
-                                                            @endif
-                                                        @endif
-
-                                                        <td>{{ $item->firstname }} {{ $item->lastname }}</td>
+                                                        <td>{{ $item->dni }}</td>
+                                                        <td>{{ $item->firstname }} {{ $item->lastname }} {{ $item->second_surname }}</td>
                                                         <td>{{ $item->age }}</td>
                                                         <td>{{ $item->phone }}</td>
                                                         <td>{{ $item->whatsapp }}</td>
-                                                        <td>{{ $item->last_visit_date }}</td>
                                                         <td class="text-right">
                                                             <div class="dropdown float-right">
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger pt-0 pb-0" data-toggle="dropdown">
@@ -81,30 +70,12 @@
                                                                                 <span>Ver</span>
                                                                             </a>
                                                                         </li>
-                                                                        @if (!$item->intraoral_exam)
                                                                         <li>
-                                                                            <a href="{{ route('patient.examen-intraoral', $item->id) }}">
-                                                                                <em class="icon ni ni-note-add"></em>
-                                                                                <span>Realizar Examen IntraOral</span>
+                                                                            <a href="{{ route('patient.print_history', $item->id) }}" target="_blank">
+                                                                                <em class="icon ni ni-file-pdf"></em>
+                                                                                <span>Historial Medico</span>
                                                                             </a>
                                                                         </li>
-                                                                        @endif
-                                                                        @if (!$item->treatment_plan)
-                                                                        <li>
-                                                                            <a href="{{ route('patient.treatment-plan', $item->id) }}">
-                                                                                <em class="icon ni ni-note-add"></em>
-                                                                                <span>Realizar Plan de Tratamiento</span>
-                                                                            </a>
-                                                                        </li>
-                                                                        @endif
-                                                                        @if ($item->url_signature == '')
-                                                                        <li>
-                                                                            <a href="{{ route('patient.signature', $item->id) }}">
-                                                                                <em class="icon ni ni-edit-alt-fill"></em>
-                                                                                <span>Agregar Firma</span>
-                                                                            </a>
-                                                                        </li>
-                                                                        @endif
                                                                     </ul>
                                                                 </div>
                                                             </div>

@@ -17,7 +17,7 @@
                                                         <select id="patient_id" name="patient_id" class="form-select" data-search="on">
                                                             <option value="Seleccione">Seleccione..</option>
                                                             @foreach ($patients as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->firstname }} {{ $item->second_name }} {{ $item->lastname }} {{ $item->second_surname }}</option>
+                                                            <option value="{{ $item->id }}">{{ $item->dni }} - {{ $item->firstname }} {{ $item->lastname }} {{ $item->second_surname }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>

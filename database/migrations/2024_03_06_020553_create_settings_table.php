@@ -16,6 +16,17 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('url_logo')->nullable();
             $table->text('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('email')->nullable();
+            $table->boolean('mantenance')->default(false);
+            $table->boolean('active')->default(true);
+            $table->string('type_plan')->nullable(); // anual o mensual
+            $table->float('price_plan')->nullable();
+            $table->string('currency_plan')->nullable();
+            $table->string('symbol_plan')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('expiration_date')->nullable();
             $table->timestamps();
         });
     }

@@ -12,47 +12,35 @@ class SettingController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Setting $setting)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Setting $setting)
-    {
-        //
+        $data = Setting::first();
+        return view('settings.index', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Setting $setting)
+    public function update(Request $request, $id)
     {
-        //
+        $data = Setting::find($id);
+        $path = '';
+        if ($request->hasFile('archivo')) {
+            $uploadPath = public_path('/storage/settings/');
+            $file = $request->file('archivo');
+            $extension = $file->getClientOriginalExtension();
+            $name = 'file-' . time();
+            $filename = $name . '.' . $extension;
+            $file->move($uploadPath, $filename);
+            $path = '/storage/settings/'.$filename;
+        }
+
+        $data->name = $request->name;
+        $data->url_logo = $path;
+        $data->address = $request->address;
+        $data->phone = $request->phone;
+        $data->whatsapp = $request->whatsapp;
+        $data->email = $request->email;
+        $data->save();
+        return redirect()->route('settings.index')->with('success', 'Configuración actualizada');
     }
 
     /**

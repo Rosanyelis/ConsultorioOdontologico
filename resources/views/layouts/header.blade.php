@@ -6,13 +6,11 @@
                             </div>
                             <div class="nk-header-brand d-xl-none">
                                 <a href="{{ route('dashboard') }}" class="logo-link">
-                                    <img class="logo-light logo-img" src="{{ asset('images/textologo.png') }}" alt="logo">
-                                    <img class="logo-dark logo-img" src="{{ asset('images/textologo.png') }}" alt="logo-dark">
+                                    <img class="logo-light logo-img" src="{{ asset('./images/textologo.png') }}" alt="logo">
+                                    <img class="logo-dark logo-img" src="{{ asset('./images/textologo.png') }}" alt="logo-dark">
                                 </a>
                             </div><!-- .nk-header-brand -->
-                            <div class="nk-header-search ml-3 ml-xl-0">
-                                <h4><span id="DateToday"></span></h4>
-                            </div><!-- .nk-header-news -->
+
                             <div class="nk-header-tools">
                                 <ul class="nk-quick-nav">
 
@@ -36,14 +34,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="dropdown-inner">
-                                                <ul class="link-list">
-                                                    <li><a href="html/hospital/user-profile.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
-                                                    <li><a href="html/hospital/settings.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
-                                                    <li><a href="html/hospital/settings-account-log.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
-                                                    <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
-                                                </ul>
-                                            </div>
+
                                             <div class="dropdown-inner">
                                                 <ul class="link-list">
                                                     <li>

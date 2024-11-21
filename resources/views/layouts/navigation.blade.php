@@ -1,11 +1,8 @@
             <div class="nk-sidebar-main is-light">
                 <div class="nk-sidebar-inner" data-simplebar>
                     <div class="nk-menu-content menu-active" data-content="navHospital">
-                        <h5 class="title">
-                            <img width="40" src="{{ url('./images/logo-white-icono.png') }}" alt="" srcset="">
-                            White Dental Care
-                        </h5>
-                        <ul class="nk-menu">
+                        <img width="100" style="display: block; margin: 0 auto;" src="{{ url($setting->url_logo) }}" alt="{{ $setting->name }}">
+                        <ul class="nk-menu mt-3">
                             <li class="nk-menu-item">
                                 <a href="{{ route('dashboard') }}" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
@@ -49,12 +46,7 @@
                                         </a>
                                     </li>
                                     <li class="nk-menu-item">
-                                        <a href="html/hospital/bed-allotment.html" class="nk-menu-link">
-                                            <span class="nk-menu-text">Doctores</span>
-                                        </a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/hospital/department.html" class="nk-menu-link">
+                                        <a href="{{ route('settings.index') }}" class="nk-menu-link">
                                             <span class="nk-menu-text">Sistema</span>
                                         </a>
                                     </li>

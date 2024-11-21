@@ -27,7 +27,7 @@
                                                 <input id="teethData" type="hidden" name="teethData" value="">
                                                 <div class="card-inner">
                                                     <div class="nk-block">
-                                                        <div class="row gy-4 pb-4">
+                                                        <div class="row gy-4 ">
                                                             <div class="col-xxl-4 col-xl-4 col-md-4">
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="reason_consultation">Motivo de tratamiento</label>
@@ -48,7 +48,7 @@
                                                 <div class="card-inner">
                                                     <div class="nk-block">
                                                         <div class="row gy-4">
-                                                            <div class="col-xxl-12 col-md-12">
+                                                            <div class="col-xxl-8 col-md-8">
                                                                 @if ($errors->has('teethData'))
                                                                     <span class="invalid text-danger">
                                                                         {{ $errors->first('teethData') }}
@@ -56,7 +56,7 @@
                                                                 @endif
                                                                 <div class="table-responsive">
                                                                     <table class="text-center mx-auto">
-                                                                        <tr>
+                                                                        <tr class="text-center border">
                                                                             <td>18</td>
                                                                             <td>17</td>
                                                                             <td>16</td>
@@ -78,172 +78,170 @@
                                                                         <tr>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(18, 'teeth18')">
-                                                                                    <img id="teeth18" width="40" src="">
+                                                                                    <img id="teeth18"  src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(17, 'teeth17')">
-                                                                                    <img id="teeth17" width="40" src="">
+                                                                                    <img id="teeth17" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(16, 'teeth16')">
-                                                                                    <img id="teeth16" width="40" src="">
+                                                                                    <img id="teeth16" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(15, 'teeth15')">
-                                                                                    <img id="teeth15" width="40" src="">
+                                                                                    <img id="teeth15" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(14, 'teeth14')">
-                                                                                    <img id="teeth14" width="40" src="">
+                                                                                    <img id="teeth14" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(13, 'teeth13')">
-                                                                                    <img id="teeth13" width="40" src="">
+                                                                                    <img id="teeth13" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(12, 'teeth12')">
-                                                                                    <img id="teeth12" width="40" src="">
+                                                                                    <img id="teeth12" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(11, 'teeth11')">
-                                                                                    <img id="teeth11" width="40" src="">
+                                                                                    <img id="teeth11" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(21, 'teeth21')">
-                                                                                    <img id="teeth21" width="40" src="">
+                                                                                    <img id="teeth21" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(22, 'teeth22')">
-                                                                                    <img id="teeth22" width="40" src="">
+                                                                                    <img id="teeth22" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(23, 'teeth23')">
-                                                                                    <img id="teeth23" width="40" src="">
+                                                                                    <img id="teeth23" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(24, 'teeth24')">
-                                                                                    <img id="teeth24" width="40" src="">
+                                                                                    <img id="teeth24" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(25, 'teeth25')">
-                                                                                    <img id="teeth25" width="40" src="">
+                                                                                    <img id="teeth25" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(26, 'teeth26')">
-                                                                                    <img id="teeth26" width="40" src="">
+                                                                                    <img id="teeth26" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(27, 'teeth27')">
-                                                                                    <img id="teeth27" width="40" src="">
+                                                                                    <img id="teeth27" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(28, 'teeth28')">
-                                                                                    <img id="teeth28" width="40" src="">
+                                                                                    <img id="teeth28" src="">
                                                                                 </button>
                                                                             </td>
                                                                         </tr>
-
-
                                                                         <tr>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(48, 'teeth48')">
-                                                                                    <img id="teeth48" width="40" src="">
+                                                                                    <img id="teeth48" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(47, 'teeth47')">
-                                                                                    <img id="teeth47" width="40" src="">
+                                                                                    <img id="teeth47" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(46, 'teeth46')">
-                                                                                    <img id="teeth46" width="40" src="">
+                                                                                    <img id="teeth46" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(45, 'teeth45')">
-                                                                                    <img id="teeth45" width="40" src="">
+                                                                                    <img id="teeth45" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(44, 'teeth44')">
-                                                                                    <img id="teeth44" width="40" src="">
+                                                                                    <img id="teeth44" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(43, 'teeth43')">
-                                                                                    <img id="teeth43" width="40" src="">
+                                                                                    <img id="teeth43" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(42, 'teeth42')">
-                                                                                    <img id="teeth42" width="40" src="">
+                                                                                    <img id="teeth42" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(41, 'teeth41')">
-                                                                                    <img id="teeth41" width="40" src="">
+                                                                                    <img id="teeth41" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(31, 'teeth31')">
-                                                                                    <img id="teeth31" width="40" src="">
+                                                                                    <img id="teeth31" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(32, 'teeth32')">
-                                                                                    <img id="teeth32" width="40" src="">
+                                                                                    <img id="teeth32" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(33, 'teeth33')">
-                                                                                    <img id="teeth33" width="40" src="">
+                                                                                    <img id="teeth33" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(34, 'teeth34')">
-                                                                                    <img id="teeth34" width="40" src="">
+                                                                                    <img id="teeth34" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(35, 'teeth35')">
-                                                                                    <img id="teeth35" width="40" src="">
+                                                                                    <img id="teeth35" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(36, 'teeth36')">
-                                                                                    <img id="teeth36" width="40" src="">
+                                                                                    <img id="teeth36" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(37, 'teeth37')">
-                                                                                    <img id="teeth37" width="40" src="">
+                                                                                    <img id="teeth37" src="">
                                                                                 </button>
                                                                             </td>
                                                                             <td>
                                                                                 <button type="button" class="btn p-0" onclick="treatmentTeeth(38, 'teeth38')">
-                                                                                    <img id="teeth38" width="40" src="">
+                                                                                    <img id="teeth38" src="">
                                                                                 </button>
                                                                             </td>
                                                                         </tr>
-                                                                        <tr>
+                                                                        <tr class="text-center border">
                                                                             <td>48</td>
                                                                             <td>47</td>
                                                                             <td>46</td>
@@ -263,143 +261,23 @@
                                                                             <td>38</td>
                                                                         </tr>
                                                                     </table>
-                                                                    <table class="text-center mx-auto mt-3">
-                                                                        <tr>
-                                                                            <td>55</td>
-                                                                            <td>54</td>
-                                                                            <td>53</td>
-                                                                            <td>52</td>
-                                                                            <td>51</td>
-                                                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                                            <td>61</td>
-                                                                            <td>62</td>
-                                                                            <td>63</td>
-                                                                            <td>64</td>
-                                                                            <td>65</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(55, 'teeth55')">
-                                                                                    <img id="teeth55" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(54, 'teeth54')">
-                                                                                    <img id="teeth54" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(53, 'teeth53')">
-                                                                                    <img id="teeth53" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(52, 'teeth52')">
-                                                                                    <img id="teeth52" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(51, 'teeth51')">
-                                                                                    <img id="teeth51" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(61, 'teeth61')">
-                                                                                    <img id="teeth61" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(62, 'teeth62')">
-                                                                                    <img id="teeth62" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(63, 'teeth63')">
-                                                                                    <img id="teeth63" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(64, 'teeth64')">
-                                                                                    <img id="teeth64" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(65, 'teeth65')">
-                                                                                    <img id="teeth65" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(85, 'teeth85')">
-                                                                                    <img id="teeth85" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(84, 'teeth84')">
-                                                                                    <img id="teeth84" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(83, 'teeth83')">
-                                                                                    <img id="teeth83" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(82, 'teeth82')">
-                                                                                    <img id="teeth82" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(81, 'teeth81')">
-                                                                                    <img id="teeth81" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(71, 'teeth71')">
-                                                                                    <img id="teeth71" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(72, 'teeth72')">
-                                                                                    <img id="teeth72" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(73, 'teeth73')">
-                                                                                    <img id="teeth73" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(74, 'teeth74')">
-                                                                                    <img id="teeth74" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                            <td>
-                                                                                <button type="button" class="btn p-0" onclick="treatmentTeeth(75, 'teeth75')">
-                                                                                    <img id="teeth75" width="40" src="">
-                                                                                </button>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>85</td>
-                                                                            <td>84</td>
-                                                                            <td>83</td>
-                                                                            <td>82</td>
-                                                                            <td>81</td>
-                                                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                                            <td>71</td>
-                                                                            <td>72</td>
-                                                                            <td>73</td>
-                                                                            <td>74</td>
-                                                                            <td>75</td>
-                                                                        </tr>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xxl-4 col-md-4">
+                                                                <h6 class="text-center">Tratamientos Aplicados</h6>
+                                                                <div class="table-responsive">
+                                                                    <table id="treatments" class="table text-center mx-auto " style="width: 100%">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Diente</th>
+                                                                                <th>Tratamiento</th>
+                                                                                <th></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody></tbody>
                                                                     </table>
                                                                 </div>
                                                             </div>
-
                                                             <div class="col-xxl-12 col-xl-12 col-md-12">
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="observations">Observaciones</label>
@@ -434,42 +312,25 @@
                                         <h5 class="modal-title">Indique Tratatamiento para el diente N°. <strong id="teeth"></strong></h5>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="d-flex align-items-center">
-                                            <div class="form-group">
-                                                <div id="SelectOptions" class="form-control-wrap ">
-                                                    <div class="custom-control custom-radio">
-                                                        <input type="radio" id="customRadio1" name="typeTreat"
-                                                            class="custom-control-input" value="Obturación">
-                                                        <label class="custom-control-label" for="customRadio1">
-                                                            Obturación (<em class="icon ni ni-bullet-fill"></em>)
-                                                        </label>
-                                                    </div>
-                                                    <br>
-                                                    <div class="custom-control custom-radio mt-1">
-                                                        <input type="radio" id="customRadio2" name="typeTreat"
-                                                            class="custom-control-input" value="Exodoncia">
-                                                        <label class="custom-control-label" for="customRadio2">
-                                                            Exodoncia (<em class="icon ni ni-cross"></em>)
-                                                        </label>
-                                                    </div>
-                                                    <br>
-                                                    <div class="custom-control custom-radio mt-1">
-                                                        <input type="radio" id="customRadio3" name="typeTreat"
-                                                            class="custom-control-input" value="Endodoncia">
-                                                        <label class="custom-control-label" for="customRadio3">
-                                                            Endodoncia (E)
-                                                        </label>
-                                                    </div>
-                                                    <br>
-                                                    <div class="custom-control custom-radio mt-1">
-                                                        <input type="radio" id="customRadio4" name="typeTreat"
-                                                            class="custom-control-input" value="Protesis/Corona">
-                                                        <label class="custom-control-label" for="customRadio4">
-                                                            Protesis/Corona (<em class="icon ni ni-square text-blue"></em>)
-                                                        </label>
+                                        <div class="row">
+                                            @php $n = 1; @endphp
+                                            @foreach ($treatments as $item)
+                                            @php $n++; @endphp
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div id="SelectOptions" class="form-control-wrap ">
+                                                        <div class="custom-control custom-radio mt-1">
+                                                            <input type="radio" id="customRadio{{ $n }}" name="typeTreat"
+                                                                class="custom-control-input" value="{{ $item->name }}">
+                                                            <label class="custom-control-label" for="customRadio{{ $n }}">
+                                                                {{ $item->name }}
+                                                            </label>
+                                                        </div>
+                                                        <br>
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                     <div class="modal-footer bg-light p-1">
@@ -487,131 +348,5 @@
                         <!-- end page title -->
 @endsection
 @section('scripts')
-    <script>
-        // obtenemos la url base de la imagen para cada diente
-        var url_base = "{{ asset('') }}";
-        var url_teeth = url_base + 'images/diente/diente.png';
-        const url_obturacion = url_base + 'images/diente/obturacion.png';
-        const url_endodoncia = url_base + 'images/diente/endodoncia.png';
-        const url_exodoncia = url_base + 'images/diente/exodoncia.png';
-        const url_protesis_corona = url_base + 'images/diente/protesis_corona.png';
-        var btnTeeth, inputTeeth, IDteeth;
-        var data = [];
-
-        // dientes de adultos
-        $('#teeth18').prop('src', url_teeth);
-        $('#teeth17').prop('src', url_teeth);
-        $('#teeth16').prop('src', url_teeth);
-        $('#teeth15').prop('src', url_teeth);
-        $('#teeth14').prop('src', url_teeth);
-        $('#teeth13').prop('src', url_teeth);
-        $('#teeth12').prop('src', url_teeth);
-        $('#teeth11').prop('src', url_teeth);
-        $('#teeth21').prop('src', url_teeth);
-        $('#teeth22').prop('src', url_teeth);
-        $('#teeth23').prop('src', url_teeth);
-        $('#teeth24').prop('src', url_teeth);
-        $('#teeth25').prop('src', url_teeth);
-        $('#teeth26').prop('src', url_teeth);
-        $('#teeth27').prop('src', url_teeth);
-        $('#teeth28').prop('src', url_teeth);
-
-        $('#teeth48').prop('src', url_teeth);
-        $('#teeth47').prop('src', url_teeth);
-        $('#teeth46').prop('src', url_teeth);
-        $('#teeth45').prop('src', url_teeth);
-        $('#teeth44').prop('src', url_teeth);
-        $('#teeth43').prop('src', url_teeth);
-        $('#teeth42').prop('src', url_teeth);
-        $('#teeth41').prop('src', url_teeth);
-        $('#teeth31').prop('src', url_teeth);
-        $('#teeth32').prop('src', url_teeth);
-        $('#teeth33').prop('src', url_teeth);
-        $('#teeth34').prop('src', url_teeth);
-        $('#teeth35').prop('src', url_teeth);
-        $('#teeth36').prop('src', url_teeth);
-        $('#teeth37').prop('src', url_teeth);
-        $('#teeth38').prop('src', url_teeth);
-
-        // DIentes de niños
-        $('#teeth55').prop('src', url_teeth);
-        $('#teeth54').prop('src', url_teeth);
-        $('#teeth53').prop('src', url_teeth);
-        $('#teeth52').prop('src', url_teeth);
-        $('#teeth51').prop('src', url_teeth);
-        $('#teeth61').prop('src', url_teeth);
-        $('#teeth62').prop('src', url_teeth);
-        $('#teeth63').prop('src', url_teeth);
-        $('#teeth64').prop('src', url_teeth);
-        $('#teeth65').prop('src', url_teeth);
-
-        $('#teeth85').prop('src', url_teeth);
-        $('#teeth84').prop('src', url_teeth);
-        $('#teeth83').prop('src', url_teeth);
-        $('#teeth82').prop('src', url_teeth);
-        $('#teeth81').prop('src', url_teeth);
-        $('#teeth71').prop('src', url_teeth);
-        $('#teeth72').prop('src', url_teeth);
-        $('#teeth73').prop('src', url_teeth);
-        $('#teeth74').prop('src', url_teeth);
-        $('#teeth75').prop('src', url_teeth);
-
-        function treatmentTeeth(teeth, teethId)
-        {
-            $('#teeth').html(teeth);
-            $('#modalTeeth').modal('show');
-            btnTeeth = teeth;
-            IDteeth = teethId;
-        }
-
-        $('#saveTeeth').on('click', function(){
-            let type = $('input[name="typeTreat"]:checked').val();
-            let datosFila = {};
-            datosFila.code_teeth = btnTeeth;
-            datosFila.typeTreat = type;
-            data.push(datosFila);
-            let IDelement = '#'+IDteeth;
-            console.log(IDelement);
-            let url_img;
-            if (type == 'Obturación'){
-                url_img = url_obturacion;
-            }
-            if (type == 'Exodoncia'){
-                url_img = url_exodoncia;
-            }
-            if (type == 'Endodoncia'){
-                url_img = url_endodoncia;
-            }
-            if (type == 'Protesis/Corona'){
-                url_img = url_protesis_corona;
-            }
-            $(IDelement).prop('src', url_img);
-
-            $('input[type="radio"][name="typeTreat"]').prop('checked', false);
-            $('#teeth').html('');
-            $('#modalTeeth').modal('hide');
-        });
-
-        $('#closeTeeth').on('click', function(){
-            $('input[type="radio"][name="typeTreat"]').prop('checked', false);
-            $('#teeth').html('');
-            $('#modalTeeth').modal('hide');
-            let IDelement = '#'+IDteeth;
-            $(IDelement).prop('src', url_teeth);
-        });
-        $('.close').on('click', function(){
-            $('input[type="radio"][name="typeTreat"]').prop('checked', false);
-            $('#teeth').html('');
-            $('#modalTeeth').modal('hide');
-        });
-
-        $('#guardar').click(function() {
-            $('#teethData').val(JSON.stringify(data));
-            $('#form').submit();
-            $('#guardar').attr('disabled', true);
-            $('#guardar').html(
-                '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Por favor, espere... </span>'
-                );
-        });
-    </script>
+    <script src="{{ asset('pagejs/histories.js') }}"></script>
 @endsection

@@ -22,13 +22,7 @@ class Patient extends Model
     {
         return $this->hasMany(Appointment::class, 'patient_id', 'id');
     }
-    /**
-     * Relacion de doctor y citas
-     */
-    public function doctor(): BelongsTo
-    {
-        return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
-    }
+
 
     /**
      * Salud Actual del paciente.
@@ -38,21 +32,7 @@ class Patient extends Model
         return $this->hasOne(PatientHealth::class, 'patient_id', 'id');
     }
 
-    /**
-     * Examen Intra Oral del paciente.
-     */
-    public function intraoral_exam(): HasOne
-    {
-        return $this->hasOne(IntraoralExam::class, 'patient_id', 'id');
-    }
 
-    /**
-     * Examen Intra Oral del paciente.
-     */
-    public function treatment_plan(): HasOne
-    {
-        return $this->hasOne(TreatmentPlan::class, 'patient_id', 'id');
-    }
 
     /**
      * Historia Dentl del paciente.
@@ -84,5 +64,13 @@ class Patient extends Model
     public function notes(): HasMany
     {
         return $this->hasMany(Note::class, 'patient_id', 'id');
+    }
+
+     /**
+     * Imagenes del paciente.
+     */
+    public function files(): HasMany
+    {
+        return $this->hasMany(File::class, 'patient_id', 'id');
     }
 }

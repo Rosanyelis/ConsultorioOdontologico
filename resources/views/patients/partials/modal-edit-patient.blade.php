@@ -12,30 +12,15 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row gy-4">
-                                        @if (Auth::user()->rol->name == 'Secretaria' || Auth::user()->rol->name == 'Desarrollador')
                                             <div class="col-xxl-3 col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="event-title">Doctor </label>
+                                                    <label class="form-label" for="dni">DNI</label>
                                                     <div class="form-control-wrap">
-                                                        <select id="doctor_id" name="doctor_id" class="form-select" data-search="on">
-                                                            <option value="Seleccione">Seleccione..</option>
-                                                            @foreach ($doctors as $item)
-                                                            <option value="{{ $item->id }}" @if ($data->doctor_id == $item->id) selected @endif>{{ $item->firstname }} {{ $item->lastname }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @endif
-                                            <div class="col-xxl-3 col-md-4">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="firstname">Primer Nombre</label>
-                                                    <div class="form-control-wrap">
-                                                        <input type="text" name="firstname" class="form-control"
-                                                            id="firstname" placeholder="Ejm: Jon" value="{{ $data->firstname }}">
-                                                        @if ($errors->has('firstname'))
+                                                        <input type="text" name="dni" class="form-control"
+                                                            id="dni" placeholder="Ejm: Jon" value="{{ $data->dni }}">
+                                                        @if ($errors->has('dni'))
                                                             <span class="invalid text-danger">
-                                                                {{ $errors->first('firstname') }}
+                                                                {{ $errors->first('dni') }}
                                                             </span>
                                                         @endif
                                                     </div>
@@ -43,13 +28,13 @@
                                             </div>
                                             <div class="col-xxl-3 col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="second_name">Segundo Nombre</label>
+                                                    <label class="form-label" for="firstname">Nombres</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" name="second_name" class="form-control"
-                                                            id="second_name" placeholder="Ejm: Allen" value="{{ $data->second_name }}">
-                                                        @if ($errors->has('second_name'))
+                                                        <input type="text" name="firstname" class="form-control"
+                                                            id="firstname" placeholder="Ejm: Jon" value="{{ $data->firstname }}">
+                                                        @if ($errors->has('firstname'))
                                                             <span class="invalid text-danger">
-                                                                {{ $errors->first('second_name') }}
+                                                                {{ $errors->first('firstname') }}
                                                             </span>
                                                         @endif
                                                     </div>
@@ -142,77 +127,7 @@
                                                 </div>
                                             </div>
                                             <!--col-->
-                                            <div class="col-xxl-3 col-md-3">
-                                                <div class="form-group">
-                                                    <label class="form-label">Sexo</label>
-                                                    <div class="form-control-wrap">
-                                                        <select class="form-select" name="sex" data-placeholder="Seleccionar">
-                                                            <option value="">Seleccionar</option>
-                                                            <option value="M" @if ($data->sex == 'M') selected @endif>Masculino</option>
-                                                            <option value="F" @if ($data->sex == 'F') selected @endif>Femenino</option>
-                                                            <option value="O" @if ($data->sex == 'O') selected @endif>Otro</option>
-                                                        </select>
-                                                        @if ($errors->has('sex'))
-                                                            <span class="invalid text-danger">
-                                                                {{ $errors->first('sex') }}
-                                                            </span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--col-->
-                                            <div class="col-xxl-3 col-md-4">
-                                                <div class="form-group">
-                                                    <label class="form-label">Estado Civil</label>
-                                                    <div class="form-control-wrap">
-                                                        <select class="form-select" name="civil_status" data-placeholder="Seleccionar">
-                                                            <option value="">Seleccionar</option>
-                                                            <option value="Soltero" @if ($data->civil_status == 'Soltero') selected @endif>Soltero(a)</option>
-                                                            <option value="Casado" @if ($data->civil_status == 'Casado') selected @endif>Casado(a)</option>
-                                                            <option value="Viudo" @if ($data->civil_status == 'Viudo') selected @endif>Viudo(a)</option>
-                                                            <option value="Divorciado" @if ($data->civil_status == 'Divorciado') selected @endif>Divorciado(a)</option>
-                                                        </select>
-                                                        @if ($errors->has('civil_status'))
-                                                            <span class="invalid text-danger">
-                                                                {{ $errors->first('civil_status') }}
-                                                            </span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--col-->
-                                            <div class="col-xxl-5 col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Ocupación</label>
-                                                    <div class="form-control-wrap">
-                                                        <input type="text" name="occupation" class="form-control" id="Ocupacion"
-                                                        placeholder="Ejm: Ingeniero Petroléro" value="{{ $data->occupation }}">
-                                                        @if ($errors->has('occupation'))
-                                                            <span class="invalid text-danger">
-                                                                {{ $errors->first('occupation') }}
-                                                            </span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--col-->
-                                            <div class="col-xxl-3 col-md-4">
-                                                <div class="form-group">
-                                                    <label class="form-label">Fecha de la última visita con algún dentista</label>
-                                                    <div class="form-control-wrap">
-                                                        <div class="form-icon form-icon-right">
-                                                            <em class="icon ni ni-calendar"></em>
-                                                        </div>
-                                                        <input type="text" name="last_visit_date" id="last_visit_date" class="form-control date-picker"
-                                                            data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" value="{{ $data->last_visit_date }}">
-                                                        @if ($errors->has('last_visit_date'))
-                                                            <span class="invalid text-danger">
-                                                                {{ $errors->first('last_visit_date') }}
-                                                            </span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="modal-footer bg-light">

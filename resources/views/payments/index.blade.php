@@ -31,6 +31,7 @@
                                                     <th>Nº Factura</th>
                                                     <th>Monto</th>
                                                     <th>Abonado</th>
+                                                    <th>Saldo</th>
                                                     <th>Estatus</th>
                                                     <th class="text-right">Acciones</th>
                                                 </tr>
@@ -41,9 +42,12 @@
                                                     <td>{{ $item->patient->firstname }} {{ $item->patient->second_name }}
                                                         {{ $item->patient->lastname }} {{ $item->patient->second_surname }}</td>
                                                     <td>#0000{{ $item->id }}</td>
-                                                    <td>{{ $item->total }}</td>
+                                                    <td>{{ $setting->symbol_plan }} {{ $item->total }}</td>
                                                     <td>
-                                                        {{ $item->payments->sum('pay_amount') }}
+                                                    {{ $setting->symbol_plan }} {{ $item->payments->sum('pay_amount') }}
+                                                    </td>
+                                                    <td>
+                                                    {{ $setting->symbol_plan }} {{ $item->total - $item->payments->sum('pay_amount') }}
                                                     </td>
                                                     <td>
                                                         @if ($item->status == 'Pagado')

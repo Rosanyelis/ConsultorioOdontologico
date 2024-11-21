@@ -173,7 +173,6 @@
                     var eventTheme = desfragmentarMotivo($('#event-theme').val());
                     // id del paciente y del doctor
                     var patientId = $('#patient_id').val();
-                    var doctorId = $('#doctor_id').val();
                     // fecha de inicio y fin del evento
                     var eventStartDate = $('#event-start-date').val();
                     // hora de inicio y fin de cita
@@ -193,7 +192,6 @@
                             start: start,
                             end: end,
                             patient_id: patientId,
-                            doctor_id: doctorId,
                         },
                         success: function (data) {
                             Swal.fire({

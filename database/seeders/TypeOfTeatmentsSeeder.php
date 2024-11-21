@@ -13,15 +13,23 @@ class TypeOfTeatmentsSeeder extends Seeder
      */
     public function run(): void
     {
-        TypeOfTreatments::create(['name' => 'Blanqueamiento dental']);
-        TypeOfTreatments::create(['name' => 'Carillas dentales']);
-        TypeOfTreatments::create(['name' => 'Implantes dentales']);
+        TypeOfTreatments::create(['name' => 'Fisioterapia']);
+        TypeOfTreatments::create(['name' => 'Descartaje']);
+        TypeOfTreatments::create(['name' => 'Sellante']);
+        TypeOfTreatments::create(['name' => 'Resina Simple']);
+        TypeOfTreatments::create(['name' => 'Resina Compuesta']);
+        TypeOfTreatments::create(['name' => 'Exodoncia Simple']);
+        TypeOfTreatments::create(['name' => 'Endodoncia Anterior']);
+        TypeOfTreatments::create(['name' => 'Endodoncia Premolar']);
+        TypeOfTreatments::create(['name' => 'Endodoncia Molar']);
+        TypeOfTreatments::create(['name' => 'Espigo - Muñon']);
+        TypeOfTreatments::create(['name' => 'Corona de Porcelana']);
+        TypeOfTreatments::create(['name' => 'Corona']);
+        TypeOfTreatments::create(['name' => 'Incrustación']);
+        TypeOfTreatments::create(['name' => 'Puente']);
+        TypeOfTreatments::create(['name' => 'Cirugía 3º molar']);
+        TypeOfTreatments::create(['name' => 'Protesis Parcial o Total']);
+        TypeOfTreatments::create(['name' => 'Blanqueamiento']);
         TypeOfTreatments::create(['name' => 'Ortodoncia']);
-        TypeOfTreatments::create(['name' => 'Limpieza dental']);
-        TypeOfTreatments::create(['name' => 'Extracción dental']);
-        TypeOfTreatments::create(['name' => 'Empastes']);
-        TypeOfTreatments::create(['name' => 'Endodoncia']);
-        TypeOfTreatments::create(['name' => 'Periodoncia']);
-        TypeOfTreatments::create(['name' => 'Cirugía oral']);
     }
 }
