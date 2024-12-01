@@ -46,7 +46,7 @@
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="total">Forma de Pago</label>
                                                                     <div class="form-control-wrap">
-                                                                        <select class="form-select" name="payment_type" data-placeholder="Seleccionar">
+                                                                        <select class="form-select" name="payment_type" id="payment_type" data-placeholder="Seleccionar">
                                                                             <option value="">Seleccionar</option>
                                                                             <option value="Total">Total</option>
                                                                             <option value="Parcial">Parcial</option>
@@ -78,7 +78,7 @@
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="total">Estatus</label>
                                                                     <div class="form-control-wrap">
-                                                                        <select class="form-select" name="status" data-placeholder="Seleccionar">
+                                                                        <select class="form-select" name="status" id="status" data-placeholder="Seleccionar">
                                                                             <option value="">Seleccionar</option>
                                                                             <option value="Pendiente">Pendiente</option>
                                                                             <option value="Cancelado">Cancelado</option>
@@ -133,7 +133,7 @@
                                                                 <tfoot class="fs-18px">
                                                                     <tr>
                                                                         <td class="text-right">Total</td>
-                                                                        <td>$<span id="total"></span></td>
+                                                                        <td>{{ $setting->symbol_plan }}<span id="total"></span></td>
                                                                     </tr>
                                                                 </tfoot>
                                                             </table>
@@ -180,7 +180,6 @@
             // se suma los montos al realizar click al agregar data en la tabla
             total = total + parseInt(price);
             totalQuote = total;
-            console.log(dataCotizacion);
             // lo mostramos en la tabla donde indica el total
             $('#servicio #total').html(total);
             $('#totalinput').val(total);
@@ -193,6 +192,39 @@
 
 
         $('#guardar').click(function() {
+            // validar el tipo de forma de pago que sea distito a Seleccionar
+            if ($('#payment_type').val() == 'Seleccionar') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Debe seleccionar una Forma de pago!',
+                    timer: 2500
+                });
+
+                return false;
+            }
+            // validad que el estatus sea distinto a Seleccionar
+            if ($('#status').val() == 'Seleccionar') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Debe seleccionar un Estatus!',
+                    timer: 2500
+                });
+
+                return false;
+            }
+            // validar que haya tratamientos en la tabla
+            if (dataCotizacion.length == 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Debe agregar al menos un tratamiento a la Factura!',
+                    timer: 2500
+                });
+
+                return false;
+            }
             $('#dataBilling').val(JSON.stringify(dataCotizacion));
             $('#form').submit();
             $('#guardar').attr('disabled', true);

@@ -32,6 +32,7 @@
 @endsection
 @section('scripts')
         <script src="{{ asset('./assets/js/libs/fullcalendar.js?ver=2.9.0') }}"></script>
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/locale/es.js'></script>
         <script>
             "use strict";
 
@@ -83,7 +84,7 @@
 
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     locale: 'es',
-                    timeZone: 'America/Mexico_City',
+                    timeZone: 'America/Lima',
                     initialView: mobileView ? 'listWeek' : 'dayGridMonth',
                     themeSystem: 'bootstrap',
                     headerToolbar: {
@@ -170,7 +171,7 @@
                 addEventBtn.on("click", function (e) {
                     e.preventDefault();
                     // tomamos los datos del formulario
-                    var eventTheme = desfragmentarMotivo($('#event-theme').val());
+                    var eventTheme = $('#event-theme').val();
                     // id del paciente y del doctor
                     var patientId = $('#patient_id').val();
                     // fecha de inicio y fin del evento
@@ -188,7 +189,7 @@
                         url: "{{ route('appointment.store') }}",
                         type: 'POST',
                         data: {
-                            title: eventTheme,
+                            reason_treatment_id: eventTheme,
                             start: start,
                             end: end,
                             patient_id: patientId,
@@ -278,16 +279,13 @@
 
                 var $cat = $('<span class="fc-' + cat.element.value + '"> <span class="dot"></span>' + cat.text + '</span>');
                 return $cat;
-                }
-
-                ;
+                };
                 NioApp.Select2('.select-calendar-theme', {
                 templateResult: customCalSelect
                 });
                 addEventPopup.on('hidden.bs.modal', function (e) {
                 setTimeout(function () {
                     $('#patient_id').trigger('change.select2');
-                    $('#doctor_id').trigger('change.select2');
                     $('#event-start-date').val('');
                     $('#event-start-time').val('');
 

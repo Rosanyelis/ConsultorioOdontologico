@@ -40,10 +40,8 @@ class PatientController extends Controller
      */
     public function index()
     {
-
         $data = Patient::all();
         return view('patients.index', compact('data'));
-
     }
 
     /**
@@ -71,7 +69,6 @@ class PatientController extends Controller
             'lastname'          => $request->lastname,
             'second_surname'    => $request->second_surname,
             'phone'             => $request->phone,
-            'whatsapp'          => $request->whatsapp,
             'birthdate'         => $birthdate->format('Y-m-d'),
             'age'               => $age,
         ]);
@@ -95,12 +92,6 @@ class PatientController extends Controller
         return redirect()->route('patient.index')->with('success', 'El registro de paciente se ha creado exitósamente.');
     }
 
-    public function create_examen_intraoral(string $id)
-    {
-        $data = Patient::find($id);
-        $teeths = Teeth::all();
-        return view('patients.intraoral-exams', compact('data', 'teeths'));
-    }
 
     /**
      * Display the specified resource.
@@ -108,105 +99,17 @@ class PatientController extends Controller
     public function show(string $id)
     {
         $data = Patient::find($id);
+
         return view('patients.show', compact('data'));
     }
 
-    public function showteethIntraoralAjax(string $id)
-    {
-        $examen = Patient::find($id);
-        $data = $examen->intraoral_exam->intraoralExamDetails;
-        return $data;
-    }
-    public function showTreatmentPlanAjax(string $id)
-    {
-        $examen = Patient::find($id);
-        $data = $examen->treatment_plan->TreatmentPlanDetails;
-        return $data;
-    }
 
-    public function create_history_dental(string $id)
+    public function create_record_dental(string $id)
     {
         $data = Patient::find($id);
-        $teeths = Teeth::all();
-        $treatments = TypeOfTreatments::all();
-        return view('histories.create', compact('data', 'teeths', 'treatments'));
+        return view('dental_records.create', compact('data'));
     }
 
-    public function store_history_dental(StoreHistory $request, $id)
-    {
-        $exam = DentalHistory::create([
-            'patient_id'            => $id,
-            'reason_consultation'   => $request->reason_consultation,
-            'observations'          => $request->observations,
-        ]);
-
-        $data = json_decode($request->teethData);
-
-        foreach($data as $item){
-            DentalHistoryDetails::create([
-                'dental_history_id'     => $exam->id,
-                'teeths_id'             => $item->code_teeth,
-                'treatment'             => $item->typeTreat,
-            ]);
-        }
-
-        return redirect()->route('patient.index')->with('success', 'La Historia Dental fue registrada exitósamente.');
-    }
-
-    public function show_history_dental(string $id, string $history_id)
-    {
-        $data = DentalHistory::where('patient_id', $id)->where('id', $history_id)->first();
-        return view('histories.show', compact('data'));
-    }
-
-    public function showteethHistoryDentalAjax(string $history_id)
-    {
-        $examen = DentalHistoryDetails::where('id', $history_id)->get();
-        $data = $examen;
-        return response()->json($data);
-    }
-
-    public function create_recipe(string $id)
-    {
-        $data = Patient::find($id);
-        return view('recipes.create', compact('data'));
-    }
-
-    public function store_recipe(Request $request, $id)
-    {
-        $exam = Recipe::create([
-            'patient_id'            => $id,
-            'observations'          => $request->observation,
-        ]);
-
-        $data = json_decode($request->recipes);
-
-        foreach($data as $item){
-            MedicationPrescription::create([
-                'recipe_id'     => $exam->id,
-                'medicine'      => $item->medicine,
-                'dose'          => $item->dose,
-                'instructions'  => $item->instructions,
-            ]);
-        }
-
-        return redirect()->route('patient.show', $id)->with('success', 'La Receta fue registrada exitósamente.');
-    }
-
-    public function show_recipe(string $id, string $recipe_id)
-    {
-        $data = Recipe::where('patient_id', $id)->where('id', $recipe_id)->first();
-        return view('recipes.show', compact('data'));
-    }
-
-    public function print_recipe(string $id, string $recipe_id)
-    {
-        $data = Recipe::where('patient_id', $id)->where('id', $recipe_id)->first();
-        $pdf = Pdf::loadView('recipes.recipe', compact('data'));
-        $pdf->setPaper('letter', 'portrait');
-        $pdf->setPaper([0, 0, 149, 235], 'mm');
-        return $pdf->stream();
-    }
 
     public function create_pay(string $id)
     {
@@ -235,28 +138,36 @@ class PatientController extends Controller
             ]);
         }
 
-        return redirect()->route('patient.index')->with('success', 'La Factura fue registrada exitósamente.');
+        return redirect()->route('patient.show', $id)->with('success', 'La Factura fue registrada exitósamente.');
     }
 
     public function pay_invoice(string $id, string $pay_id)
     {
         $data = Billing::where('patient_id', $id)->where('id', $pay_id)->first();
-        return view('payments.abonar', compact('data'));
+        return view('patients.abonar', compact('data'));
     }
 
     public function store_pay_invoice(StorePayInvoice $request, $id, $pay_id)
     {
-        $data = Billing::where('patient_id', $id)->where('id', $pay_id)->first();
-        if ($data->total == $request->pay_amount) {
-            $data->status = 'Pagado';
+        $billing = Billing::where('patient_id', $id)->where('id', $pay_id)->firstOrFail();
+        $total_abonos = $billing->payments->sum('pay_amount');
+        $saldo_pendiente = $billing->total - $total_abonos;
+
+        // Validar si el monto del abono excede el saldo pendiente
+        if ($request->pay_amount > $saldo_pendiente) {
+            return redirect()->back()->with('error', 'El monto de abono excede el saldo pendiente de la Factura.');
         }
-        if ($data->total > $request->pay_amount) {
-            $data->status = 'Pendiente';
+
+        // Actualizar estado de la factura
+        $nuevo_total_abonado = $total_abonos + $request->pay_amount;
+
+        if ($nuevo_total_abonado == $billing->total) {
+            $billing->status = 'Pagado';
+        } else {
+            $billing->status = 'Pendiente';
         }
-        if ($data->total < $request->pay_amount) {
-            return redirect()->back()->with('error', 'El monto de abono es mayor al monto de la Factura, por favor verifique.');
-        }
-        $data->save();
+
+        $billing->save();
 
         $data = $request->all();
         $data['billing_id'] = $pay_id;
@@ -294,16 +205,6 @@ class PatientController extends Controller
         return redirect()->back()->with('success', 'El archivo fue cargado exitósamente.');
     }
 
-    public function store_note(Request $request, $id)
-    {
-        $exam = Note::create([
-            'patient_id'            => $id,
-            'grades'                => $request->grades,
-        ]);
-
-
-        return redirect()->route('patient.show', $id)->with('success', 'La Nota fue registrada exitósamente.');
-    }
     /**
      * Update the specified resource in storage.
      */
@@ -321,7 +222,6 @@ class PatientController extends Controller
         $patient->lastname          = $request->lastname;
         $patient->second_surname    = $request->second_surname;
         $patient->phone             = $request->phone;
-        $patient->whatsapp          = $request->whatsapp;
         $patient->birthdate         = $birthdate->format('Y-m-d');
         $patient->age               = $age;
         $patient->save();
@@ -331,16 +231,9 @@ class PatientController extends Controller
 
     public function import(Request $request)
     {
-        // dd($request->importpatient);
         Excel::import(new PatientsImport, $request->importpatient);
         return redirect()->back()->with('success', 'Datos de Pacientes Importados con Éxito.');
     }
 
-    public function print_history($id)
-    {
-        $data = Patient::find($id);
-        $pdf = Pdf::loadView('patients.historypdf', compact('data'));
-        $pdf->setPaper('letter', 'portrait');
-        return $pdf->stream();
-    }
+
 }

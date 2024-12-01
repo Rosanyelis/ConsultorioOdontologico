@@ -1,16 +1,31 @@
 <!doctype html>
 <html lang="zxx" class="js">
-
     <head>
-
         <meta charset="utf-8" />
-        <title></title>
+        <title>{{ $setting->name }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Sistema de Gestión Odontológica y expedientes de Pacientes" name="description" />
         <meta content="Ross Digital" name="author" />
         <base href="../../../">
         <!-- Fav Icon  -->
-        <link rel="shortcut icon" href="{{ asset('./images/favicon.png') }}">
+        <link rel="shortcut icon" href="{{ asset('./images/favicons/apple-icon-72x72.png') }}">
+        <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('./apple-icon-57x57.png') }}">
+        <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('./apple-icon-60x60.png') }}">
+        <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('./apple-icon-72x72.png') }}">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('./apple-icon-76x76.png') }}">
+        <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('./apple-icon-114x114.png') }}">
+        <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('./apple-icon-120x120.png') }}">
+        <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('./apple-icon-144x144.png') }}">
+        <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('./apple-icon-152x152.png') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('./apple-icon-180x180.png') }}">
+        <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('./android-icon-192x192.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('./favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('./favicon-96x96.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('./favicon-16x16.png') }}">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png') }}">
+        <meta name="theme-color" content="#ffffff">
         <!-- StyleSheets  -->
         <link rel="stylesheet" href="{{ asset('./assets/css/dashlite.css?ver=2.9.0') }}">
         <link id="skin-default" rel="stylesheet" href="{{ asset('./assets/css/theme.css?ver=2.9.0') }}">
@@ -31,13 +46,13 @@
                                 <a href="#" class="toggle btn-white btn btn-icon btn-light" data-target="athPromo"><em class="icon ni ni-info"></em></a>
                             </div>
                             <div class="nk-block nk-block-middle nk-auth-body">
-                                <div class="brand-logo text-center">
+                                <div class="brand-logo text-center mb-3">
                                     <a href="{{ route('login') }}" class="logo-link">
                                         <img class="logo-light logo-img logo-img-lg"
-                                        src="{{ asset('./images/whitedentalcare_377x238.png') }}"
+                                        src="{{ asset($setting->url_logo) }}"
                                             alt="logo">
                                         <img class="logo-dark logo-img logo-img-lg"
-                                            src="{{ asset('./images/whitedentalcare_377x238.png') }}"
+                                            src="{{ asset($setting->url_logo) }}"
                                             alt="logo-dark">
                                     </a>
                                 </div>
@@ -61,7 +76,6 @@
                                     <div class="form-group">
                                         <div class="form-label-group">
                                             <label class="form-label" for="password">Contraseña</label>
-                                            <a class="link link-primary link-sm" tabindex="-1" href="#">Olvidaste tu Contraseña?</a>
                                         </div>
                                         <div class="form-control-wrap">
                                             <a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch lg" data-target="password">
@@ -85,7 +99,7 @@
                                             <a class="nav-link" href="#">Ayuda</a>
                                         </li>
                                         <li class="nav-item">
-                                            <p class="nav-link" ><script>document.write(new Date().getFullYear())</script> © Consultorio Dental.</p>
+                                            <p class="nav-link" ><script>document.write(new Date().getFullYear())</script> © {{ $setting->name }}.</p>
                                         </li>
                                     </ul><!-- .nav -->
                                 </div>

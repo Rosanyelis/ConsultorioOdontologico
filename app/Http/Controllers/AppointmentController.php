@@ -6,6 +6,7 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use App\Models\ReasonTreatment;
 use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
@@ -40,7 +41,8 @@ class AppointmentController extends Controller
     public function index()
     {
         $patients = Patient::all();
-        return view('appointment.index', compact('patients'));
+        $reason = ReasonTreatment::all();
+        return view('appointment.index', compact('patients', 'reason'));
     }
 
     /**
@@ -49,17 +51,15 @@ class AppointmentController extends Controller
     public function storeAjax(Request $request)
     {
         $patient = Patient::find($request->patient_id);
-        $description = '<strong>Paciente:</strong> '.$patient->firstname. ' ' .$patient->second_name.
-        ' '.$patient->lastname.' '.$patient->second_surname. '<br>';
-        $eventColor = $this->typeEvent($request->title);
-
+        $reason = ReasonTreatment::find($request->reason_treatment_id);
+        $description = '<strong>Paciente:</strong> '.$patient->firstname. ' '.$patient->lastname.' '.$patient->second_surname. '<br>';
 
         $event = Appointment::create([
             'patient_id' => $request->patient_id,
             'start' => $request->start,
             'end' => $request->end,
-            'title' => $request->title,
-            'event_color' => $eventColor,
+            'title' => $reason->name,
+            'event_color' => $reason->event_theme,
             'description' => $description,
         ]);
 

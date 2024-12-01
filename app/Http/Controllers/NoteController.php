@@ -26,9 +26,14 @@ class NoteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $exam = Note::create([
+            'patient_id'            => $id,
+            'grades'                => $request->grades,
+        ]);
+        
+        return redirect()->route('patient.show', $id)->with('success', 'La Nota fue registrada exitósamente.');
     }
 
     /**

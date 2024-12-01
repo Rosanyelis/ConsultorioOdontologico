@@ -86,21 +86,6 @@
                                             <!--col-->
                                             <div class="col-xxl-3 col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="whatsapp">Whatsapp</label>
-                                                    <div class="form-control-wrap">
-                                                        <input type="number" name="whatsapp" class="form-control" id="whatsapp"
-                                                            placeholder="Ejm: +56123456789" value="{{ $data->whatsapp }}">
-                                                        @if ($errors->has('whatsapp'))
-                                                            <span class="invalid text-danger">
-                                                                {{ $errors->first('whatsapp') }}
-                                                            </span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--col-->
-                                            <div class="col-xxl-3 col-md-4">
-                                                <div class="form-group">
                                                     <label class="form-label">Fecha de Nacimiento</label>
                                                     <div class="form-control-wrap">
                                                         <div class="form-icon form-icon-right">

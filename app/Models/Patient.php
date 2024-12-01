@@ -43,6 +43,14 @@ class Patient extends Model
     }
 
     /**
+     * Registros Dentales del paciente.
+     *
+    */
+    public function dental_records(): HasMany
+    {
+        return $this->hasMany(DentalRecord::class, 'patient_id', 'id');
+    }
+    /**
      * Recetas del paciente.
      */
     public function recipes(): HasMany

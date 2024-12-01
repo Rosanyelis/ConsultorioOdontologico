@@ -1,3 +1,4 @@
+
                                                             <div class="nk-block nk-block-between">
                                                                 <div class="nk-block-head">
                                                                     <h6 class="title"></h6>
@@ -45,7 +46,13 @@
                                                                     <div class="profile-ud-item">
                                                                         <div class="profile-ud wider">
                                                                             <span class="profile-ud-label">Teléfono</span>
-                                                                            <span class="profile-ud-value">{{ $data->phone }}</span>
+                                                                            <span class="profile-ud-value">
+                                                                                <a href="https://wa.me/{{ $data->phone }}"
+                                                                                    target="_blank" class="btn btn-sm btn-primary">
+                                                                                    <em class="icon ni ni-whatsapp"></em>
+                                                                                    <span>{{ $data->phone }}</span>
+                                                                                </a>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="profile-ud-item">
@@ -54,12 +61,7 @@
                                                                             <span class="profile-ud-value">{{ $data->birthdate }}</span>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="profile-ud-item">
-                                                                        <div class="profile-ud wider">
-                                                                            <span class="profile-ud-label">Whatsapp</span>
-                                                                            <span class="profile-ud-value">+{{ $data->whatsapp }}</span>
-                                                                        </div>
-                                                                    </div>
+
                                                                 </div><!-- .profile-ud-list -->
                                                             </div><!-- .nk-block -->
                                                             <div class="nk-divider divider md"></div>
@@ -184,9 +186,9 @@
                                                                             <p>{{ $item->grades }}</p>
                                                                         </div>
                                                                         <div class="bq-note-meta">
-                                                                            <span class="bq-note-added">Agregada  <span class="date">November 18, 2019</span> at <span class="time">5:34 PM</span></span>
+                                                                            <span class="bq-note-added">Agregada  <span class="date">{{ $item->created_at->diffForHumans() }}</span> </span>
                                                                             <span class="bq-note-sep sep">|</span>
-                                                                            <span class="bq-note-by">Por <span>Desarrolladora</span></span>
+
                                                                             <a href="#" class="link link-sm link-danger">Borrar Nota</a>
                                                                         </div>
                                                                     </div><!-- .bq-note-item -->

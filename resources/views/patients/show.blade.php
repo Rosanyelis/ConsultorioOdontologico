@@ -26,7 +26,8 @@
                                             <div class="card-content">
                                                 <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
                                                     <li class="nav-item">
-                                                        <a class="nav-link active" data-toggle="tab" href="#tabItem1">
+                                                        <a class="nav-link active"
+                                                            data-toggle="tab" href="#info-personal">
                                                             <em class="icon ni ni-user-circle-fill"></em>
                                                             <span>Información Personal</span>
                                                         </a>
@@ -39,12 +40,18 @@
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" data-toggle="tab" href="#tabItem3">
+                                                            <em class="icon ni ni-img-fill"></em>
+                                                            <span>Registros Dentales</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#tabItem4">
                                                             <em class="icon ni ni-capsule-fill"></em>
                                                             <span>Recetas</span>
                                                         </a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#tabItem4">
+                                                        <a class="nav-link" data-toggle="tab" href="#tabItem5">
                                                             <em class="icon ni ni-wallet-in"></em>
                                                             <span>Pagos</span>
                                                         </a>
@@ -53,18 +60,22 @@
                                                 </ul>
                                                 <div class="card-inner">
                                                     <div class="tab-content">
-                                                        <div class="tab-pane active" id="tabItem1">
+                                                        <div class="tab-pane active " id="info-personal">
                                                             @include('patients.partials.information-patient')
                                                         </div><!-- tab pane -->
                                                         <div class="tab-pane" id="tabItem2">
-                                                            @include('patients.partials.history')
+                                                            @include('histories.index')
                                                         </div>
                                                         <!--tab pane-->
                                                         <div class="tab-pane" id="tabItem3">
-                                                            @include('patients.partials.recipes')
+                                                            @include('dental_records.index')
                                                         </div>
                                                         <!--tab pane-->
                                                         <div class="tab-pane" id="tabItem4">
+                                                            @include('patients.partials.recipes')
+                                                        </div>
+                                                        <!--tab pane-->
+                                                        <div class="tab-pane" id="tabItem5">
                                                             @include('patients.partials.payments')
                                                         </div>
                                                         <!--tab pane-->
@@ -83,21 +94,8 @@
                         @include('patients.partials.modal-add-note')
                         @include('patients.partials.modal-add-file')
                         @include('patients.partials.modal-edit-patient')
+                        @include('patients.partials.modal-record-dental')
 @endsection
 @section('scripts')
-    <script>
-        $('#dateBirthday').on('change', function(){
-            let dateBirthday = $('#dateBirthday').val();
-            // Extraer el año usando la función getFullYear()
-            let year = new Date(dateBirthday).getFullYear();
-            // Obtener la fecha actual
-            let fechaActual = new Date();
-            // Obtener el año actual
-            let anioActual = fechaActual.getFullYear();
-            // edad
-            let edad = anioActual - year;
-            // añadir edad en input
-            $('#age').val(edad);
-        });
-    </script>
+    <script src="{{ asset('pagejs/patients.js') }}"></script>
 @endsection

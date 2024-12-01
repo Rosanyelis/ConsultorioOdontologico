@@ -22,10 +22,10 @@ class PatientStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'dni'               => ['required','string'],
             'firstname'         => ['required','string'],
             'lastname'          => ['required','string'],
             'phone'             => ['required','string'],
-            'whatsapp'          => ['required','string'],
             'birthdate'         => ['required','date'],
             'age'               => ['required','integer'],
             'has_disease'       => ['required','string'],
@@ -46,12 +46,12 @@ class PatientStoreRequest extends FormRequest
     public function messages()
     {
         return [
+            'dni.required'                  => "El DNI es obligatorio.",
             'firstname.required'            => "El Nombre del Paciente es obligatorio.",
             'lastname.required'             => "El Primer Apellido es obligatorio.",
             'phone.required'                => "El Teléfono es obligatorio.",
             'birthdate.required'            => "La Fecha de Nacimiento es obligatoria.",
             'age.required'                  => "La Edad es obligatoria.",
-            'whatsapp.required'             => "El Whatsapp es obligatorio.",
             'has_disease.required'          => 'El campo ¿Padece alguna enfermedad? es obligatorio.',
             'has_disease.string'            => 'El campo ¿Padece alguna enfermedad? debe ser un texto.',
             'disease.string'                => 'El campo Enfermedad debe ser un texto.',

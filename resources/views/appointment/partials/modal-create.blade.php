@@ -29,13 +29,9 @@
                                     <label class="form-label">Motivo de Cita</label>
                                     <div class="form-control-wrap">
                                         <select id="event-theme" class="select-calendar-theme form-control" data-search="on">
-                                            <option value="event-primary Consulta">Consulta</option>
-                                            <option value="event-success Limpieza">Limpieza</option>
-                                            <option value="event-info Empaste">Empaste</option>
-                                            <option value="event-warning Extracción">Extracción</option>
-                                            <option value="event-danger Endodoncia">Endodoncia</option>
-                                            <option value="event-pink Corona">Corona</option>
-                                            <option value="event-primary-dim Otro">Otro</option>
+                                            @foreach ($reason as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

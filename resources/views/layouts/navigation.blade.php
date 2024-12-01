@@ -41,6 +41,31 @@
                                 </a>
                                 <ul class="nk-menu-sub">
                                     <li class="nk-menu-item">
+                                        <a href="{{ route('treatments.index') }}" class="nk-menu-link">
+                                            <span class="nk-menu-text">Tipo de Tratamientos</span>
+                                        </a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('medicine.index') }}" class="nk-menu-link">
+                                            <span class="nk-menu-text">Medicamentos</span>
+                                        </a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('medication-instruction.index') }}" class="nk-menu-link">
+                                            <span class="nk-menu-text">Instrucciones para Medicamentos</span>
+                                        </a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('observation-template.index') }}" class="nk-menu-link">
+                                            <span class="nk-menu-text">Plantillas de recomendaciones y observaciones</span>
+                                        </a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('reason-treatment.index') }}" class="nk-menu-link">
+                                            <span class="nk-menu-text">Motivos de Consulta</span>
+                                        </a>
+                                    </li>
+                                    <li class="nk-menu-item">
                                         <a href="{{ route('user.index') }}" class="nk-menu-link">
                                             <span class="nk-menu-text">Usuarios</span>
                                         </a>

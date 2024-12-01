@@ -44,19 +44,31 @@
                                                     <th>Paciente</th>
                                                     <th>Edad</th>
                                                     <th>Teléfono</th>
-                                                    <th>Whatsapp</th>
                                                     <th class="text-right">Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($data as $item)
                                                     <tr>
-                                                        <td>#{{ $loop->iteration }}</td>
-                                                        <td>{{ $item->dni }}</td>
-                                                        <td>{{ $item->firstname }} {{ $item->lastname }} {{ $item->second_surname }}</td>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>
+                                                            <a href="{{ route('patient.show', $item->id) }}">
+                                                            {{ $item->dni }}
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ route('patient.show', $item->id) }}">
+                                                                {{ $item->firstname }} {{ $item->lastname }} {{ $item->second_surname }}
+                                                            </a>
+                                                        </td>
                                                         <td>{{ $item->age }}</td>
-                                                        <td>{{ $item->phone }}</td>
-                                                        <td>{{ $item->whatsapp }}</td>
+                                                        <td>
+                                                            <a href="https://wa.me/{{ $item->phone }}" target="_blank" class="btn btn-sm btn-primary"
+                                                            >
+                                                                <em class="icon ni ni-whatsapp"></em>
+                                                                <span>{{ $item->phone }}</span>
+                                                            </a>
+                                                        </td>
                                                         <td class="text-right">
                                                             <div class="dropdown float-right">
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger pt-0 pb-0" data-toggle="dropdown">

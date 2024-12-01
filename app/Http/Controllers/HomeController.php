@@ -14,42 +14,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->rol->name == 'Doctor')
-        {
-            $doctorId = Auth::user()->id;
-            $totalPatient = Patient::where('doctor_id', '=', $doctorId)->count();
-            $billingPend = Billing::with(['patient' => function ($query) use ($doctorId) {
-                                $query->where('doctor_id', '=', $doctorId);
-                            }])
-                            ->whereHas('patient', function ($query) use ($doctorId) {
-                                $query->where('doctor_id', '=', $doctorId);
-                            })
-                            ->where('status', 'Pendiente')
-                            ->sum('total');
-            $billingCan = Billing::with(['patient' => function ($query) use ($doctorId) {
-                                $query->where('doctor_id', '=', $doctorId);
-                            }])
-                            ->whereHas('patient', function ($query) use ($doctorId) {
-                                $query->where('doctor_id', '=', $doctorId);
-                            })
-                            ->where('status', 'Cancelado')
-                            ->sum('total');
-            $billingCom = Billing::with(['patient' => function ($query) use ($doctorId) {
-                                $query->where('doctor_id', '=', $doctorId);
-                            }])
-                            ->whereHas('patient', function ($query) use ($doctorId) {
-                                $query->where('doctor_id', '=', $doctorId);
-                            })
-                            ->where('status', 'Pagado')
-                            ->sum('total');
-        }else{
-            $totalPatient = Patient::count();
-            $billingPend = Billing::where('status', 'Pendiente')->sum('total');
-            $billingCan = Billing::where('status', 'Cancelado')->sum('total');
-            $billingCom = Billing::where('status', 'Pagado')->sum('total');
-        }
-
-
+     
+        $totalPatient = Patient::count();
+        $billingPend = Billing::where('status', 'Pendiente')->sum('total');
+        $billingCan = Billing::where('status', 'Cancelado')->sum('total');
+        $billingCom = Billing::where('status', 'Pagado')->sum('total');
+        
         return view('dashboard', compact('totalPatient', 'billingPend', 'billingCan', 'billingCom'));
     }
 

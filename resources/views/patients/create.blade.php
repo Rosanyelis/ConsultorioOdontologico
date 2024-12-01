@@ -9,7 +9,7 @@
                                         <div class="nk-block-head-content">
                                             <h3 class="nk-block-title page-title">Agregar Paciente</h3>
                                             <div class="nk-block-des text-soft">
-                                                <p>Ingrese la DNI del paciente, para obtener su información personal del SUNAT</p>
+                                                <p class="text-dark" >Ingrese la DNI del paciente, para obtener su información personal del SUNAT</p>
                                             </div>
                                         </div><!-- .nk-block-head-content -->
                                         <div class="nk-block-head-content">
@@ -99,21 +99,6 @@
                                                                         @if ($errors->has('phone'))
                                                                             <span class="invalid text-danger">
                                                                                 {{ $errors->first('phone') }}
-                                                                            </span>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!--col-->
-                                                            <div class="col-xxl-3 col-md-4">
-                                                                <div class="form-group">
-                                                                    <label class="form-label" for="whatsapp">Whatsapp</label>
-                                                                    <div class="form-control-wrap">
-                                                                        <input type="number" name="whatsapp" class="form-control" id="whatsapp"
-                                                                            placeholder="Ejm: +56123456789" value="{{ old('whatsapp') }}">
-                                                                        @if ($errors->has('whatsapp'))
-                                                                            <span class="invalid text-danger">
-                                                                                {{ $errors->first('whatsapp') }}
                                                                             </span>
                                                                         @endif
                                                                     </div>

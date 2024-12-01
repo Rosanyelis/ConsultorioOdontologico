@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quote;
+use App\Models\Patient;
+use App\Models\QuoteItem;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\TypeOfTreatments;
@@ -15,8 +17,15 @@ class QuoteController extends Controller
      */
     public function index()
     {
+        $data = Quote::all();
+        return view('quotes.index', compact('data'));
+    }
+
+    public function create()
+    {
+        $patients = Patient::all();
         $type = TypeOfTreatments::all();
-        return view('quotes.index', compact('type'));
+        return view('quotes.create', compact('type', 'patients'));
     }
 
     /**
@@ -44,7 +53,30 @@ class QuoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $dato = Quote::create([
+            'patient_id' => $request->patient_id,
+            'valid_end' => $request->valid_end,
+            'observations' => $request->observations,
+            'total' => $request->total,
+        ]);
+
+        $servicios = json_decode($request->services);
+
+        foreach($servicios as $item){
+            $t = TypeOfTreatments::where('name', $item->type)->first();
+            QuoteItem::create([
+                'quote_id' => $dato->id,
+                'type_of_treatment_id' => $t->id,
+                'treatment' => $item->type,
+                'price_unit' => $item->price,
+                'quantity_teeths' => $item->qty,
+                'subtotal' => $item->subtotal,
+            ]);
+        }
+
+        return redirect()->route('quote.index')->with('success', 'La Cotización fue registrada exitósamente.');
+
     }
 
     /**

@@ -39,5 +39,13 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin'), // password
         ]);
 
+        $rol__ = Role::where('name', 'Doctor')->first();
+        User::create([
+            'rol_id' => $rol__->id,
+            'name' => 'Doctor',
+            'email' => 'doctor@example.com',
+            'password' => Hash::make('admin'), // password
+        ]);
+
     }
 }

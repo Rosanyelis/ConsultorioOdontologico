@@ -70,17 +70,25 @@ class BillingController extends Controller
 
     public function store_pay(StorePayInvoice $request, $id)
     {
-        $data = Billing::find($id);
-        if ($data->total == $request->pay_amount) {
-            $data->status = 'Pagado';
+        $billing = Billing::findOrFail($id); // Garantiza que la factura existe o lanza un error
+        $total_abonos = $billing->payments->sum('pay_amount');
+        $saldo_pendiente = $billing->total - $total_abonos;
+
+        // Validar si el monto del abono excede el saldo pendiente
+        if ($request->pay_amount > $saldo_pendiente) {
+            return redirect()->back()->with('error', 'El monto de abono excede el saldo pendiente de la Factura.');
         }
-        if ($data->total > $request->pay_amount) {
-            $data->status = 'Pendiente';
+
+        // Actualizar estado de la factura
+        $nuevo_total_abonado = $total_abonos + $request->pay_amount;
+
+        if ($nuevo_total_abonado == $billing->total) {
+            $billing->status = 'Pagado';
+        } else {
+            $billing->status = 'Pendiente';
         }
-        if ($data->total < $request->pay_amount) {
-            return redirect()->back()->with('error', 'El monto de abono es mayor al monto de la Factura, por favor verifique.');
-        }
-        $data->save();
+
+        $billing->save();
 
         $data = $request->all();
         $data['billing_id'] = $id;

@@ -30,9 +30,14 @@
                                                         <div class="row gy-4 pb-4">
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
-                                                                    <label class="form-label" for="fw-vr-first-name">Medicamento</label>
+                                                                    <label class="form-label" for="medicine">Medicamento</label>
                                                                     <div class="form-control-wrap">
-                                                                        <input type="text" class="form-control " id="medicine" placeholder="Ejm: Acetaminofen ">
+                                                                        <select class="form-select" id="medicine"  data-placeholder="Seleccione" data-search="on" >
+                                                                            <option value="">Seleccione</option>
+                                                                            @foreach ($medicines as $item)
+                                                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -44,15 +49,20 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-4">
                                                                 <div class="form-group">
-                                                                    <label class="form-label" for="fw-vr-first-name">Instrucciones de toma</label>
+                                                                    <label class="form-label" for="instructions">Instrucciones de toma</label>
                                                                     <div class="form-control-wrap">
-                                                                        <input type="text" class="form-control " id="instructions" placeholder="Ejm: Tomar cada 4 horas">
+                                                                        <select class="form-select" id="instructions"  data-placeholder="Seleccione" data-search="on" >
+                                                                            <option value="">Seleccione</option>
+                                                                            @foreach ($indications as $item)
+                                                                            <option value="{{ $item->description }}">{{ $item->description }}</option>
+                                                                            @endforeach
+                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-2">
                                                                 <button id="aggMedicine" type="button" class="btn btn-md btn-success mt-4">Agregar</button>
                                                             </div>
                                                         </div>
@@ -99,37 +109,5 @@
                         </div>
 @endsection
 @section('scripts')
-    <script>
-        var datosMedicamentos = [];
-        $('#aggMedicine').click(function() {
-            let medicine = $('#medicine').val();
-            let dose = $('#dose').val();
-            let instructions = $('#instructions').val();
-            $("#Medicamentos tbody").append(
-                `<tr>
-                    <td>`+medicine+`</td>
-                    <td>`+dose+`</td>
-                    <td>`+instructions+`</td>
-                </tr>`);
-
-            let datosFila = {};
-            datosFila.medicine = medicine;
-            datosFila.dose = dose;
-            datosFila.instructions = instructions;
-            datosMedicamentos.push(datosFila);
-
-            $('#medicine').val('');
-            $('#dose').val('');
-            $('#instructions').val('');
-        });
-
-        $('#guardar').click(function() {
-            $('#datosMedicamentos').val(JSON.stringify(datosMedicamentos));
-            $('#form').submit();
-            $('#guardar').attr('disabled', true);
-            $('#guardar').html(
-                '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> Por favor, espere... </span>'
-                );
-        });
-    </script>
+    <script src="{{ asset('pagejs/recipes.js') }}"></script>
 @endsection

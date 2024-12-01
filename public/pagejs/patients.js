@@ -1,19 +1,14 @@
 
     $('#dateBirthday').on('change', function(){
         let dateBirthday = $('#dateBirthday').val();
-        console.log(dateBirthday);
         // Extraer el año usando la función getFullYear()
         let year = new Date(dateBirthday).getFullYear();
-        console.log(year);
         // Obtener la fecha actual
         let fechaActual = new Date();
         // Obtener el año actual
         let anioActual = fechaActual.getFullYear();
-        console.log(anioActual);
-
         // edad
         let edad = anioActual - year;
-        console.log(edad);
         // añadir edad en input
         $('#age').val(edad);
     });
@@ -51,3 +46,11 @@
         });
     });
 
+
+    $('.table-record tbody').on('click', '.show-image', function(){
+        let image = $(this).data('image');
+        $('#img_record_dental').attr('src', image);
+        $('#modalShowImage').modal('show');
+    });
+
+    

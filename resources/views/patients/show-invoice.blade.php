@@ -47,11 +47,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="w-100"></div>
-                                                        <div class="col-xxl-4 col-xl-4 col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="total">Doctor:</label> {{ $data->patient->doctor->firstname }} {{ $data->patient->doctor->lastname }}
-                                                            </div>
-                                                        </div>
+                                                        
                                                         <div class="col-xxl-4 col-xl-4 col-md-4">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="total">Estatus de factura:</label> {{ $data->status }}

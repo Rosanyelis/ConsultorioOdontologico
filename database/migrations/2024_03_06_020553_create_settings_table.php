@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('email')->nullable();
+            $table->string('name_doctor')->nullable();
+            $table->string('mcd')->nullable();
+            $table->string('url_signature')->nullable();
             $table->boolean('mantenance')->default(false);
             $table->boolean('active')->default(true);
             $table->string('type_plan')->nullable(); // anual o mensual

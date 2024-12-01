@@ -12,8 +12,8 @@
                                         <div class="nk-block-head-content">
                                             <ul class="nk-block-tools g-3">
                                                 <li class="nk-block-tools-opt">
-                                                    <a href="{{ route('patient.show', $data->patient->id) }}" class="btn btn-icon btn-secondary d-md-none"><em class="icon ni ni-arrow-left"></em></a>
-                                                    <a href="{{ route('patient.show', $data->patient->id) }}" class="btn btn-secondary d-none d-md-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Regresar</span></a>
+                                                    <a href="{{ route('billing.index') }}" class="btn btn-icon btn-secondary d-md-none"><em class="icon ni ni-arrow-left"></em></a>
+                                                    <a href="{{ route('billing.index') }}" class="btn btn-secondary d-none d-md-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Regresar</span></a>
                                                 </li>
                                             </ul>
                                         </div><!-- .nk-block-head-content -->

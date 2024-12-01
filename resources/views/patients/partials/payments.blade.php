@@ -19,6 +19,7 @@
                                                                             <th>Nro. Cuotas</th>
                                                                             <th>Total</th>
                                                                             <th>Abonado</th>
+                                                                            <th>Saldo</th>
                                                                             <th>Estatus</th>
                                                                             <th class="text-right">Acciones</th>
                                                                         </tr>
@@ -30,7 +31,7 @@
                                                                             <td>#000{{ $item->id }}</td>
                                                                             <td>{{ $item->payment_type }}</td>
                                                                             <td>{{ $item->number_installments }}</td>
-                                                                            <td>{{ $item->total }}</td>
+                                                                            <td>{{ $setting->symbol_plan }} {{ $item->total }}</td>
                                                                             <td>
                                                                                 @php
                                                                                     $totalPaid = 0;
@@ -38,7 +39,10 @@
                                                                                         $totalPaid += $payment->pay_amount;
                                                                                     }
                                                                                 @endphp
-                                                                                {{ $totalPaid }}
+                                                                                {{ $setting->symbol_plan }} {{ $totalPaid }}
+                                                                            </td>
+                                                                            <td>
+                                                                            {{ $setting->symbol_plan }} {{ $item->total - $item->payments->sum('pay_amount') }}
                                                                             </td>
                                                                             <td>
                                                                                 @if ($item->status == 'Pagado')
@@ -64,12 +68,6 @@
                                                                                                     <span>Ver Factura</span>
                                                                                                 </a>
                                                                                             </li>
-                                                                                            <!-- <li>
-                                                                                                <a href="#">
-                                                                                                    <em class="icon ni ni-pen-fill"></em>
-                                                                                                    <span>Editar Factura</span>
-                                                                                                </a>
-                                                                                            </li> -->
                                                                                             @if ($item->status == 'Pendiente')
                                                                                             <li>
                                                                                                 <a href="{{ route('patient.pay-invoice', ['id' => $data->id, 'pay_id' => $item->id]) }}">

@@ -23,6 +23,7 @@ class SettingController extends Controller
     {
         $data = Setting::find($id);
         $path = '';
+        $pathsignature = '';
         if ($request->hasFile('archivo')) {
             $uploadPath = public_path('/storage/settings/');
             $file = $request->file('archivo');
@@ -33,12 +34,29 @@ class SettingController extends Controller
             $path = '/storage/settings/'.$filename;
         }
 
+        if ($request->hasFile('url_signature')) {
+            $uploadPath = public_path('/storage/settings/');
+            $file = $request->file('url_signature');
+            $extension = $file->getClientOriginalExtension();
+            $name = 'file-' . time();
+            $filename = $name . '.' . $extension;
+            $file->move($uploadPath, $filename);
+            $pathsignature = '/storage/settings/'.$filename;
+        }
+
         $data->name = $request->name;
         $data->url_logo = $path;
         $data->address = $request->address;
         $data->phone = $request->phone;
         $data->whatsapp = $request->whatsapp;
         $data->email = $request->email;
+        $data->name_doctor = $request->name_doctor;
+        $data->mcd = $request->mcd;
+        $data->url_signature = $pathsignature;
+        $data->mcd = $request->mcd;
+        $data->mcd = $request->mcd;
+        $data->mcd = $request->mcd;
+
         $data->save();
         return redirect()->route('settings.index')->with('success', 'Configuración actualizada');
     }

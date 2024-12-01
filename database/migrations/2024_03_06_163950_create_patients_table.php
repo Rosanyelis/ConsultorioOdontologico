@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('whatsapp');
             $table->date('birthdate');
             $table->integer('age');
+            $table->string('address');
             $table->timestamps();
         });
     }

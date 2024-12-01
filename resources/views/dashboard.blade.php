@@ -51,7 +51,7 @@
                                                         </div>
                                                         <div class="data">
                                                             <div class="data-group">
-                                                                <div class="amount">${{ $billingPend }}</div>
+                                                                <div class="amount">{{ $setting->symbol_plan }} {{ $billingPend }}</div>
                                                                 <div class="nk-ecwg6-ck">
                                                                     <canvas class="ecommerce-line-chart-s3" id="opdIncome"></canvas>
                                                                 </div>
@@ -72,7 +72,7 @@
                                                         </div>
                                                         <div class="data">
                                                             <div class="data-group">
-                                                                <div class="amount">${{ $billingCan }}</div>
+                                                                <div class="amount">{{ $setting->symbol_plan }}{{ $billingCan }}</div>
                                                                 <div class="nk-ecwg6-ck">
                                                                     <canvas class="ecommerce-line-chart-s3" id="labIncome"></canvas>
                                                                 </div>
@@ -93,7 +93,7 @@
                                                         </div>
                                                         <div class="data">
                                                             <div class="data-group">
-                                                                <div class="amount">${{ $billingCom }}</div>
+                                                                <div class="amount">{{ $setting->symbol_plan }} {{ $billingCom }}</div>
                                                                 <div class="nk-ecwg6-ck">
                                                                     <canvas class="ecommerce-line-chart-s3" id="todayExpense"></canvas>
                                                                 </div>
