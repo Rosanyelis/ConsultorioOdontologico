@@ -82,7 +82,7 @@
                                                                 <tfoot>
                                                                     <tr>
                                                                         <td class="text-right text-uppercase"><h5>Total</h5></td>
-                                                                        <td><h5>{{ $data->total }}</h5></td>
+                                                                        <td class="text-center"><h5 class="text-center">{{ $data->total }}</h5></td>
                                                                     </tr>
                                                                 </tfoot>
                                                             </table>

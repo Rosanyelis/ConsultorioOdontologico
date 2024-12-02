@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('quotes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('patient_id');
-            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
+            $table->string('dni');
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->string('second_surname')->nullable();
+            $table->string('phone');
+            $table->string('email')->nullable();
+            $table->string('address')->nullable();
             $table->text('observations')->nullable();
             $table->date('valid_end');
             $table->decimal('total', 10, 2);

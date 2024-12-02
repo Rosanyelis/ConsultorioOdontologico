@@ -32,7 +32,7 @@ class NoteController extends Controller
             'patient_id'            => $id,
             'grades'                => $request->grades,
         ]);
-        
+
         return redirect()->route('patient.show', $id)->with('success', 'La Nota fue registrada exitósamente.');
     }
 
@@ -63,8 +63,11 @@ class NoteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Note $note)
+    public function destroy($id, $note)
     {
-        //
+        $note = Note::find($note);
+        $note->delete();
+
+        return redirect()->route('patient.show', $id)->with('success', 'La Nota fue eliminada exitosamente.');
     }
 }

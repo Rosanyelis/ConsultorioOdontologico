@@ -29,36 +29,21 @@ class QuoteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function pdf(Request $request)
-    {
-        $data = json_decode($request->data);
-        $quote = $data[0];
-        $patient = [
-            'name' => $request->name,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'mcd' => $request->mcd,
-            'date' => $request->date,
-            'datevalid' => $request->dateValid,
-        ];
-
-        $pdf = Pdf::loadView('quotes.quote', compact('quote', 'patient'));
-        return $pdf->stream();
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
 
         $dato = Quote::create([
-            'patient_id' => $request->patient_id,
-            'valid_end' => $request->valid_end,
-            'observations' => $request->observations,
-            'total' => $request->total,
+            'dni' => $request->dni,
+            'firstname'         => $request->firstname,
+            'lastname'          => $request->lastname,
+            'second_surname'    => $request->second_surname,
+            'phone'             => $request->phone,
+            'email'             => $request->email,
+            'valid_end'         => $request->valid_end,
+            'observations'      => $request->observations,
+            'total'             => $request->total,
         ]);
 
         $servicios = json_decode($request->services);
@@ -79,12 +64,45 @@ class QuoteController extends Controller
 
     }
 
+     /**
+     * Show the form for creating a new resource.
+     */
+    public function pdf($id)
+    {
+        $quote = Quote::find($id);
+
+        $pdf = Pdf::loadView('quotes.quote', compact('quote'));
+        return $pdf->stream();
+    }
+
     /**
      * Display the specified resource.
      */
-    public function show(Quote $quote)
+    public function send_correo($id)
     {
-        //
+        $quote = Quote::find($id);
+
+        $pdf = Pdf::loadView('quotes.quote', compact('quote'))
+        ->setPaper('letter', 'portrait')
+        ->setWarnings(false)
+        ->save(storage_path('app/public/quotes/quote-'.$quote->id.'.pdf'));
+
+        $url = asset('storage/quotes/quote-'.$quote->id.'.pdf');
+
+        $data = [
+            'subject' => 'Cotización',
+            'body' => 'Cotización',
+            'url' => $url,
+            'email' => $quote->email,
+        ];
+
+        \Mail::send('emails.quote', $data, function ($message) use ($data) {
+            $message->to($data['email'], 'Cotización');
+            $message->subject($data['subject']);
+            $message->attach($data['url']);
+        });
+
+
     }
 
     /**

@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cotizaciones-y-presupuesto/agregar-cotizacion', [QuoteController::class, 'create'])->name('quote.create');
     Route::post('/cotizaciones-y-presupuesto/guardar-cotizacion', [QuoteController::class, 'store'])->name('quote.store');
     Route::get('/cotizaciones-y-presupuesto/{id}/ver-cotizacion', [QuoteController::class, 'show'])->name('quote.show');
-    Route::post('/generar-presupuesto', [QuoteController::class, 'pdf'])->name('quote.pdf');
+    Route::get('/cotizaciones-y-presupuesto/{id}/generar-presupuesto', [QuoteController::class, 'pdf'])->name('quote.pdf');
 
     # Pacientes
     Route::get('/pacientes', [PatientController::class, 'index'])->name('patient.index');
@@ -97,6 +97,8 @@ Route::middleware('auth')->group(function () {
 
     # Pacientes -  Notas
     Route::post('/pacientes/{id}/guardar-nota', [NoteController::class, 'store'])->name('patient.store-note');
+    Route::post('/pacientes/{id}/{note_id}/eliminar-nota', [NoteController::class, 'destroy'])->name('patient.destroy-note');
+
 
     # Finanzas o Pagos
     Route::get('/finanzas', [BillingController::class, 'index'])->name('billing.index');
@@ -104,7 +106,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/finanzas/{id}/ver-factura', [BillingController::class, 'show'])->name('billing.show');
     Route::get('finanzas/{id}/abonar-factura', [BillingController::class, 'pay'])->name('billing.pay');
     Route::post('finanzas/{id}/guardar-abonar-factura', [BillingController::class, 'store_pay'])->name('billing.store-pay');
-    // Route::get('/finanzas/{id}/descargar-factura', [BillingController::class, 'download'])->name('billing.download');
+    Route::get('/finanzas/{id}/descargar-factura', [BillingController::class, 'invoice_pdf'])->name('billing.invoice_pdf');
 
     # Usuarios
     Route::get('/usuarios', [UserController::class, 'index'])->name('user.index');

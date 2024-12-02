@@ -186,10 +186,17 @@
                                                                             <p>{{ $item->grades }}</p>
                                                                         </div>
                                                                         <div class="bq-note-meta">
-                                                                            <span class="bq-note-added">Agregada  <span class="date">{{ $item->created_at->diffForHumans() }}</span> </span>
+                                                                        <span class="bq-note-added">Agregada  <span class="date">{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }} </span></span>
                                                                             <span class="bq-note-sep sep">|</span>
 
-                                                                            <a href="#" class="link link-sm link-danger">Borrar Nota</a>
+                                                                            <a href="#" class="delete-note text-danger" data-id="{{ $item->id }}">
+                                                                                <em class="icon ni ni-trash-fill"></em>
+                                                                                <span>Borrar Nota</span>
+                                                                            </a>
+                                                                            <form id="formNoteDelete-{{ $item->id }}"
+                                                                                action="{{ route('patient.destroy-note', ['id' => $data->id, 'note_id' => $item->id]) }}"method="POST">
+                                                                                @csrf
+                                                                            </form>
                                                                         </div>
                                                                     </div><!-- .bq-note-item -->
                                                                     @endforeach

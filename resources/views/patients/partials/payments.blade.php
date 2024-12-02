@@ -76,6 +76,12 @@
                                                                                                 </a>
                                                                                             </li>
                                                                                             @endif
+                                                                                            <li>
+                                                                                                <a href="{{ route('billing.invoice_pdf', ['id' => $item->id]) }}" target="_blank">
+                                                                                                    <em class="icon ni ni-file-pdf"></em>
+                                                                                                    <span>Factura pdf</span>
+                                                                                                </a>
+                                                                                            </li>
                                                                                         </ul>
                                                                                     </div>
                                                                                 </div>

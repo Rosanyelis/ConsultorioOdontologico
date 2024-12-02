@@ -57,6 +57,7 @@ class PatientController extends Controller
      */
     public function store(PatientStoreRequest $request)
     {
+
         $birthdate = Carbon::parse($request->birthdate);
         if(!$request->age){
             $age = $request->age;

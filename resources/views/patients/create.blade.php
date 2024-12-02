@@ -165,7 +165,7 @@
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
                                                                                                 <input type="radio" id="customRadio2" name="has_disease"
-                                                                                                    class="custom-control-input" value="No">
+                                                                                                    class="custom-control-input" value="No" checked>
                                                                                                 <label class="custom-control-label" for="customRadio2">No</label>
                                                                                             </div>
                                                                                         </td>
@@ -203,7 +203,7 @@
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
                                                                                                 <input type="radio" id="customRadio6" name="allergies"
-                                                                                                    class="custom-control-input" value="No">
+                                                                                                    class="custom-control-input" value="No" checked>
                                                                                                 <label class="custom-control-label" for="customRadio6">No</label>
                                                                                             </div>
                                                                                         </td>
@@ -226,7 +226,7 @@
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
                                                                                                 <input type="radio" id="customRadio8" name="epilepsy"
-                                                                                                    class="custom-control-input" value="No">
+                                                                                                    class="custom-control-input" value="No" checked>
                                                                                                 <label class="custom-control-label" for="customRadio8">No</label>
                                                                                             </div>
                                                                                         </td>
@@ -250,7 +250,7 @@
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
                                                                                                 <input type="radio" id="customRadio12" name="hepatitis"
-                                                                                                    class="custom-control-input" value="No">
+                                                                                                    class="custom-control-input" value="No" checked>
                                                                                                 <label class="custom-control-label" for="customRadio12">No</label>
                                                                                             </div>
                                                                                         </td>
@@ -273,7 +273,7 @@
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
                                                                                                 <input type="radio" id="customRadio14" name="hypertension"
-                                                                                                    class="custom-control-input" value="No">
+                                                                                                    class="custom-control-input" value="No" checked>
                                                                                                 <label class="custom-control-label" for="customRadio14">No</label>
                                                                                             </div>
                                                                                         </td>
@@ -297,7 +297,7 @@
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
                                                                                                 <input type="radio" id="customRadio22" name="heart_disease"
-                                                                                                    class="custom-control-input" value="No">
+                                                                                                    class="custom-control-input" value="No" checked>
                                                                                                 <label class="custom-control-label" for="customRadio22">No</label>
                                                                                             </div>
                                                                                         </td>
@@ -320,7 +320,7 @@
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
                                                                                                 <input type="radio" id="customRadio24" name="have_diabetes"
-                                                                                                    class="custom-control-input" value="No">
+                                                                                                    class="custom-control-input" value="No" checked>
                                                                                                 <label class="custom-control-label" for="customRadio24">No</label>
                                                                                             </div>
                                                                                         </td>
@@ -344,7 +344,7 @@
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
                                                                                                 <input type="radio" id="customRadio26" name="pregnant"
-                                                                                                    class="custom-control-input" value="No">
+                                                                                                    class="custom-control-input" value="No" checked>
                                                                                                 <label class="custom-control-label" for="customRadio26">No</label>
                                                                                             </div>
                                                                                         </td>
@@ -367,7 +367,7 @@
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
                                                                                                 <input type="radio" id="customRadio28" name="dental_floss"
-                                                                                                    class="custom-control-input" value="No">
+                                                                                                    class="custom-control-input" value="No" checked>
                                                                                                 <label class="custom-control-label" for="customRadio28">No</label>
                                                                                             </div>
                                                                                         </td>
@@ -390,7 +390,7 @@
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
                                                                                                 <input type="radio" id="customRadio30" name="tooth_pain"
-                                                                                                    class="custom-control-input" value="No">
+                                                                                                    class="custom-control-input" value="No" checked>
                                                                                                 <label class="custom-control-label" for="customRadio30">No</label>
                                                                                             </div>
                                                                                         </td>
@@ -413,7 +413,7 @@
                                                                                         <td>
                                                                                             <div class="custom-control custom-radio">
                                                                                                 <input type="radio" id="customRadio32" name="bad_smell_taste"
-                                                                                                    class="custom-control-input" value="No">
+                                                                                                    class="custom-control-input" value="No" checked>
                                                                                                 <label class="custom-control-label" for="customRadio32">No</label>
                                                                                             </div>
                                                                                         </td>

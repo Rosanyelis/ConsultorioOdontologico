@@ -28,9 +28,10 @@
                                         <table class="datatable-init table">
                                             <thead>
                                                 <tr>
-                                                    <th width="50px">#</th>
                                                     <th>Nro. Cotización</th>
                                                     <th>Paciente</th>
+                                                    <th>Telefono</th>
+                                                    <th>Correo</th>
                                                     <th>Fecha de Creación</th>
                                                     <th>Fecha de Venc.</th>
                                                     <th class="text-right">Acciones</th>
@@ -39,15 +40,34 @@
                                             <tbody>
                                                 @foreach ($data as $quote)
                                                     <tr>
-                                                        <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $quote->id }}</td>
-                                                        <td>{{ $quote->patient->dni }} - {{ $quote->patient->firstname }} {{ $quote->patient->lastname }} </td>
+                                                        <td>{{ $quote->dni }} - {{ $quote->firstname }} {{ $quote->lastname }} </td>
+                                                        <td>{{ $quote->phone }}</td>
+                                                        <td>{{ $quote->email }}</td>
                                                         <td>{{ $quote->created_at->format('d-m-Y') }}</td>
                                                         <td>{{ $quote->valid_end }}</td>
                                                         <td class="text-right">
-                                                            <a href="{{ route('quote.show', $quote->id) }}" class="btn btn-sm btn-icon ">
-                                                                <em class="icon ni ni-eye"></em>
-                                                            </a>
+                                                            <div class="dropdown float-right">
+                                                                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger pt-0 pb-0" data-toggle="dropdown">
+                                                                    <em class="icon ni ni-more-h"></em>
+                                                                </a>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <ul class="link-list-opt no-bdr">
+                                                                        <li>
+                                                                            <a href="{{ route('quote.show', $quote->id) }}">
+                                                                                <em class="icon ni ni-eye"></em>
+                                                                                <span>Ver</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="{{ route('quote.pdf', $quote->id) }}" target="_blank">
+                                                                                <em class="icon ni ni-file-pdf"></em>
+                                                                                <span>Pdf de Cotización</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 @endforeach

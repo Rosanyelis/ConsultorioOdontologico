@@ -53,4 +53,18 @@
         $('#modalShowImage').modal('show');
     });
 
-    
+    $('.delete-note').on('click', function(){
+        let dataid = $(this).data('id');
+        let formDelete = $('#formNoteDelete-'+dataid);
+        Swal.fire({
+            title: '¿Está Seguro de Eliminar la Nota?',
+            text: "La informaciòn no podra ser recuperada!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, estoy seguro!'
+        }).then((result) => {
+            if (result.value) {
+                $(formDelete).submit();
+            }
+        });
+    });

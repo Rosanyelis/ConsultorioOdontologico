@@ -22,27 +22,43 @@ class SettingController extends Controller
     public function update(Request $request, $id)
     {
         $data = Setting::find($id);
-        $path = '';
-        $pathsignature = '';
-        if ($request->hasFile('archivo')) {
-            $uploadPath = public_path('/storage/settings/');
-            $file = $request->file('archivo');
-            $extension = $file->getClientOriginalExtension();
-            $name = 'file-' . time();
-            $filename = $name . '.' . $extension;
-            $file->move($uploadPath, $filename);
-            $path = '/storage/settings/'.$filename;
+
+        if ($data->url_logo == '') {
+            $path = '';
+
+            if ($request->hasFile('archivo')) {
+                $uploadPath = public_path('/storage/settings/');
+                $file = $request->file('archivo');
+                $extension = $file->getClientOriginalExtension();
+                $name = 'file-' . time();
+                $filename = $name . '.' . $extension;
+                $file->move($uploadPath, $filename);
+                $path = '/storage/settings/'.$filename;
+            } else {
+                $path = '';
+            }
+        } else {
+            $path = $data->url_logo;
         }
 
-        if ($request->hasFile('url_signature')) {
-            $uploadPath = public_path('/storage/settings/');
-            $file = $request->file('url_signature');
-            $extension = $file->getClientOriginalExtension();
-            $name = 'file-' . time();
-            $filename = $name . '.' . $extension;
-            $file->move($uploadPath, $filename);
-            $pathsignature = '/storage/settings/'.$filename;
+        if ($data->url_signature == '') {
+            $pathsignature = '';
+
+            if ($request->hasFile('url_signature')) {
+                $uploadPath = public_path('/storage/settings/');
+                $file = $request->file('url_signature');
+                $extension = $file->getClientOriginalExtension();
+                $name = 'file-' . time();
+                $filename = $name . '.' . $extension;
+                $file->move($uploadPath, $filename);
+                $pathsignature = '/storage/settings/'.$filename;
+            } else {
+                $pathsignature = '';
+            }
+        } else {
+            $pathsignature = $data->url_signature;
         }
+
 
         $data->name = $request->name;
         $data->url_logo = $path;
@@ -54,9 +70,6 @@ class SettingController extends Controller
         $data->mcd = $request->mcd;
         $data->url_signature = $pathsignature;
         $data->mcd = $request->mcd;
-        $data->mcd = $request->mcd;
-        $data->mcd = $request->mcd;
-
         $data->save();
         return redirect()->route('settings.index')->with('success', 'Configuración actualizada');
     }

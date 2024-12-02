@@ -15,4 +15,9 @@ class Quote extends Model
     {
         return $this->belongsTo(Patient::class, 'patient_id', 'id');
     }
+
+    public function items()
+    {
+        return $this->hasMany(QuoteItem::class, 'quote_id', 'id');
+    }
 }

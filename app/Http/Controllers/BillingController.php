@@ -7,6 +7,7 @@ use App\Models\Patient;
 use App\Models\PayInvoice;
 use Illuminate\Http\Request;
 use App\Models\InvoiceDetail;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\TypeOfTreatments;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePayInvoice;
@@ -94,6 +95,16 @@ class BillingController extends Controller
         $data['billing_id'] = $id;
         PayInvoice::create($data);
         return redirect()->route('billing.index')->with('success', 'La Factura fue abonada exitosamente.');
+    }
+
+    public function invoice_pdf($id)
+    {
+        $data = Billing::with('patient', 'payments')->find($id);
+        $pdf = Pdf::loadView('payments.pdfinvoice', compact('data'));
+        $pdf->setPaper('letter');
+        // $pdf->setPaper([0, 0, 149, 235], 'mm');
+        return $pdf->stream();
+
     }
 
 

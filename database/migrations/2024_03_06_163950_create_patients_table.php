@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('second_surname')->nullable();
             $table->string('phone');
-            $table->string('whatsapp');
+            $table->string('email')->nullable();
             $table->date('birthdate');
             $table->integer('age');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }

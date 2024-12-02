@@ -6,6 +6,7 @@ use App\Models\Teeth;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use App\Models\DentalHistory;
+use App\Models\ReasonTreatment;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\TypeOfTreatments;
 use App\Http\Requests\StoreHistory;
@@ -30,7 +31,8 @@ class HistoryDentalController extends Controller
         $data = Patient::find($id);
         $teeths = Teeth::all();
         $treatments = TypeOfTreatments::all();
-        return view('histories.create', compact('data', 'teeths', 'treatments'));
+        $reason = ReasonTreatment::all();
+        return view('histories.create', compact('data', 'teeths', 'treatments', 'reason'));
     }
 
     /**

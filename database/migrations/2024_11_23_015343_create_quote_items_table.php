@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('type_of_treatment_id');
             $table->foreign('type_of_treatment_id')->references('id')->on('type_of_treatments')->onDelete('cascade');
             $table->string('treatment');
-            $table->string('duration');
             $table->string('quantity_teeths');
             $table->decimal('price_unit', 8, 2);
+            $table->decimal('subtotal', 8, 2);
             $table->timestamps();
         });
     }

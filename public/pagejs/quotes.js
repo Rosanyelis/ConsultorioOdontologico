@@ -6,9 +6,39 @@
     var totalQuote = 0;
     var typeId = 0;
 
-    $('#total').html('0');
+    $('#dni').on('change', function(){
+        let dni = $('#dni').val();
+        // Extraer el año usando la función getFullYear()
+        let url = "/api/search-dni/:dni";
+        url = url.replace(':dni', dni);
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $('#firstname').val(data.nombres);
+                if (data.apellidoPaterno == null) {
+                    $('#lastname').val(data.apellidoMaterno);
+                } else {
+                    $('#lastname').val(data.apellidoPaterno);
+                    $('#second_surname').val(data.apellidoMaterno);
+                }
 
-    $('#btnQuoteF').hide();
+                if (data.message == "not found") {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'error',
+                        title: 'DNI no encontrado, por favor verifique',
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                    $('#dni').val('');
+                }
+            }
+        });
+    });
+
+    $('#total').html('0');
 
     $('#add').on('click', function(){
         // obtener los datos de los campos

@@ -14,18 +14,18 @@ return new class extends Migration
         Schema::create('patient_healths', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id');
-            $table->enum('has_disease', ['Si', 'No']); // tiene enfermedad?
+            $table->string('has_disease'); // tiene enfermedad?
             $table->text('disease')->nullable();
-            $table->enum('allergies', ['Si', 'No']); // alergias
-            $table->enum('epilepsy', ['Si', 'No']); // epilepsia
-            $table->enum('hepatitis', ['Si', 'No']); // hepatitis
-            $table->enum('hypertension', ['Si', 'No']); // hipertensión
-            $table->enum('heart_disease', ['Si', 'No']); // enfermedad cardiaca
-            $table->enum('have_diabetes', ['Si', 'No']); // tiene diabetes
-            $table->enum('pregnant', ['Si', 'No']); // embarazada
-            $table->enum('dental_floss', ['Si', 'No']); // usa hilo dental
-            $table->enum('tooth_pain', ['Si', 'No']); // dolor de dientes?
-            $table->enum('bad_smell_taste', ['Si', 'No']); // mal olor o sabor
+            $table->string('allergies'); // alergias
+            $table->string('epilepsy'); // epilepsia
+            $table->string('hepatitis'); // hepatitis
+            $table->string('hypertension'); // hipertensión
+            $table->string('heart_disease'); // enfermedad cardiaca
+            $table->string('have_diabetes'); // tiene diabetes
+            $table->string('pregnant'); // embarazada
+            $table->string('dental_floss'); // usa hilo dental
+            $table->string('tooth_pain'); // dolor de dientes?
+            $table->string('bad_smell_taste'); // mal olor o sabor
             $table->foreign('patient_id')->references('id')->on('patients');
             $table->timestamps();
         });

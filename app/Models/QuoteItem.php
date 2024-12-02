@@ -10,4 +10,9 @@ class QuoteItem extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function quote()
+    {
+        return $this->belongsTo(Quote::class, 'quote_id', 'id');
+    }
 }

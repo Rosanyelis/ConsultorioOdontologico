@@ -31,9 +31,12 @@
                                                             <div class="col-xxl-4 col-xl-4 col-md-4">
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="reason_consultation">Motivo de tratamiento</label>
+                                                                    <select id="event-theme" name="reason_consultation" class="form-control" data-search="on">
+                                                                        @foreach ($reason as $item)
+                                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                     <div class="form-control-wrap">
-                                                                        <input type="text" name="reason_consultation" class="form-control"
-                                                                            id="reason_consultation" >
                                                                         @if ($errors->has('reason_consultation'))
                                                                             <span class="invalid text-danger">
                                                                                 {{ $errors->first('reason_consultation') }}

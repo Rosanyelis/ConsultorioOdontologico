@@ -47,7 +47,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="w-100"></div>
-                                                        
+
                                                         <div class="col-xxl-4 col-xl-4 col-md-4">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="total">Estatus de factura:</label> {{ $data->status }}
@@ -80,6 +80,32 @@
                                                                         <td><h5>{{ $data->total }}</h5></td>
                                                                     </tr>
                                                                 </tfoot>
+                                                            </table>
+                                                        </div>
+
+                                                        <div class="table-responsive mt-3 mb-3">
+                                                            <table id="servicio" class="table table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th colspan="4" class="text-center text-uppercase">Abonos Realizados</th>
+                                                                    </tr>
+                                                                    <tr class=" text-uppercase">
+                                                                        <th>Fecha</th>
+                                                                        <th>Metodo de Pago</th>
+                                                                        <th>Referencia</th>
+                                                                        <th>Monto</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($data->payments as $item)
+                                                                    <tr>
+                                                                        <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                                                                        <td>{{ $item->pay_method }}</td>
+                                                                        <td>{{ $item->pay_number_reference }}</td>
+                                                                        <td>{{ $item->pay_amount }}</td>
+                                                                    </tr>
+                                                                    @endforeach
+                                                                </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
