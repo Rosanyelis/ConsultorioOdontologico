@@ -57,8 +57,10 @@ class ObservationTemplateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ObservationTemplate $observationTemplate)
+    public function destroy( $observationTemplate)
     {
-        //
+        $observationTemplate = ObservationTemplate::find($observationTemplate);
+        $observationTemplate->delete();
+        return redirect()->back()->with('success', 'El registro se ha eliminado exitosamente.');
     }
 }

@@ -51,7 +51,7 @@ class TypeOfTreatmentsController extends Controller
         $type = TypeOfTreatments::find($typeOfTreatments);
         $type->name = $request->name;
         $type->save();
-        
+
         return redirect()->route('treatments.index')->with('success', 'Tipo de Tratamiento actualizado correctamente');
     }
 
@@ -60,8 +60,8 @@ class TypeOfTreatmentsController extends Controller
      */
     public function destroy($typeOfTreatments)
     {
-        $typeOfTreatments = TypeOfTreatments::find($typeOfTreatments);
-        $typeOfTreatments->delete();
+        $type = TypeOfTreatments::find($typeOfTreatments);
+        $type->delete();
         return redirect()->route('treatments.index')->with('success', 'Tipo de Tratamiento eliminado correctamente');
     }
 }

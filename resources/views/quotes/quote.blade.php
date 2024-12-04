@@ -21,10 +21,10 @@
 
         }
         .watermark{
-            /* background-image: url("{{ public_path($setting->url_logo) }}");
+            background-image: url("{{ public_path($setting->url_logo) }}");
             background-repeat: no-repeat;
             background-position: center;
-            opacity: 0.1; */
+            opacity: 0.1;
         }
         h1, h2, h3, h4, h5, h6 {
             margin-top: 0;
@@ -75,6 +75,7 @@
     <table class="table" >
         <tr>
             <td width="50%" class="p-1 text-left " style="border-right: 1px solid #0194d0;">
+
                 <img src="{{ public_path($setting->url_logo) }}" alt="" width="100%">
             </td>
             <td width="50%" class="p-1">
@@ -140,19 +141,21 @@
                 <td class="text-center py-1">{{ $key->treatment }}</td>
                 <td class="text-center py-1">{{ $key->quantity_teeths }}</td>
                 <td class="text-center py-1">{{ $key->price_unit }}</td>
-                <td class="text-center py-1">${{ $key->subtotal }}</td>
+                <td class="text-center py-1">{{ $setting->symbol_plan }} {{ $key->subtotal }}</td>
             </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
                 <th colspan="3" class="text-right">TOTAL</th>
-                <th>$ {{ $quote->total }}</th>
+                <th>{{ $setting->symbol_plan }} {{ $quote->total }}</th>
             </tr>
         </tfoot>
     </table>
 
+    @if ($setting->url_signature != null)
     <img src="{{ public_path($setting->url_signature) }}"  style="position: fixed; bottom: 2.5cm; right: 2.5cm;"   width="30%"  alt="">
+    @endif
     <table class="table" style="position: fixed; bottom: 4cm">
         <tr>
             <th class="text-center">

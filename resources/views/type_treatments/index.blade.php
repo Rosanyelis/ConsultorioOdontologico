@@ -59,7 +59,7 @@
                                                                                 <em class="icon ni ni-trash text-danger"></em>
                                                                                 <span>Eliminar</span>
                                                                             </a>
-                                                                            <form id="formDelete-{{ $item->id }}" action="{{ route('medicine.destroy', ['id' => $item->id]) }}"method="POST">
+                                                                            <form id="formDelete-{{ $item->id }}" action="{{ route('treatments.destroy', ['id' => $item->id]) }}"method="POST">
                                                                                 @csrf
                                                                             </form>
                                                                         </li>
@@ -76,8 +76,8 @@
                             </div>
                         </div>
                         <!-- end page title -->
-                        @include('medicine.partials.modal-import')
-                        @include('medicine.partials.modal-create')
+
+                        @include('type_treatments.partials.modal-create')
 @endsection
 
 @section('scripts')

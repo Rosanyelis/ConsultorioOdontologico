@@ -33,7 +33,7 @@
                                                                     <label class="form-label" for="reason_consultation">Motivo de tratamiento</label>
                                                                     <select id="event-theme" name="reason_consultation" class="form-control" data-search="on">
                                                                         @foreach ($reason as $item)
-                                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                     <div class="form-control-wrap">

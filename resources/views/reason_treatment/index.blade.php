@@ -65,13 +65,10 @@
                                                                 <div class="dropdown-menu dropdown-menu-right">
                                                                     <ul class="link-list-opt no-bdr">
                                                                         <li>
-                                                                            <a href="#" class="delete-record" data-id="{{ $item->id }}">
-                                                                                <em class="icon ni ni-trash text-danger"></em>
-                                                                                <span>Eliminar</span>
+                                                                            <a href="{{ route('reason-treatment.edit', $item->id) }}" >
+                                                                                <em class="icon ni ni-edit"></em>
+                                                                                <span>Editar</span>
                                                                             </a>
-                                                                            <form id="formDelete-{{ $item->id }}" action="{{ route('reason-treatment.destroy', ['id' => $item->id]) }}"method="POST">
-                                                                                @csrf
-                                                                            </form>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
@@ -86,12 +83,9 @@
                             </div>
                         </div>
                         <!-- end page title -->
-                        @include('observation_templates.partials.modal-create')
+                        @include('reason_treatment.partials.modal-create')
 @endsection
 
 @section('scripts')
-    <link rel="stylesheet" href="{{ asset('assets/css/editors/summernote.css?ver=2.4.0') }}">
-    <script src="{{ asset('assets/js/libs/editors/summernote.js?ver=2.4.0') }}"></script>
-    <script src="{{ asset('assets/js/editors.js?ver=2.4.0') }}"></script>
     <script src="{{ asset('pagejs/template.js') }}"></script>
 @endsection

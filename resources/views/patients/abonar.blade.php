@@ -105,6 +105,8 @@
                                                                             <option value="Efectivo">Efectivo</option>
                                                                             <option value="Transferencia">Transferencia</option>
                                                                             <option value="Punto de venta">Punto de venta</option>
+                                                                            <option value="Yape">Yape</option>
+                                                                            <option value="Plin">Plin</option>
                                                                         </select>
                                                                         @if ($errors->has('pay_method'))
                                                                             <span class="invalid text-danger">
@@ -116,7 +118,7 @@
                                                             </div>
                                                             <div class="col-xxl-4 col-xl-4 col-md-4">
                                                                 <div class="form-group">
-                                                                    <label class="form-label" for="pay_number_reference">Número de Referencia</label>
+                                                                    <label class="form-label" for="pay_number_reference">Descripción o Motivo de Abono</label>
                                                                     <div class="form-control-wrap">
                                                                         <input type="number" name="pay_number_reference" class="form-control"
                                                                         id="pay_number_reference" >

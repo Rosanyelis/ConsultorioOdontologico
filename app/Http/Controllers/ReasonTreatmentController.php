@@ -42,17 +42,20 @@ class ReasonTreatmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ReasonTreatment $reasonTreatment)
+    public function edit($reasonTreatment)
     {
-        //
+        $data = ReasonTreatment::find($reasonTreatment);
+        return view('reason_treatment.edit', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ReasonTreatment $reasonTreatment)
+    public function update(Request $request, $reasonTreatment)
     {
-        //
+        $data = ReasonTreatment::find($reasonTreatment);
+        $data->update($request->all());
+        return redirect()->route('reason-treatment.index')->with('success', 'Motivo de Consulta actualizado correctamente');
     }
 
     /**

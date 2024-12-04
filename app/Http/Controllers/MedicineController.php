@@ -69,8 +69,10 @@ class MedicineController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Medicine $medicine)
+    public function destroy($medicine)
     {
-        //
+        $m = Medicine::find($medicine);
+        $m->delete();
+        return redirect()->route('medicine.index')->with('success', 'Medicamento eliminado correctamente');
     }
 }

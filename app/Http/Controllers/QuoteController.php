@@ -8,6 +8,7 @@ use App\Models\QuoteItem;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\TypeOfTreatments;
+use App\Http\Requests\QuoteStoreRequest;
 
 
 class QuoteController extends Controller
@@ -31,7 +32,7 @@ class QuoteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(QuoteStoreRequest $request)
     {
 
         $dato = Quote::create([
@@ -63,6 +64,7 @@ class QuoteController extends Controller
         return redirect()->route('quote.index')->with('success', 'La Cotización fue registrada exitósamente.');
 
     }
+
 
      /**
      * Show the form for creating a new resource.
