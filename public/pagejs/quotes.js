@@ -16,6 +16,7 @@
             type: 'GET',
             dataType: 'json',
             success: function(data) {
+
                 $('#firstname').val(data.nombres);
                 if (data.apellidoPaterno == null) {
                     $('#lastname').val(data.apellidoMaterno);

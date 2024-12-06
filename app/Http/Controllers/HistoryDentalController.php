@@ -57,7 +57,8 @@ class HistoryDentalController extends Controller
         }
 
         return redirect()->route('patient.show', $id)
-        ->with('success', 'La Historia Dental fue registrada exitósamente.');
+        ->with('success', 'La Historia Dental fue registrada exitósamente.')
+        ->with('activeTab', 'historias');
 
     }
 

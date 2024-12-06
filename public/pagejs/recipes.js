@@ -23,6 +23,18 @@
         $('#instructions').val('');
     });
 
+    $('#recommendation').on('change', function() {
+        let recommendation = $(this).val();
+        $.ajax({
+            url: '/pacientes/'+recommendation+'/templates',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                $('#observation').summernote('code', response.description);
+            }
+        });
+    });
+
     $('#guardar').click(function() {
 
         // validar que haya medicamentos en la tabla

@@ -83,7 +83,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/pacientes/{id}/guardar-receta', [RecipeController::class, 'store'])->name('patient.store-recipe');
     Route::get('/pacientes/{id}/{recipe_id}/ver-receta', [RecipeController::class, 'show'])->name('patient.show-recipe');
     Route::get('/pacientes/{id}/{recipe_id}/imprimir-receta', [RecipeController::class, 'print_recipe'])->name('patient.print-recipe');
-
+    Route::get('/pacientes/{template}/templates', [RecipeController::class, 'templates'])->name('patient.templates');
     # Pacientes - Pagos
     Route::get('/pacientes/{id}/crear-pago', [PatientController::class, 'create_pay'])->name('patient.pay');
     Route::post('/pacientes/{id}/guardar-pago', [PatientController::class, 'store_pay'])->name('patient.store-pay');
@@ -157,17 +157,14 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('comandos', function () {
-    // Artisan::call('optimize');
-    // Artisan::call('view:clear');
-    // Artisan::call('cache:clear');
-    // Artisan::call('route:clear');
-    // Artisan::call('config:clear');
-    // Artisan::call('filament:clear-cached-components');
-    // Artisan::call('filament:cache-components');
-    // Artisan::call('config:cache');
-    // Artisan::call('view:cache');
-    // Artisan::call('route:cache');
-    //Artisan::call('icons:cache');
+    Artisan::call('optimize');
+    Artisan::call('view:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:cache');
+    Artisan::call('route:cache');
     Artisan::call('storage:link');
 
     return 'Comandos ejecutados con éxitos';

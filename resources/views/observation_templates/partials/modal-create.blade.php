@@ -15,7 +15,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="time">Ingrese nombre de plantilla</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" name="name" placeholder="Ejm: Ortodoncia">
+                                                        <input type="text" class="form-control" name="name" placeholder="Ejm: Ortodoncia"  required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -24,7 +24,7 @@
                                                     <label class="form-label" for="time">Ingrese texto de plantilla</label>
                                                     <div class="form-control-wrap">
                                                         <textarea name="description" class="form-control summernote-minimal "
-                                                            id="" rows="10" ></textarea>
+                                                            id="" rows="10"  required></textarea>
                                                     </div>
                                                 </div>
                                             </div>

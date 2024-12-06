@@ -139,7 +139,9 @@ class PatientController extends Controller
             ]);
         }
 
-        return redirect()->route('patient.show', $id)->with('success', 'La Factura fue registrada exitósamente.');
+        return redirect()->route('patient.show', $id)
+            ->with('success', 'La Factura fue registrada exitósamente.')
+            ->with('activeTab', 'pagos');
     }
 
     public function pay_invoice(string $id, string $pay_id)
@@ -173,7 +175,10 @@ class PatientController extends Controller
         $data = $request->all();
         $data['billing_id'] = $pay_id;
         PayInvoice::create($data);
-        return redirect()->route('patient.show', $id)->with('success', 'La Factura fue abonada exitosamente.');
+
+        return redirect()->route('patient.show', $id)
+            ->with('success', 'La Factura fue abonada exitosamente.')
+            ->with('activeTab', 'pagos');
     }
 
     public function show_pay_invoice(string $id, string $pay_id)
@@ -219,6 +224,7 @@ class PatientController extends Controller
             $age = $birthdate->age;
         }
         $patient = Patient::find($id);
+        $patient->dni               = $request->dni;
         $patient->firstname         = $request->firstname;
         $patient->lastname          = $request->lastname;
         $patient->second_surname    = $request->second_surname;

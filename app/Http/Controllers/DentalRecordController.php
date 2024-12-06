@@ -53,7 +53,9 @@ class DentalRecordController extends Controller
             'observations'    => $request->observations,
         ]);
 
-        return redirect()->route('patient.show', $id)->with('success', 'El Registro Dental fue registrado exitósamente.');
+        return redirect()->route('patient.show', $id)
+            ->with('success', 'El Registro Dental fue registrado exitósamente.')
+            ->with('activeTab', 'registros');
     }
 
     /**

@@ -83,12 +83,24 @@
                                                                     </table>
                                                                 </div>
                                                             </div>
-
+                                                            <div class="col-xxl-5 col-xl-5 col-md-5">
+                                                                <div class="form-group">
+                                                                    <label class="form-label" for="recommendation">Plantillas de Observaciones o Recomendaciones</label>
+                                                                    <div class="form-control-wrap">
+                                                                        <select class="form-select" id="recommendation"  data-placeholder="Seleccione" data-search="on" >
+                                                                            <option value="">Seleccione</option>
+                                                                            @foreach ($templates as $item)
+                                                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                             <div class="col-xxl-12 col-xl-12 col-md-12">
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="crowding">Observaciones</label>
                                                                     <div class="form-control-wrap">
-                                                                        <textarea name="observation" class="form-control" id="" cols="30" rows="3"></textarea>
+                                                                        <textarea name="observation" class="form-control summernote-minimal" id="observation" cols="30" rows="3"></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -109,5 +121,8 @@
                         </div>
 @endsection
 @section('scripts')
+<link rel="stylesheet" href="{{ asset('assets/css/editors/summernote.css?ver=2.4.0') }}">
+    <script src="{{ asset('assets/js/libs/editors/summernote.js?ver=2.4.0') }}"></script>
+    <script src="{{ asset('assets/js/editors.js?ver=2.4.0') }}"></script>
     <script src="{{ asset('pagejs/recipes.js') }}"></script>
 @endsection

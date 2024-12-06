@@ -136,7 +136,12 @@
         @endforeach
         <tr>
             <td colspan="3" style="padding-top:4px;padding-bottom:4px;">
-                <b>Observaciones:</b> {{ $data->observations }}
+                <b>Observaciones:</b>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="padding-top:4px;padding-bottom:4px;">
+                {!! $data->observations !!}
             </td>
         </tr>
     </table>

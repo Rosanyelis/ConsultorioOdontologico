@@ -7,6 +7,7 @@ use App\Models\Patient;
 use App\Models\Medicine;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\ObservationTemplate;
 use App\Models\MedicationInstruction;
 use App\Models\MedicationPrescription;
 
@@ -28,7 +29,8 @@ class RecipeController extends Controller
         $data = Patient::find($id);
         $medicines = Medicine::all();
         $indications = MedicationInstruction::all();
-        return view('recipes.create', compact('data', 'medicines', 'indications'));
+        $templates = ObservationTemplate::all();
+        return view('recipes.create', compact('data', 'medicines', 'indications','templates'));
     }
 
     /**
@@ -52,7 +54,9 @@ class RecipeController extends Controller
             ]);
         }
 
-        return redirect()->route('patient.show', $id)->with('success', 'La Receta fue registrada exitósamente.');
+        return redirect()->route('patient.show', $id)
+            ->with('success', 'La Receta fue registrada exitósamente.')
+            ->with('activeTab', 'recetas');
     }
 
     /**
@@ -96,4 +100,11 @@ class RecipeController extends Controller
     {
         //
     }
+
+    public function templates($template)
+    {
+        $data = ObservationTemplate::where('name', $template)->first();
+        return response()->json($data);
+    }
+
 }

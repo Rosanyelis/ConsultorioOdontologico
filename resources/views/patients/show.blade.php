@@ -26,32 +26,36 @@
                                             <div class="card-content">
                                                 <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
                                                     <li class="nav-item">
-                                                        <a class="nav-link active"
+                                                        <a class="nav-link active" id="info-personal-tab"
                                                             data-toggle="tab" href="#info-personal">
                                                             <em class="icon ni ni-user-circle-fill"></em>
                                                             <span>Información Personal</span>
                                                         </a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#tabItem2">
+                                                    <li class="nav-item @if (session('activeTab') == 'historias') active @endif">
+                                                        <a class="nav-link" data-toggle="tab" href="#historias"
+                                                            id="historias-tab">
                                                             <em class="icon ni ni-property"></em>
                                                             <span>Historias</span>
                                                         </a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#tabItem3">
+                                                    <li class="nav-item @if (session('activeTab') == 'registros') active @endif">
+                                                        <a class="nav-link" data-toggle="tab" href="#registros"
+                                                            id="registros-tab">
                                                             <em class="icon ni ni-img-fill"></em>
                                                             <span>Registros Dentales</span>
                                                         </a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#tabItem4">
+                                                    <li class="nav-item @if (session('activeTab') == 'recetas') active @endif">
+                                                        <a class="nav-link" data-toggle="tab" href="#recetas"
+                                                            id="recetas-tab">
                                                             <em class="icon ni ni-capsule-fill"></em>
                                                             <span>Recetas</span>
                                                         </a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#tabItem5">
+                                                    <li class="nav-item @if (session('activeTab') == 'pagos') active @endif">
+                                                        <a class="nav-link" data-toggle="tab" href="#pagos"
+                                                            id="pagos-tab">
                                                             <em class="icon ni ni-wallet-in"></em>
                                                             <span>Pagos</span>
                                                         </a>
@@ -63,19 +67,19 @@
                                                         <div class="tab-pane active " id="info-personal">
                                                             @include('patients.partials.information-patient')
                                                         </div><!-- tab pane -->
-                                                        <div class="tab-pane" id="tabItem2">
+                                                        <div class="tab-pane @if (session('activeTab') == 'historias') active @endif" id="historias">
                                                             @include('histories.index')
                                                         </div>
                                                         <!--tab pane-->
-                                                        <div class="tab-pane" id="tabItem3">
+                                                        <div class="tab-pane @if (session('activeTab') == 'registros') active @endif" id="registros">
                                                             @include('dental_records.index')
                                                         </div>
                                                         <!--tab pane-->
-                                                        <div class="tab-pane" id="tabItem4">
+                                                        <div class="tab-pane @if (session('activeTab') == 'recetas') active @endif" id="recetas">
                                                             @include('patients.partials.recipes')
                                                         </div>
                                                         <!--tab pane-->
-                                                        <div class="tab-pane" id="tabItem5">
+                                                        <div class="tab-pane @if (session('activeTab') == 'pagos') active @endif" id="pagos">
                                                             @include('patients.partials.payments')
                                                         </div>
                                                         <!--tab pane-->
@@ -98,4 +102,13 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('pagejs/patients.js') }}"></script>
+    <script>
+        const informacion = document.getElementById("info-personal-tab");
+        const historias = document.getElementById("historias");
+        const registros = document.getElementById('registros');
+        const recetas = document.getElementById("recetas");
+        const pagos = document.getElementById('pagos');
+
+
+    </script>
 @endsection
